@@ -1,15 +1,12 @@
 #ifndef __serialcmdinterface_h
 #define __serialcmdinterface_h
 
+#include <wiringSerial.h>
 #include <string>
 #include <list>
+#include "COMprotocol.h"
 using namespace std;
-struct serialCmdInterfacePacket
-{
-	list<string> request;
-	list<string> answer;
-	bool packetComplete;
-}
+
 
 
 
@@ -17,21 +14,26 @@ struct serialCmdInterfacePacket
 class serialCmdInterface
 {
 	public:
-		serialCmdInterface(string device, string baudrate);
+		serialCmdInterface(string device, int baudrate);
 		~serialCmdInterface();
 		bool getConnectionState();
-		
-		
-		bool connect();
+
+
+		bool connect(string device, int baudrate);
 		void disconnect();
 		void run();
 		void stop();
 	private:
-		bool sendCommand(string cmd);
+		void startListening();
+		void startSending();
+		void dispatcher(string cmd);
+		bool flush(string cmd);
+		bool sendEnable;
+		bool listenEnable;
 		bool connectionEstablished;
-		string device;
-		string baudrate;
-		list<SerialPacketCmd> mypackets;
+		int handle = -1;
+		list<SerialPacketCmd> bufOut;
+		list<SerialPacketCmd> bufIn;
 }
 
 

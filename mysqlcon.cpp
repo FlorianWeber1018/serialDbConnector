@@ -2,7 +2,7 @@
 
 
 
-mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::string pw, std::string db) 
+mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::string pw, std::string db)
 {
 	this->host = host;
 	this->port = port;
@@ -14,7 +14,7 @@ mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::s
 mysqlcon::~mysqlcon() {
 	disconnect();
 }
-std::string mysqlcon::connect() 
+std::string mysqlcon::connect()
 {
 	//initialize MYSQL object for connections
 	m_mysql = mysql_init(NULL);
@@ -38,12 +38,12 @@ std::string mysqlcon::connect()
 	}
 	return errorbuffer;
 }
-void mysqlcon::disconnect() 
+void mysqlcon::disconnect()
 {
 	mysql_close(m_mysql);
 	connected = false;
 }
-std::string mysqlcon::sendCommand(std::string sendstring) 
+std::string mysqlcon::sendCommand(std::string sendstring)
 {
 	std::string resultstringcomplete="";
 	if (connected)
@@ -56,6 +56,7 @@ std::string mysqlcon::sendCommand(std::string sendstring)
 				//Get the number of columns
 				int num_rows = mysql_num_rows(result);
 				int num_fields = mysql_num_fields(result);
+
 
 				MYSQL_ROW row;   //An array of strings
 				while ((row = mysql_fetch_row(result)))
@@ -76,15 +77,3 @@ std::string mysqlcon::sendCommand(std::string sendstring)
 	}
 	return resultstringcomplete;
 }
-
-
-
-
-
-
-
-
-
-
-
-
