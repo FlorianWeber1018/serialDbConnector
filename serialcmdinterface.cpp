@@ -10,6 +10,8 @@ serialCmdInterface::serialCmdInterface(string device, int baudrate)
 
 serialCmdInterface::~serialCmdInterface()
 {
+	stopSending();
+	stopListening();
 	if(connectionEstablished){
 		disconnect();
 	}
@@ -71,13 +73,14 @@ void serialCmdInterface::stopSending()
 }
 void serialCmdInterface::startSending()
 {
+	sendThread =
 	thread(Sending);
 }
 void serialCmdInterface::startListening()
 {
 	thread(Listening);
 }
-void serialCmdInterface::Listening()
+void *serialCmdInterface::Listening()
 {
 	listenEnable=true;
 	static string tempIn;
@@ -92,7 +95,7 @@ void serialCmdInterface::Listening()
 	}
 }
 
-void serialCmdInterface::Sending()
+void *serialCmdInterface::Sending()
 {
 	sendEnable=true;
 	while (sendEnable) {
