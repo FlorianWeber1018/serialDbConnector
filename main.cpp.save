@@ -15,7 +15,7 @@ int main()
 		serialCmdInterface* m_SerialInterface= new serialCmdInterface("/dev/ttyACM0", 57600);
 //		m_SerialInterface->run();
 		string myCMD1 = "freeMem";
-		string myCMD2 = "io get value adc0";
+		string myCMD2 = "io get config adc0";
 //		cout << "string prepared for flush(): " << myCMD << endl;
 		m_SerialInterface->flush(myCMD1);
 		m_SerialInterface->run();

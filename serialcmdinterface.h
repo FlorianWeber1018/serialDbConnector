@@ -5,6 +5,7 @@
 #include <string>
 #include <list>
 #include "COMprotocol.h"
+#include <thread>
 using namespace std;
 
 
@@ -26,15 +27,25 @@ class serialCmdInterface
 	private:
 		void startListening();
 		void startSending();
+		void stopSending();
+		void stopListening();
 		void dispatcher(string cmd);
+		void Sending();
+		void Listening();
+	public:
 		bool flush(string cmd);
+	private:
 		bool sendEnable;
 		bool listenEnable;
 		bool connectionEstablished;
 		int handle = -1;
-		list<SerialPacketCmd> bufOut;
-		list<SerialPacketCmd> bufIn;
-}
+		char pollOne();
+		bool sendOne(string m_string);
+		bool sendOne(char m_char);
+		list<string> bufOut;
+		list<string> bufIn;
+		volatile bool rtr;
+};
 
 
 
