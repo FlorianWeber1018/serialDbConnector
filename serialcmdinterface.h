@@ -6,6 +6,7 @@
 #include <list>
 #include "COMprotocol.h"
 #include <thread>
+#include "mysqlcon.h"
 using namespace std;
 
 
@@ -41,6 +42,7 @@ class serialCmdInterface
 		int handle = -1;
 		char pollOne();
 		bool sendOne(string m_string);
+		mysqlcon* m_mysqlcon;
 		bool sendOne(char m_char);
 		list<string> bufOut;
 		list<string> bufIn;

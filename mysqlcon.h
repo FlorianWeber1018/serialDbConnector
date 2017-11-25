@@ -7,7 +7,7 @@
 class mysqlcon {
 
 public:
-	mysqlcon(MYSQL m_mysql, std::string host, unsigned int port, std::string user, std::string pw, std::string db);
+	mysqlcon( std::string host, unsigned int port, std::string user, std::string pw, std::string db);
 	~mysqlcon();
 	std::string connect();
 	void disconnect();

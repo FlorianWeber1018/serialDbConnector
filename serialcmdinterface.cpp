@@ -6,12 +6,14 @@ using namespace std;
 
 serialCmdInterface::serialCmdInterface(string device, int baudrate)
 {
+	m_mysqlcon = new mysqlcon("192.168.178.92", 3306, "root", "637013", "heizung");
 	connect(device, baudrate);
 	rtr = true;
 }
 
 serialCmdInterface::~serialCmdInterface()
 {
+	delete m_mysqlcon;
 	stopSending();
 	stopListening();
 	if(connectionEstablished){
@@ -81,7 +83,10 @@ void serialCmdInterface::disconnect()
 
 void serialCmdInterface::dispatcher(string cmd)
 {
+	
 	cout<<"dispatch:"<<cmd<<endl;
+	
+	mysqlcon* m_mysqlcon = new  mysqlcon("192.168.178.92", 3306, "root", "637013", "heizung");
 }
 void serialCmdInterface::stopListening()
 {
