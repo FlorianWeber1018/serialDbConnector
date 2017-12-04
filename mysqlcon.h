@@ -1,8 +1,8 @@
 #ifndef __mysqlcon_h
 #define __mysqlcon_h
-#include <string.h>
+#include <string>
 #include <stdlib.h>
-#include <mysql.h>
+#include <mysql/mysql.h>
 
 class mysqlcon {
 
