@@ -1,6 +1,6 @@
 #include "mysqlcon.h"
-
-
+#include <string>
+#include <iostream>
 
 mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::string pw, std::string db)
 {
@@ -22,15 +22,15 @@ std::string mysqlcon::connect()
 	if (m_mysql == NULL)
 	{
 		errorbuffer.append(mysql_error(m_mysql));
-		errorbuffer.append('\n');
+		errorbuffer.append("\n");
 		return errorbuffer;
 	}
 
 	//Connect to the database
-	if (mysql_real_connect(m_mysql, host, user, pw, db, port, NULL, 0) == NULL)
+	if (mysql_real_connect(m_mysql, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
 		errorbuffer.append(mysql_error(m_mysql));
-		errorbuffer.append('\n');
+		errorbuffer.append("\n");
 	}
 	else
 	{
@@ -48,30 +48,23 @@ std::string mysqlcon::sendCommand(std::string sendstring)
 	std::string resultstringcomplete="";
 	if (connected)
 	{
-		if (!mysql_query(m_mysql, sendstring))
+		if (!mysql_query(m_mysql, sendstring.c_str()))
 		{
 			MYSQL_RES *result = mysql_store_result(m_mysql);
 			if (result != NULL)
 			{
-				//Get the number of columns
-				int num_rows = mysql_num_rows(result);
 				int num_fields = mysql_num_fields(result);
-
-
-				MYSQL_ROW row;   //An array of strings
+				MYSQL_ROW row;
 				while ((row = mysql_fetch_row(result)))
 				{
-					if (num_fields >= 2)
-					{
-						char *value_int = row[0];
-						char *value_string = row[1];
-
-						resultstringcomplete.append(value_string);
-						resultstringcomplete.append('\n');
-					}
+					for(int i = 0; i < num_fields; i++)
+    					{
+        					resultstringcomplete.append("#");
+						resultstringcomplete.append(row[i] ? row[i] : "[NULL]");
+    					}
+        				resultstringcomplete.append("\n");
 				}
 				mysql_free_result(result);
-
 			}
 		}
 	}
