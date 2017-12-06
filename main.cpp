@@ -6,6 +6,7 @@
 #include "COMprotocol.h"
 #include <chrono>
 #include <thread>
+#include "ArduIoInterface.h"
 using namespace std;
 
 
@@ -18,6 +19,7 @@ int main()
 		cout << "connection Error:" << m_mysqlcon->connect() << endl;
 		cout << m_mysqlcon->sendCommand("select * from IoConfigValue") << endl;
 		m_mysqlcon->disconnect();
+		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, std::string host, unsigned int port, "192.168.178.92", 3306, "root", "637013", "heizung");
 /*		m_SerialInterface->run();
 		string myCMD1 = "freeMem";
 		string myCMD2 = "io get value adc0";

@@ -83,11 +83,11 @@ void serialCmdInterface::disconnect()
 
 void serialCmdInterface::dispatcher(string cmd)
 {
-	
+
 	cout<<"dispatch:"<<cmd<<endl;
-	
-	mysqlcon* m_mysqlcon = new  mysqlcon("192.168.178.92", 3306, "root", "637013", "heizung");
+
 }
+
 void serialCmdInterface::stopListening()
 {
 	listenEnable=false;
@@ -137,7 +137,6 @@ void serialCmdInterface::Sending()
 		if(!bufOut.empty()){
 			string temp = bufOut.front();
 			if(rtr){
-				cout << "sended:" << temp << endl;
 				rtr=false;
 				sendOne(temp);
 				bufOut.pop_front();

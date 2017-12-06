@@ -19,34 +19,30 @@ class serialCmdInterface
 		serialCmdInterface(string device, int baudrate);
 		~serialCmdInterface();
 		bool getConnectionState();
-
-
+		bool flush(string cmd);
 		bool connect(string device, int baudrate);
 		void disconnect();
 		void run();
 		void stop();
-	private:
+	protected:
 		void startListening();
 		void startSending();
 		void stopSending();
 		void stopListening();
-		void dispatcher(string cmd);
+		virtual void dispatcher(string cmd);
 		void Sending();
 		void Listening();
-	public:
-		bool flush(string cmd);
-	private:
 		bool sendEnable;
 		bool listenEnable;
 		bool connectionEstablished;
 		int handle = -1;
 		char pollOne();
 		bool sendOne(string m_string);
-		mysqlcon* m_mysqlcon;
 		bool sendOne(char m_char);
 		list<string> bufOut;
 		list<string> bufIn;
 		volatile bool rtr;
+
 };
 
 
