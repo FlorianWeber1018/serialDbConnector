@@ -19,7 +19,10 @@ int main()
 		cout << "connection Error:" << m_mysqlcon->connect() << endl;
 		cout << m_mysqlcon->sendCommand("select * from IoConfigValue") << endl;
 		m_mysqlcon->disconnect();
+<<<<<<< HEAD
 		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, std::string host, unsigned int port, "192.168.178.92", 3306, "root", "637013", "heizung");
+=======
+>>>>>>> 24e13cfd84dcd289e39f8c868009d3e3e12898b7
 /*		m_SerialInterface->run();
 		string myCMD1 = "freeMem";
 		string myCMD2 = "io get value adc0";
