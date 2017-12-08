@@ -6,9 +6,8 @@ using namespace std;
 
 serialCmdInterface::serialCmdInterface(string device, int baudrate)
 {
-	m_mysqlcon = new mysqlcon("192.168.178.92", 3306, "root", "637013", "heizung");
-	connect(device, baudrate);
-	rtr = true;
+	this->device=device;
+	this->baudrate=baudrate;
 }
 
 serialCmdInterface::~serialCmdInterface()
@@ -47,7 +46,6 @@ bool serialCmdInterface::flush(string cmdstr)
 	{
 		cmdstr += eot;
 		bufOut.push_back(cmdstr);
-//		cout << "buffer after flush():" << bufOut.front() << endl;
 		return false;
 	}
 	else
@@ -58,7 +56,7 @@ bool serialCmdInterface::flush(string cmdstr)
 	return true;
 }
 
-bool serialCmdInterface::connect(string device, int baudrate)
+bool serialCmdInterface::connect()
 {
 	if(connectionEstablished){
 		disconnect();
@@ -67,8 +65,10 @@ bool serialCmdInterface::connect(string device, int baudrate)
 	handle = serialOpen(_device, baudrate);
 	if(handle!=-1){
 		connectionEstablished=true;
+		rtr=true;
 	}else{
 		connectionEstablished=false;
+		rtr=false;
 	}
 	return connectionEstablished;
 }
@@ -81,10 +81,10 @@ void serialCmdInterface::disconnect()
 	}
 }
 
-void serialCmdInterface::dispatcher(string cmd)
+void serialCmdInterface::serialDispatcher(string cmd)
 {
 
-	cout<<"dispatch:"<<cmd<<endl;
+	cout<<"serialDispatcherBaseClass:"<<cmd<<endl;
 
 }
 
@@ -120,7 +120,7 @@ void serialCmdInterface::Listening()
 		if(m_char == eot){
 			bufIn.push_back(tempIn);
 			rtr=true;
-			dispatcher(tempIn);
+			serialDispatcher(tempIn);
 			tempIn = "";
 		}else{
 //			cout << "char received: " << m_char << endl;

@@ -6,7 +6,7 @@
 #include <list>
 #include "COMprotocol.h"
 #include <thread>
-#include "mysqlcon.h"
+
 using namespace std;
 
 
@@ -20,7 +20,7 @@ class serialCmdInterface
 		~serialCmdInterface();
 		bool getConnectionState();
 		bool flush(string cmd);
-		bool connect(string device, int baudrate);
+		bool connect();
 		void disconnect();
 		void run();
 		void stop();
@@ -29,9 +29,11 @@ class serialCmdInterface
 		void startSending();
 		void stopSending();
 		void stopListening();
-		virtual void dispatcher(string cmd);
+		virtual void serialDispatcher(string cmd);
 		void Sending();
 		void Listening();
+		string device;
+		int baudrate;
 		bool sendEnable;
 		bool listenEnable;
 		bool connectionEstablished;
