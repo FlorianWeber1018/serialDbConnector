@@ -29,9 +29,9 @@ void ArduIoInterface::mainloop()
 }
 bool ArduIoInterface::sendConfig()
 {
-  std::string sqlQuery = "Select SignalID as PIN, config as cnf from heizung.IoConfigValue Where DeviceID = \"";
+  std::string sqlQuery = "Select SignalID as PIN, config as cnf from heizung.IoConfigValue Where DeviceID = \'";
   sqlQuery.append(device);
-  sqlQuery.append("\";");
+  sqlQuery.append("\';");
   /*
   MYSQL_RES* result = sendCommand(sqlQuery);
   foreach(string[] row in resultList){
