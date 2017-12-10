@@ -3,7 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include <mysql/mysql.h>
-#include <list>
+
 class mysqlcon {
 
 public:
@@ -11,7 +11,7 @@ public:
 	~mysqlcon();
 	bool connect();
 	void disconnect();
-	std::list<std::string[]> sendCommand(std::string);
+	MYSQL_RES* sendCommand(std::string);
 private:
 	MYSQL* m_mysql;
 	bool connected;

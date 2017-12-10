@@ -2,7 +2,7 @@
 #include "ArduIoInterface.h"
 #include <string>
 #include <list>
-
+#include <mysql/mysql.h>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher" << std::endl;
@@ -29,13 +29,15 @@ void ArduIoInterface::mainloop()
 }
 bool ArduIoInterface::sendConfig()
 {
-  std::string sqlQuery = "Select DeviceID As dev, SignalID as PIN, config as cnf from heizung.IoConfigValue;";
-  std::list<string[]> resultList = sendCommand(sqlQuery);
+  std::string sqlQuery = "Select SignalID as PIN, config as cnf from heizung.IoConfigValue Where DeviceID = \"";
+  sqlQuery.append(device);
+  sqlQuery.append("\";");
+  /*
+  MYSQL_RES* result = sendCommand(sqlQuery);
   foreach(string[] row in resultList){
-    for(int i=0; i<3; i++){
-      std::cout << row[i] << "#";
-    }
-    std::cout << std::endl;
+    if()
   }
-  std::cout << resultStr<<std::endl;
+  mysql_free_result(result);
+  */
+  std::cout << sqlQuery <<std::endl;
 }
