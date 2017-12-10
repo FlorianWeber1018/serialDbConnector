@@ -12,7 +12,6 @@ serialCmdInterface::serialCmdInterface(string device, int baudrate)
 
 serialCmdInterface::~serialCmdInterface()
 {
-	delete m_mysqlcon;
 	stopSending();
 	stopListening();
 	if(connectionEstablished){
