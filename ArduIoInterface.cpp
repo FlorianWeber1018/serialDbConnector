@@ -38,15 +38,13 @@ bool ArduIoInterface::sendConfig()
   std::cout << colCnt <<std::endl;
   while(row = mysql_fetch_row(result)){
     std::cout << "test" << std::endl;
-    for(int i = 0; i < colCnt; i++){
-      std::string flushStr = "io set config ";
-      flushStr.append(row[0]);
-      flushStr.append(" ");
-      int pin_config = std::stoi(row[1])<<8;
-      pin_config |= std::stoi(row[2]);
-      flushStr.append(std::to_string(pin_config));
-      std::cout<<flushStr<<std::endl;
-    }
+    std::string flushStr = "io set config ";
+    flushStr.append(row[0]);
+    flushStr.append(" ");
+    int pin_config = std::stoi(row[1])<<8;
+    pin_config |= std::stoi(row[2]);
+    flushStr.append(std::to_string(pin_config));
+    std::cout<<flushStr<<std::endl;
   }
   mysql_free_result(result);
 
