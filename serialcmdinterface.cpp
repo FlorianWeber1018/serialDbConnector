@@ -111,7 +111,7 @@ void serialCmdInterface::startListening()
 }
 void serialCmdInterface::Listening()
 {
-	cout << "listen thread!" << endl;
+	//cout << "listen thread!" << endl;
 	listenEnable=true;
 	string tempIn;
 	while (listenEnable) {
@@ -133,7 +133,7 @@ void serialCmdInterface::Listening()
 
 void serialCmdInterface::Sending()
 {
-	cout << "send thread!"<<endl;
+	//cout << "send thread!"<<endl;
 	sendEnable=true;
 	while (sendEnable) {
 
