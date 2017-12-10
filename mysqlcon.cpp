@@ -15,27 +15,24 @@ mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::s
 mysqlcon::~mysqlcon() {
 	disconnect();
 }
-std::string mysqlcon::connect()
+bool mysqlcon::connect()
 {
 	//initialize MYSQL object for connections
 	m_mysql = mysql_init(NULL);
-	std::string errorbuffer="";
 	if (m_mysql == NULL)
 	{
-		errorbuffer.append(mysql_error(m_mysql));
-		errorbuffer.append("\n");
-		return errorbuffer;
+		return false
 	}
 
 	//Connect to the database
 	if (mysql_real_connect(m_mysql, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
-		errorbuffer.append(mysql_error(m_mysql));
-		errorbuffer.append("\n");
+		return false;
 	}
 	else
 	{
 		this->connected = true;
+		return true;
 	}
 	return errorbuffer;
 }

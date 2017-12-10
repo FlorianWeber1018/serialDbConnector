@@ -16,6 +16,7 @@ int main()
 	cout<<"app started"<<endl;
 
 		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, "192.168.178.91", 3306, "root", "637013", "heizung");
+		m_ArduIoInterface->connect();
 /*		m_SerialInterface->run();
 		string myCMD1 = "freeMem";
 		string myCMD2 = "io get value adc0";

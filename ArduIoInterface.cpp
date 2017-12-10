@@ -5,7 +5,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher" << std::endl;
 }
-void ArduIoInterface::connectBoth()
+void ArduIoInterface::connect()
 {
   std::cout << "ArduIoInterface::connectBoth" << std::endl;
 }
