@@ -1,7 +1,7 @@
 #include <iostream>
 #include "ArduIoInterface.h"
 
-void ArduIoInterface::SerialDispatcher(std::string cmd)
+void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher" << std::endl;
 }
