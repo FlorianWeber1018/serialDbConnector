@@ -12,7 +12,10 @@
 
 class ArduIoInterface : public serialCmdInterface, public mysqlcon
 {
-  ArduIoInterface(std::string device, int baudrate, std::string host, unsigned int port, std::string user, std::string pw, std::string db) : serialCmdInterface(device, baudrate), mysqlcon(host, port, user, pw, db);
+public:
+  ArduIoInterface(std::string device, int baudrate, std::string host, unsigned int port, std::string user, std::string pw, std::string db) :
+                                serialCmdInterface(device, baudrate),
+                                mysqlcon(host, port, user, pw, db);
 
   private:
     void serialDispatcher(std::string cmd);
