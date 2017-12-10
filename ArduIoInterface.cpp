@@ -7,8 +7,10 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
 }
 bool ArduIoInterface::connect()
 {
-  std::cout << "ArduIoInterface::connectBoth" << std::endl;
-  return true;
+  if(serialCmdInterface::connect() && mysqlcon::connect()){
+    return true;
+  }
+  return false;
 }
 ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string host, unsigned int port, std::string user, std::string pw, std::string db) :
                               serialCmdInterface(device, baudrate),
