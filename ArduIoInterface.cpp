@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "ArduIoInterface.h"
 
 void ArduIoInterface::SerialDispatcher(std::string cmd)
 {
