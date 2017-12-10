@@ -46,7 +46,7 @@ bool ArduIoInterface::sendConfig()
     int pin_config = std::stoi(row[1])<<8;
     pin_config |= std::stoi(row[2]);
     flushStr.append(std::to_string(pin_config));
-    serialFlush(flushStr);
+    //serialFlush(flushStr);
   }
   mysql_free_result(result);
 }
