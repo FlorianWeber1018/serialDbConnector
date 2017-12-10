@@ -47,8 +47,8 @@ MYSQL_RES* mysqlcon::sendCommand(std::string sendstring)
 	{
 		if (!mysql_query(m_mysql, sendstring.c_str()))
 		{
-			MYSQL_RES *sqlResult = mysql_store_result(m_mysql);
+			return mysql_store_result(m_mysql);
 		}
 	}
-	return sqlResult;
+	return NULL;
 }
