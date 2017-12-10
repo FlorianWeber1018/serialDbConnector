@@ -37,7 +37,7 @@ bool ArduIoInterface::sendConfig()
   MYSQL_ROW row;
   std::cout << colCnt <<std::endl;
   while(row = mysql_fetch_row(result)){
-    std::cout << "test" << std::endl;
+    //std::cout << "test" << std::endl;
     std::string flushStr = "io set config ";
     flushStr.append(row[0]);
     flushStr.append(" ");
