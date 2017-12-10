@@ -17,7 +17,7 @@ public:
                                 serialCmdInterface(device, baudrate),
                                 mysqlcon(host, port, user, pw, db);
 
-  private:
+protected:
     void serialDispatcher(std::string cmd);
     void connectBoth();
 
