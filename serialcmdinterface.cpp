@@ -65,10 +65,10 @@ bool serialCmdInterface::connect()
 	handle = serialOpen(_device, baudrate);
 	if(handle!=-1){
 		connectionEstablished=true;
-		rtr=true;
+		//rtr=true;
 	}else{
 		connectionEstablished=false;
-		rtr=false;
+		//rtr=false;
 	}
 	return connectionEstablished;
 }
@@ -115,12 +115,14 @@ void serialCmdInterface::Listening()
 	listenEnable=true;
 	string tempIn;
 	while (listenEnable) {
+
 		char m_char = serialCmdInterface::pollOne();
 //		cout << "char!" << m_char << endl;
 		if(m_char == eot){
 			bufIn.push_back(tempIn);
-			rtr=true;
+			//rtr=true;
 			serialDispatcher(tempIn);
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			tempIn = "";
 		}else{
 //			cout << "char received: " << m_char << endl;
@@ -136,11 +138,11 @@ void serialCmdInterface::Sending()
 	while (sendEnable) {
 		if(!bufOut.empty()){
 			string temp = bufOut.front();
-			if(rtr){
-				rtr=false;
+			//if(rtr){
+				//rtr=false;
 				sendOne(temp);
 				bufOut.pop_front();
-			}
+			//}
 		}
 	}
 }
