@@ -5,11 +5,13 @@
 #include <mysql/mysql.h>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
-  std::cout << "ArduIoInterface::SerialDispatcher" << std::endl;
+  std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
 }
 bool ArduIoInterface::connect()
 {
   if(serialCmdInterface::connect() && mysqlcon::connect()){
+    startSending();
+    startListening();
     return true;
   }
   return false;
@@ -35,7 +37,7 @@ bool ArduIoInterface::sendConfig()
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
-  std::cout << colCnt <<std::endl;
+  //std::cout << colCnt <<std::endl;
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
     std::string flushStr = "io set config ";
