@@ -48,7 +48,7 @@ MYSQL_RES* mysqlcon::sendCommand(std::string sendstring)
 		if (!mysql_query(m_mysql, sendstring.c_str()))
 		{
 			//std::cout << "got recordset" << std::endl;
-			return mysql_use_result(m_mysql);
+			return mysql_store_result(m_mysql);
 		}
 	}
 	//std::cout << "no recordset" << std::endl;
