@@ -8,6 +8,7 @@ serialCmdInterface::serialCmdInterface(string device, int baudrate)
 {
 	this->device=device;
 	this->baudrate=baudrate;
+	std::cout << "serialCmdInterface::serialCmdInterface" << std::endl;
 }
 
 serialCmdInterface::~serialCmdInterface()

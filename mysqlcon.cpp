@@ -10,6 +10,7 @@ mysqlcon::mysqlcon(std::string host, unsigned int port, std::string user, std::s
 	this->pw = pw;
 	this->db = db;
 	this->connected = false;
+	std::cout << "mysqlcon::mysqlcon" << std::endl;
 }
 mysqlcon::~mysqlcon() {
 	disconnect();
