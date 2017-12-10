@@ -19,7 +19,7 @@ class serialCmdInterface
 		serialCmdInterface(string device, int baudrate);
 		~serialCmdInterface();
 		bool getConnectionState();
-		bool flush(string cmd);
+		bool serialFlush(string cmd);
 		bool connect();
 		void disconnect();
 		void run();

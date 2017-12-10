@@ -40,7 +40,7 @@ bool serialCmdInterface::getConnectionState()
 	return connectionEstablished;
 }
 
-bool serialCmdInterface::flush(string cmdstr)
+bool serialCmdInterface::serialFlush(string cmdstr)
 {
 	if (connectionEstablished)
 	{

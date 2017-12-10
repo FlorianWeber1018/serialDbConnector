@@ -24,20 +24,29 @@ void ArduIoInterface::mainloop()
 {
   while(1){
     sendConfig();
-    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   }
 }
 bool ArduIoInterface::sendConfig()
 {
-  std::string sqlQuery = "Select SignalID as PIN, config as cnf from heizung.IoConfigValue Where DeviceID = \'";
+  std::string sqlQuery = "Select Port, Pin, Config from heizung.IoConfigValue Where DeviceID = \'";
   sqlQuery.append(device);
   sqlQuery.append("\';");
-  /*
   MYSQL_RES* result = sendCommand(sqlQuery);
-  foreach(string[] row in resultList){
-    if()
+  int colCnt = mysql_num_fields(result);
+  MYSQL_ROW row;
+  while(row = mysql_fetch_row(result)){
+    for(int i = 0; i < colCnt; i++){
+      std::string flushStr = "io set config ";
+      flushStr.append(row[0]);
+      flushStr.append(" ");
+      int pin_config = std::stoi(row[1])<<8;
+      pin_config |= std::stoi(row[2]);
+      flushStr.append(std::to_string(pin_config));
+      cout<<flushStr<<std::endl;
+    }
   }
   mysql_free_result(result);
-  */
-  std::cout << sqlQuery <<std::endl;
+
+  //std::cout << sqlQuery <<std::endl;
 }
