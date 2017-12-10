@@ -40,30 +40,30 @@ void mysqlcon::disconnect()
 	mysql_close(m_mysql);
 	connected = false;
 }
-std::string mysqlcon::sendCommand(std::string sendstring)
+std::list<std::string[]> mysqlcon::sendCommand(std::string sendstring)
 {
-	std::string resultstringcomplete="";
 	if (connected)
 	{
 		if (!mysql_query(m_mysql, sendstring.c_str()))
 		{
-			MYSQL_RES *result = mysql_store_result(m_mysql);
-			if (result != NULL)
+			MYSQL_RES *sqlResult = mysql_store_result(m_mysql);
+			if (sqlResult != NULL)
 			{
-				int num_fields = mysql_num_fields(result);
-				MYSQL_ROW row;
-				while ((row = mysql_fetch_row(result)))
+				int num_fields = mysql_num_fields(sqlResult);
+				MYSQL_ROW sqlRow;
+				std::list<string[num_fields]> result;
+				while ((sqlRow = mysql_fetch_row(sqlResult)))
 				{
+					result.push_back();
 					for(int i = 0; i < num_fields; i++)
     					{
-        					resultstringcomplete.append("#");
-						resultstringcomplete.append(row[i] ? row[i] : "[NULL]");
+        					result.back[i] = sqlRow[i] ? sqlRow[i] : "[NULL]";
+
     					}
-        				resultstringcomplete.append("\n");
 				}
 				mysql_free_result(result);
 			}
 		}
 	}
-	return resultstringcomplete;
+	return result;
 }

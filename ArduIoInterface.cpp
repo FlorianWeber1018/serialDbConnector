@@ -1,6 +1,7 @@
 #include <iostream>
 #include "ArduIoInterface.h"
 #include <string>
+#include <list>
 
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
@@ -29,6 +30,12 @@ void ArduIoInterface::mainloop()
 bool ArduIoInterface::sendConfig()
 {
   std::string sqlQuery = "Select DeviceID As dev, SignalID as PIN, config as cnf from heizung.IoConfigValue;";
-  std::string resultStr = sendCommand(sqlQuery);
+  std::list<string[]> resultList = sendCommand(sqlQuery);
+  foreach(string[] row in resultList){
+    for(int i=0; i<3; i++){
+      std::cout << row[i] << "#";
+    }
+    std::cout << std::endl;
+  }
   std::cout << resultStr<<std::endl;
 }
