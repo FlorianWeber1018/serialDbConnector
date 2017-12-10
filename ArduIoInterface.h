@@ -18,7 +18,7 @@ public:
 protected:
     void serialDispatcher(std::string cmd);
     void connectBoth();
-
+    void mainloop();
 };
 
 #endif
