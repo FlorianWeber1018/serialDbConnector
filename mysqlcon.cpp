@@ -21,7 +21,7 @@ bool mysqlcon::connect()
 	m_mysql = mysql_init(NULL);
 	if (m_mysql == NULL)
 	{
-		return false
+		return false;
 	}
 
 	//Connect to the database
@@ -34,7 +34,6 @@ bool mysqlcon::connect()
 		this->connected = true;
 		return true;
 	}
-	return errorbuffer;
 }
 void mysqlcon::disconnect()
 {
