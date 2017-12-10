@@ -136,6 +136,7 @@ void serialCmdInterface::Sending()
 	cout << "send thread!"<<endl;
 	sendEnable=true;
 	while (sendEnable) {
+
 		if(!bufOut.empty()){
 			string temp = bufOut.front();
 			//if(rtr){
@@ -143,6 +144,8 @@ void serialCmdInterface::Sending()
 				sendOne(temp);
 				bufOut.pop_front();
 			//}
+		}else{
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		}
 	}
 }
