@@ -59,7 +59,9 @@ void ArduIoInterface::sendConfig(bool sendAll)
     serialFlush(flushStr);
   }
   mysql_free_result(result);
-  sqlQuery="UPDATE heizung.IoConfigValue Set Update = 0 Where Update = 1;";
+  sqlQuery="UPDATE heizung.IoConfigValue Set Outdated = 0 Where Outdated = 1 AND DeviceID = \'";
+  sqlQuery.append(device);
+  sqlQuery.append("\';");
   result = sendCommand(sqlQuery);
   mysql_free_result(result);
 }
