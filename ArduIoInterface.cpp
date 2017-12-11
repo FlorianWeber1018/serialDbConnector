@@ -26,6 +26,8 @@ void ArduIoInterface::mainloop()
 {
   sendOutput(true);
   sendOutput(false);
+  sendConfig(true);
+  sendConfig(false);
   while(1){
     //sendConfig(false);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -38,7 +40,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
   if(sendAll){
     sqlQuery.append("\';");
   }else{
-    sqlQuery.append("\' AND Update = 1;");
+    sqlQuery.append("\' AND Outdated = 1;");
   }
 
   //sqlQuery.append(device);
@@ -66,7 +68,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
 {
   std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.state from IoValue";
   sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (Config = 2 OR Config = 3) AND IoValue.DeviceID = \'");
+  sqlQuery.append(" WHERE (Config = 2 OR Config = 3) AND IoConfigValue.PinType = 'boolpin' AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
 
 
