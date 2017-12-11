@@ -25,13 +25,22 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 void ArduIoInterface::mainloop()
 {
   while(1){
-    sendConfig();
+    sendConfig(false);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
-bool ArduIoInterface::sendConfig()
+bool ArduIoInterface::sendConfig(bool sendAll)
 {
-  std::string sqlQuery = "Select Port, Pin, Config from heizung.IoConfigValue;";// Where DeviceID = \'";
+  if(sendAll){
+    std::string sqlQuery = "Select Port, Pin, Config, DeviceID from heizung.IoConfigValue Where DeviceID = \'";
+    sqlQuery.append(device);
+    sqlQuery.append("\' AND Update = 1;");//  TODO:UNTEN nach senden update flag löschen!!!!!!!!!!!!
+  }else{
+    std::string sqlQuery = "Select Port, Pin, Config, DeviceID from heizung.IoConfigValue Where DeviceID = \'";
+    sqlQuery.append(device);
+    sqlQuery.append("\';");//  TODO:UNTEN nach senden update flag löschen!!!!!!!!!!!!
+  }
+
   //sqlQuery.append(device);
   //sqlQuery.append("\';");
   MYSQL_RES* result = sendCommand(sqlQuery);
@@ -49,4 +58,5 @@ bool ArduIoInterface::sendConfig()
     serialFlush(flushStr);
   }
   mysql_free_result(result);
+  sqlQuery="update"//////////////////////////////////////////////////
 }
