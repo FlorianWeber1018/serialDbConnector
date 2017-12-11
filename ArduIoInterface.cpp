@@ -24,8 +24,9 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 }
 void ArduIoInterface::mainloop()
 {
+  sendOutput(true);
   while(1){
-    sendConfig(false);
+    //sendConfig(false);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
@@ -62,14 +63,21 @@ void ArduIoInterface::sendConfig(bool sendAll)
 }
 void ArduIoInterface::sendOutput(bool sendAll)
 {
-  std::string sqlQuery="Select Port, Pin, Value from heizung.IoValue WHERE (Config = 0 OR Config = 1) AND DeviceID = \'"; //TODO ADC als typ ausschließen
+  std::string sqlQuery="Select Port, Pin, Value from heizung.IoValue"
+  sqlQuery.append(" left join IoConfigValue.Type ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
+  sqlQuery.append(" WHERE (Config = 0 OR Config = 1) AND DeviceID = \'")
   sqlQuery.append(device);
+
+
+
 
   if(sendAll){
     sqlQuery.append("\';");
   }else{
     sqlQuery.append("\' AND Update = 1;");
   }
+  std::cout << sqlQuery << endl;
+  return;
 
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
