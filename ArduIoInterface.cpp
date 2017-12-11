@@ -93,6 +93,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
     std::string flushStr = "io set value ";
     flushStr.append(row[0]);
     flushStr.append(" ");
+    std::cout<<row[2]<<std::endl;
     if(row[2]=="1"){
       flushStr.append("true");
     }else{
