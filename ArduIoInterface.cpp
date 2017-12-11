@@ -66,7 +66,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
 {
   std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.state from IoValue";
   sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (Config = 0 OR Config = 1) AND IoValue.DeviceID = \'");
+  sqlQuery.append(" WHERE (Config = 2 OR Config = 3) AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
 
 
