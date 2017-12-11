@@ -25,10 +25,11 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 void ArduIoInterface::mainloop()
 {
   sendOutput(true);
-  sendOutput(false);
+  sendConfig(true);
 
   while(1){
     sendConfig(false);
+    sendOutput(false);
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
   }
 }
@@ -80,8 +81,8 @@ void ArduIoInterface::sendOutput(bool sendAll)
   }else{
     sqlQuery.append("\' AND IoValue.Outdated = TRUE;");
   }
-  std::cout << sqlQuery << endl;
-  return;
+  //std::cout << sqlQuery << endl;
+  //return;
 
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
