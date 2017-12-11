@@ -57,15 +57,15 @@ void ArduIoInterface::sendConfig(bool sendAll)
     serialFlush(flushStr);
   }
   mysql_free_result(result);
-  sqlQuery="UPDATE heizung.IoConfigValue Set Update = 0 Where Update = 1;"
+  sqlQuery="UPDATE heizung.IoConfigValue Set Update = 0 Where Update = 1;";
   result = sendCommand(sqlQuery);
   mysql_free_result(result);
 }
 void ArduIoInterface::sendOutput(bool sendAll)
 {
-  std::string sqlQuery="Select Port, Pin, Value from heizung.IoValue"
+  std::string sqlQuery="Select Port, Pin, Value from heizung.IoValue";
   sqlQuery.append(" left join IoConfigValue.Type ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (Config = 0 OR Config = 1) AND DeviceID = \'")
+  sqlQuery.append(" WHERE (Config = 0 OR Config = 1) AND DeviceID = \'");
   sqlQuery.append(device);
 
 
