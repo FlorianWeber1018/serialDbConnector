@@ -94,14 +94,14 @@ void ArduIoInterface::sendOutput(bool sendAll)
     flushStr.append(row[0]);
     flushStr.append(" ");
 
-    if(row[2]=="1"){
+    if(stoi(row[2]) == 1){
       flushStr.append("true");
     }else{
       flushStr.append("false");
     }
-    std::cout<<flushStr<<std::endl;
     flushStr.append(" ");
     flushStr.append(row[1]);
+    std::cout<<flushStr<<std::endl;
     serialFlush(flushStr);
   }
   mysql_free_result(result);
