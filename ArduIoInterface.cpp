@@ -80,9 +80,14 @@ void ArduIoInterface::sendOutput(bool sendAll)
     std::string flushStr = "io set value ";
     flushStr.append(row[0]);
     flushStr.append(" ");
-    int pin_config = std::stoi(row[1])<<8;
-    pin_config |= std::stoi(row[2]);
-    flushStr.append(std::to_string(pin_config));
+    if(row[2]=="1"){
+      flushStr.append("true");
+    }else{
+      flushStr.append("false");
+    }
+    flushStr.append(" ");
+    flushStr.append(row[1]);
     serialFlush(flushStr);
   }
+  mysql_free_result(result);
 }
