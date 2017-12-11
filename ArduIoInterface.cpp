@@ -63,8 +63,8 @@ void ArduIoInterface::sendConfig(bool sendAll)
 }
 void ArduIoInterface::sendOutput(bool sendAll)
 {
-  std::string sqlQuery="Select Port, Pin, Value from heizung.IoValue";
-  sqlQuery.append(" left join IoConfigValue.Type ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
+  std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.state from IoValue";
+  sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
   sqlQuery.append(" WHERE (Config = 0 OR Config = 1) AND DeviceID = \'");
   sqlQuery.append(device);
 
@@ -74,7 +74,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
   if(sendAll){
     sqlQuery.append("\';");
   }else{
-    sqlQuery.append("\' AND Update = 1;");
+    sqlQuery.append("\' AND Update = TRUE;");
   }
   std::cout << sqlQuery << endl;
   return;
