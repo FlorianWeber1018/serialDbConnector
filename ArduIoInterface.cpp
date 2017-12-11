@@ -81,8 +81,8 @@ void ArduIoInterface::sendOutput(bool sendAll)
   }else{
     sqlQuery.append("\' AND IoValue.Outdated = TRUE;");
   }
-  std::cout << sqlQuery << endl;
-  return;
+  //std::cout << sqlQuery << endl;
+  //return;
 
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
