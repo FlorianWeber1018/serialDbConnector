@@ -58,6 +58,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
     pin_config |= std::stoi(row[2]);
     flushStr.append(std::to_string(pin_config));
     serialFlush(flushStr);
+    std::cout<<flushStr<<std::endl;
   }
   mysql_free_result(result);
   sqlQuery="UPDATE heizung.IoConfigValue Set Outdated = 0 Where Outdated = 1 AND DeviceID = \'";
