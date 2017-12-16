@@ -45,12 +45,15 @@ bool serialCmdInterface::serialFlush(string cmdstr)
 	if (connectionEstablished)
 	{
 		cmdstr += eot;
+		while(bufOut.size() >= SizeBufOutMax){
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		}
 		bufOut.push_back(cmdstr);
 		return false;
 	}
 	else
 	{
-		cout<<"flush::noConnection"<<endl;
+		cout<<"serialFlush::noConnection"<<endl;
 		return true;
 	}
 	return true;
