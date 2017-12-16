@@ -35,16 +35,13 @@ void ArduIoInterface::mainloop()
 }
 void ArduIoInterface::sendConfig(bool sendAll)
 {
-  std::string sqlQuery="Select Port, Pin, Config from heizung.IoConfigValue Where DeviceID = \'";
+  std::string sqlQuery="Select Port, Pin, targetConfig from heizung.IoConfigValue Where DeviceID = \'";
   sqlQuery.append(device);
   if(sendAll){
     sqlQuery.append("\';");
   }else{
-    sqlQuery.append("\' AND Outdated = 1;");
+    sqlQuery.append("\' AND NOT targetConfig = actualConfig;");
   }
-
-  //sqlQuery.append(device);
-  //sqlQuery.append("\';");
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
@@ -61,26 +58,17 @@ void ArduIoInterface::sendConfig(bool sendAll)
     std::cout<<flushStr<<std::endl;
   }
   mysql_free_result(result);
-  sqlQuery="UPDATE heizung.IoConfigValue Set Outdated = 0 Where Outdated = 1 AND DeviceID = \'";
-  sqlQuery.append(device);
-  sqlQuery.append("\';");
-  result = sendCommand(sqlQuery);
-  mysql_free_result(result);
 }
 void ArduIoInterface::sendOutput(bool sendAll)
 {
-  std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.state from IoValue";
+  std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.targetState from IoValue";
   sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (Config = 2 OR Config = 3) AND IoConfigValue.PinType = 'boolpin' AND IoValue.DeviceID = \'");
+  sqlQuery.append(" WHERE (actualConfig = 2 OR actualConfig = 3) AND IoConfigValue.PinType = 'boolpin' AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
-
-
-
-
   if(sendAll){
     sqlQuery.append("\';");
   }else{
-    sqlQuery.append("\' AND IoValue.Outdated = TRUE;");
+    sqlQuery.append("\' AND NOT IoValue.targetState = IoValue.actualState;");
   }
 
 
@@ -104,10 +92,5 @@ void ArduIoInterface::sendOutput(bool sendAll)
 
     serialFlush(flushStr);
   }
-  mysql_free_result(result);
-  sqlQuery="UPDATE heizung.IoValue Set Outdated = 0 Where Outdated = 1 AND DeviceID = \'";
-  sqlQuery.append(device);
-  sqlQuery.append("\';");
-  result = sendCommand(sqlQuery);
   mysql_free_result(result);
 }
