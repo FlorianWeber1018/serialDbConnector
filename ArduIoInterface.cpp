@@ -75,7 +75,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
   MYSQL_RES* result = sendCommand(sqlQuery);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
-
+/*
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
     std::string flushStr = "io set value ";
@@ -91,6 +91,6 @@ void ArduIoInterface::sendOutput(bool sendAll)
     flushStr.append(row[1]);
 
     serialFlush(flushStr);
-  }
+  }*/
   mysql_free_result(result);
 }
