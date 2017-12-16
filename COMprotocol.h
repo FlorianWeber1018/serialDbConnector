@@ -12,6 +12,6 @@
 	#define ack 10			//wenn befehl komplett geparst wurde		(antwort arduino->pi)
 	#define nack 21			//wenn befehl nicht komplett geparst wurde
 	#define _space 32		//leerzeichen
-	#define SizeBufOutMax 120;
-	#define SizeBufInMax 400;
+	#define SizeBufOutMax 120
+	#define SizeBufInMax 400
 #endif /* PROTKOLDEF_H_ */
