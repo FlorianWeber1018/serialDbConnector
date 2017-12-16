@@ -26,7 +26,7 @@ void ArduIoInterface::mainloop()
 {
 
   sendConfig(true);
-  //sendOutput(true);
+  sendOutput(true);
   while(1){
     sendConfig(false);
     sendOutput(false);
