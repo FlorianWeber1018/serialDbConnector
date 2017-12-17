@@ -21,6 +21,4 @@ private:
 	std::string pw;
 	std::string db;
 };
-
-
 #endif

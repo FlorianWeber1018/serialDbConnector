@@ -6,6 +6,7 @@
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
+
 }
 bool ArduIoInterface::connect()
 {
@@ -35,7 +36,7 @@ void ArduIoInterface::mainloop()
 }
 void ArduIoInterface::sendConfig(bool sendAll)
 {
-  std::string sqlQuery="Select Port, Pin, targetConfig from heizung.IoConfigValue Where DeviceID = \'";
+  std::string sqlQuery="Select PortType, Port, Pin, targetConfig from heizung.IoConfigValue Where DeviceID = \'";
   sqlQuery.append(device);
   if(sendAll){
     sqlQuery.append("\';");
@@ -48,12 +49,13 @@ void ArduIoInterface::sendConfig(bool sendAll)
   //std::cout << colCnt <<std::endl;
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
-    std::string flushStr = "io set config ";
+    std::string flushStr = "S C ";
     flushStr.append(row[0]);
     flushStr.append(" ");
-    int pin_config = std::stoi(row[1])<<8;
-    pin_config |= std::stoi(row[2]);
-    flushStr.append(std::to_string(pin_config));
+    flushStr.append(row[1]);
+    flushStr.append(row[2]);
+    flushStr.append(" ");
+    flushStr.append(row[3]);
     serialFlush(flushStr);
     std::cout<<flushStr<<std::endl;
   }
@@ -62,8 +64,8 @@ void ArduIoInterface::sendConfig(bool sendAll)
 void ArduIoInterface::sendOutput(bool sendAll)
 {
   std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.targetState from IoValue";
-  sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (actualConfig = 2 OR actualConfig = 3) AND IoConfigValue.PinType = 'boolpin' AND IoValue.DeviceID = \'");
+  sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.PortType = IoValue.PortType AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
+  sqlQuery.append(" WHERE (actualConfig = 2 OR actualConfig = 3) AND IoValue.PortType = 'I' AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
   if(sendAll){
     sqlQuery.append("\';");
@@ -78,17 +80,11 @@ void ArduIoInterface::sendOutput(bool sendAll)
 
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
-    std::string flushStr = "io set value ";
+    std::string flushStr = "S V I ";
     flushStr.append(row[0]);
-    flushStr.append(" ");
-
-    if(stoi(row[2]) == 1){
-      flushStr.append("true");
-    }else{
-      flushStr.append("false");
-    }
-    flushStr.append(" ");
     flushStr.append(row[1]);
+    flushStr.append(" ");
+    flushStr.append(row[2]);
     serialFlush(flushStr);
     std::cout<<flushStr<<std::endl;
   }
