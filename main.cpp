@@ -17,20 +17,12 @@ int main()
 		std::this_thread::sleep_for(std::chrono::seconds(10));
 		cout<<"app started"<<endl;
 		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, "192.168.178.91", 3306, "root", "637013", "heizung");
-		if(m_ArduIoInterface->connect()){
-			cout<<"sucessfully connected to both"<<std::endl;
-			m_ArduIoInterface->mainloop();
-		}
-/*		m_SerialInterface->run();
-		string myCMD1 = "freeMem";
-		string myCMD2 = "io get value adc0";
-//		cout << "string prepared for flush(): " << myCMD << endl;
-		m_SerialInterface->flush(myCMD1);
-		m_SerialInterface->run();*/
 		while(1){
-//			m_SerialInterface->flush(myCMD1);
-//			m_SerialInterface->flush(myCMD2);
-			std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			if(m_ArduIoInterface->connect()){
+				cout<<"sucessfully connected to both"<<std::endl;
+				m_ArduIoInterface->mainloop();
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		}
 	cout<<"app ended"<<endl;
 	return 0;
