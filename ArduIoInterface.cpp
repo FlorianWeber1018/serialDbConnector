@@ -2,48 +2,44 @@
 #include "ArduIoInterface.h"
 #include <string>
 #include <list>
+#include <vector>
 #include <mysql/mysql.h>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
   std::string sqlQuery="UPDATE";
-  std::list<string> cmdList;
+  std::vector<string> cmdVector;
 
   string::size_type i = 0;
   string::size_type j = cmd.find(' ');
 
   while (j != string::npos) {
-      cmdList.push_back(cmd.substr(i, j-i));
+      cmdVector.push_back(cmd.substr(i, j-i));
       i = ++j;
       j = cmd.find(' ', j);
 
       if (j == string::npos){
-        cmdList.push_back(cmd.substr(i, cmd.length()));
+        cmdVector.push_back(cmd.substr(i, cmd.length()));
       }
   }
-  for(string test:cmdList){
-    cout<<test<<std::endl;
-  }
-/*
 
-
-  if(cmd[0]=='V'){
+  if(cmdVector[0]=="V"){
     sqlQuery.append("IoValue SET actualState = ");
-    sqlQuery.append(cmd.substr(7 , (cmd.length()-7) ) );
-  }else if(cmd[0]=='C'){
+    sqlQuery.append(cmdVector[3]);
+  }else if(cmdVector[0]=="C"){
     sqlQuery.append("IoConfigValue SET actualConfig = ");
-    sqlQuery.append(cmd.substr(7 , (cmd.length()-7) ) );
+    sqlQuery.append(cmdVector[3]);
   }
   sqlQuery.append(" WHERE DeviceID = ");
   sqlQuery.append(device);
   sqlQuery.append(" AND PortType = ");
-  sqlQuery.append( cmd.substr(2, 1) );
+  sqlQuery.append( cmdVector[1] );
   sqlQuery.append(" AND Port = ");
-  sqlQuery.append( cmd.substr(4, 1) );
+  sqlQuery.append( to_string(stoi(cmdVector[2])/10) );
   sqlQuery.append(" AND Pin = ");
-  sqlQuery.append( cmd.substr(5, 1) );
+  sqlQuery.append( to_string(stoi(cmdVector[2])%10) );
   std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
-*/
+
 }
 bool ArduIoInterface::connect()
 {
