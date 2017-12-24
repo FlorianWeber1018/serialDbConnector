@@ -153,7 +153,8 @@ void ArduIoInterface::getInput()
       flushStr.append(" ");
       flushStr.append(row[1]);
       flushStr.append(row[2]);
-      std::cout << flushStr << std::endl;
+      serialFlush(flushStr);
+//      std::cout<<flushStr<<std::endl;
     }
   }
 }
