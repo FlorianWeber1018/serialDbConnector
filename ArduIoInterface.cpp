@@ -7,6 +7,26 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
   std::string sqlQuery="UPDATE";
+  std::list<string> cmdList;
+
+  string::size_type i = 0;
+  string::size_type j = cmd.find(' ');
+
+  while (j != string::npos) {
+      cmdList.push_back(cmd.substr(i, j-i));
+      i = ++j;
+      j = cmd.find(' ', j);
+
+      if (j == string::npos){
+        cmdList.push_back(cmd.substr(i, cmd.length()))
+      }
+  }
+  for(string test:cmdList){
+    cout<<test<<std::endl;
+  }
+/*
+
+
   if(cmd[0]=='V'){
     sqlQuery.append("IoValue SET actualState = ");
     sqlQuery.append(cmd.substr(7 , (cmd.length()-7) ) );
@@ -23,6 +43,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append(" AND Pin = ");
   sqlQuery.append( cmd.substr(5, 1) );
   std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
+*/
 }
 bool ArduIoInterface::connect()
 {
