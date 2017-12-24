@@ -130,7 +130,7 @@ void serialCmdInterface::Listening()
 			tempIn = "";
 		}else{
 //			cout << "char received: " << m_char << endl;
-			if((isalpha(m_char) || isdigit(m_char) || m_char==' '){
+			if( isalpha(m_char) || isdigit(m_char) || m_char==' ' ){
 				tempIn += m_char;
 			}
 		}
