@@ -6,12 +6,23 @@
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
-  std::string sqlQuery="Update";
+  std::string sqlQuery="UPDATE";
   if(cmd[0]=='V'){
-
+    sqlQuery.append("IoValue SET actualState = ");
+    sqlQuery.append(cmd.substr(7 , (cmd.length()-1) );
   }else if(cmd[0]=='C'){
-
+    sqlQuery.append("IoConfigValue SET actualConfig = ");
+    sqlQuery.append(cmd.substr(7 , (cmd.length()-1) );
   }
+  sqlQuery.append(" WHERE DeviceID = ")
+  sqlQuery.append(device);
+  sqlQuery.append(" AND PortType = ")
+  sqlQuery.append(cmd[2]);
+  sqlQuery.append(" AND Port = ")
+  sqlQuery.append(cmd[4);
+  sqlQuery.append(" AND Pin = ")
+  sqlQuery.append(cmd[5);
+  std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
 }
 bool ArduIoInterface::connect()
 {
