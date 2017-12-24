@@ -118,9 +118,11 @@ void serialCmdInterface::Listening()
 	listenEnable=true;
 	string tempIn;
 	while (listenEnable) {
+
+		char m_char = serialCmdInterface::pollOne();
 		cout << "char:" << m_char << endl;
 		if(m_char == eot){
-			bufIn.push_back(tempIn);
+			
 			//rtr=true;
 			serialDispatcher(tempIn);
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
