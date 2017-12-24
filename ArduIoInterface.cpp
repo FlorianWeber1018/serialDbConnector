@@ -18,7 +18,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
       j = cmd.find(' ', j);
 
       if (j == string::npos){
-        cmdList.push_back(cmd.substr(i, cmd.length()))
+        cmdList.push_back(cmd.substr(i, cmd.length()));
       }
   }
   for(string test:cmdList){
