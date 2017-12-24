@@ -38,8 +38,9 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append( to_string(stoi(cmdVector[2])/10) );
   sqlQuery.append(" AND Pin = ");
   sqlQuery.append( to_string(stoi(cmdVector[2])%10) );
-  std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
-
+//  std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
+  MYSQL_RES* result = sendCommand(sqlQuery);
+  mysql_free_result(result);
 }
 bool ArduIoInterface::connect()
 {
