@@ -121,9 +121,7 @@ void serialCmdInterface::Listening()
 
 		char m_char = serialCmdInterface::pollOne();
 		cout << "char:" << m_char << endl;
-		if((m_char < 48) || (m_char > 122)){
-			continue;
-		}
+
 		if(m_char == eot){
 
 			//rtr=true;
@@ -132,7 +130,9 @@ void serialCmdInterface::Listening()
 			tempIn = "";
 		}else{
 //			cout << "char received: " << m_char << endl;
-			tempIn += m_char;
+			if((m_char >= 48) || (m_char <= 122)){
+				tempIn += m_char;
+			}
 		}
 	}
 }
