@@ -65,10 +65,10 @@ MYSQL_RES* mysqlcon::sendCommand(std::string sendstring, MYSQL* connectionObject
 {
 	if (!mysql_query(connectionObject, sendstring.c_str()))
 	{
-		std::cout << "got recordset" << std::endl;
+		//std::cout << "got recordset" << std::endl;
 		return mysql_store_result(connectionObject);
 	}
-	std::cout << "no recordset" << std::endl;
+	//std::cout << "no recordset" << std::endl;
 	return NULL;
 }
 MYSQL_RES* mysqlcon::sendCommand_senderThread(std::string sendstring)
