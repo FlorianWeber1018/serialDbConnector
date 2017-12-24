@@ -150,7 +150,7 @@ void ArduIoInterface::getInput()
     while(row = mysql_fetch_row(result)){
       std::string flushStr = "G V ";
       flushStr.append(row[0]);
-      flushStr.append(' ');
+      flushStr.append(" ");
       flushStr.append(row[1]);
       flushStr.append(row[2]);
       std::cout << flushStr << std::endl;
