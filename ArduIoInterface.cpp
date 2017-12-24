@@ -141,16 +141,19 @@ void ArduIoInterface::getInput()
   sqlQuery.append(" WHERE ( ( (actualConfig = 0 OR actualConfig = 1) AND IoValue.PortType = 'I') Or IoValue.PortType = 'A' ) AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
   sqlQuery.append("\';");
-  std::cout<<sqlQuery<<std::endl;
-  /*
+//  std::cout<<sqlQuery<<std::endl;
+
   MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
   if(result!=NULL){
     int colCnt = mysql_num_fields(result);
     MYSQL_ROW row;
     while(row = mysql_fetch_row(result)){
-      std::string flushStr = "G V I "
+      std::string flushStr = "G V "
       flushStr.append(row[0]);
+      flushStr.append(' ');
       flushStr.append(row[1]);
+      flushStr.append(row[2]);
+      std::cout << flushStr << std::endl;
     }
-  }*/
+  }
 }
