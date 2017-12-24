@@ -22,9 +22,9 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
         cmdVector.push_back(cmd.substr(i, cmd.length()));
       }
   }
-  for(string element : cmdVector){
-    std::cout << element << std::endl;
-  }
+//  for(string element : cmdVector){
+//    std::cout << element << std::endl;
+//  }
   if(cmdVector[0]=="V"){
     sqlQuery.append("IoValue SET actualState = ");
     sqlQuery.append(cmdVector[3]);
