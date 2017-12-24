@@ -43,6 +43,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   MYSQL_RES* result = sendCommand(sqlQuery);
   if(result != NULL){
     mysql_free_result(result);
+    cout<<"freed result!";
   }
 
 }
