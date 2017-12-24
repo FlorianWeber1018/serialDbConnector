@@ -96,7 +96,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
     flushStr.append(" ");
     flushStr.append(row[3]);
     serialFlush(flushStr);
-    std::cout<<flushStr<<std::endl;
+//    std::cout<<flushStr<<std::endl;
   }
   mysql_free_result(result);
 }
@@ -125,7 +125,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
     flushStr.append(" ");
     flushStr.append(row[2]);
     serialFlush(flushStr);
-    std::cout<<flushStr<<std::endl;
+//    std::cout<<flushStr<<std::endl;
   }
   mysql_free_result(result);
 }
