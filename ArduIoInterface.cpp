@@ -7,7 +7,7 @@
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
-  std::string sqlQuery="UPDATE";
+  std::string sqlQuery="UPDATE ";
   std::vector<string> cmdVector;
 
   string::size_type i = 0;
