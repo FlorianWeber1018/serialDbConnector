@@ -148,7 +148,7 @@ void ArduIoInterface::getInput()
     int colCnt = mysql_num_fields(result);
     MYSQL_ROW row;
     while(row = mysql_fetch_row(result)){
-      std::string flushStr = "G V "
+      std::string flushStr = "G V ";
       flushStr.append(row[0]);
       flushStr.append(' ');
       flushStr.append(row[1]);
