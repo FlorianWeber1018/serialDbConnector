@@ -11,10 +11,14 @@ public:
 	~mysqlcon();
 	bool connect();
 	void disconnect();
-	MYSQL_RES* sendCommand(std::string);
+	MYSQL_RES* sendCommand_senderThread(std::string sendstring);
+	MYSQL_RES* sendCommand_dispatcherThread(std::string sendstring);
 private:
-	MYSQL* m_mysql;
-	bool connected;
+	MYSQL_RES* sendCommand(std::string, MYSQL* connectionObject);
+	MYSQL* m_mysql_senderThread;
+	MYSQL* m_mysql_dispatcherThread;
+	bool connected_senderThread;
+	bool connected_dispatcherThread;
 	std::string host;
 	unsigned int port;
 	std::string user;

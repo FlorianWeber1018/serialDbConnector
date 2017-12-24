@@ -40,7 +40,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append( to_string(stoi(cmdVector[2])%10) );
   sqlQuery.append("\';");
   std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
-  MYSQL_RES* result = sendCommand(sqlQuery);
+  MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
   if(result != NULL){
     mysql_free_result(result);
     cout<<"freed result!";
@@ -82,7 +82,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
   }else{
     sqlQuery.append("\' AND NOT targetConfig = actualConfig;");
   }
-  MYSQL_RES* result = sendCommand(sqlQuery);
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery, sen);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
   //std::cout << colCnt <<std::endl;
@@ -113,7 +113,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
   }
 
 
-  MYSQL_RES* result = sendCommand(sqlQuery);
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
 
