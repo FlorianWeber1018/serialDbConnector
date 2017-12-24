@@ -130,7 +130,7 @@ void serialCmdInterface::Listening()
 			tempIn = "";
 		}else{
 //			cout << "char received: " << m_char << endl;
-			if((m_char > 47) && (m_char < 123)){
+			if((isalpha(m_char) || isdigit(m_char)){
 				tempIn += m_char;
 			}
 		}
