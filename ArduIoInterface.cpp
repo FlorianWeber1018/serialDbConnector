@@ -30,15 +30,15 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
     sqlQuery.append("IoConfigValue SET actualConfig = ");
     sqlQuery.append(cmdVector[3]);
   }
-  sqlQuery.append(" WHERE DeviceID = ");
+  sqlQuery.append(" WHERE DeviceID = \'");
   sqlQuery.append(device);
-  sqlQuery.append(" AND PortType = ");
+  sqlQuery.append("\' AND PortType = \'");
   sqlQuery.append( cmdVector[1] );
-  sqlQuery.append(" AND Port = ");
+  sqlQuery.append("\' AND Port = \'");
   sqlQuery.append( to_string(stoi(cmdVector[2])/10) );
-  sqlQuery.append(" AND Pin = ");
+  sqlQuery.append("\' AND Pin = \'");
   sqlQuery.append( to_string(stoi(cmdVector[2])%10) );
-  sqlQuery.append(";");
+  sqlQuery.append("\';");
   std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
   MYSQL_RES* result = sendCommand(sqlQuery);
   mysql_free_result(result);
