@@ -120,9 +120,12 @@ void serialCmdInterface::Listening()
 	while (listenEnable) {
 
 		char m_char = serialCmdInterface::pollOne();
-		cout << "char:" << m_char << endl;
+//		cout << "char:" << m_char << endl;
+		if((m_char < 48) || (m_char > 122)){
+			continue;
+		}
 		if(m_char == eot){
-			
+
 			//rtr=true;
 			serialDispatcher(tempIn);
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
