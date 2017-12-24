@@ -82,7 +82,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
   }else{
     sqlQuery.append("\' AND NOT targetConfig = actualConfig;");
   }
-  MYSQL_RES* result = sendCommand_senderThread(sqlQuery, sen);
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
   int colCnt = mysql_num_fields(result);
   MYSQL_ROW row;
   //std::cout << colCnt <<std::endl;
