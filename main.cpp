@@ -14,9 +14,9 @@ using namespace std;
 int main()
 {
 
-		std::this_thread::sleep_for(std::chrono::seconds(10));
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 		cout<<"app started"<<endl;
-		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, "192.168.178.91", 3306, "root", "637013", "heizung");
+		ArduIoInterface* m_ArduIoInterface = new ArduIoInterface("/dev/ttyACM0", 57600, "localhost", 3306, "IoD", "637013", "heizung");
 		while(1){
 			if(m_ArduIoInterface->connect()){
 				cout<<"sucessfully connected to both"<<std::endl;
