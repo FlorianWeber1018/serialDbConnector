@@ -9,10 +9,10 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   std::string sqlQuery="UPDATE";
   if(cmd[0]=='V'){
     sqlQuery.append("IoValue SET actualState = ");
-    sqlQuery.append(cmd.substr(7 , (cmd.length()-8) ) );
+    sqlQuery.append(cmd.substr(7 , (cmd.length()-7) ) );
   }else if(cmd[0]=='C'){
     sqlQuery.append("IoConfigValue SET actualConfig = ");
-    sqlQuery.append(cmd.substr(7 , (cmd.length()-8) ) );
+    sqlQuery.append(cmd.substr(7 , (cmd.length()-7) ) );
   }
   sqlQuery.append(" WHERE DeviceID = ");
   sqlQuery.append(device);
