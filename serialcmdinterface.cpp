@@ -120,7 +120,7 @@ void serialCmdInterface::Listening()
 	while (listenEnable) {
 
 		char m_char = serialCmdInterface::pollOne();
-//		cout << "char:" << m_char << endl;
+		cout << "char:" << m_char << endl;
 		if((m_char < 48) || (m_char > 122)){
 			continue;
 		}
