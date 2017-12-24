@@ -17,11 +17,11 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append(" WHERE DeviceID = ");
   sqlQuery.append(device);
   sqlQuery.append(" AND PortType = ");
-  sqlQuery.append( cmd[2] );
+  sqlQuery.append( cmd.substr(2, 1) );
   sqlQuery.append(" AND Port = ");
-  sqlQuery.append( cmd[4] );
+  sqlQuery.append( cmd.substr(4, 1) );
   sqlQuery.append(" AND Pin = ");
-  sqlQuery.append( cmd[5] );
+  sqlQuery.append( cmd.substr(5, 1) );
   std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
 }
 bool ArduIoInterface::connect()
