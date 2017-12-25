@@ -156,5 +156,7 @@ void ArduIoInterface::getInput()
       serialFlush(flushStr);
 //      std::cout<<flushStr<<std::endl;
     }
+    mysql_free_result(result);
   }
+
 }
