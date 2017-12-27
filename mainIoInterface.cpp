@@ -1,4 +1,4 @@
-#include "main.h"
+#include "mainIoInterface.h"
 #include <iostream>
 #include "serialcmdinterface.h"
 #include "mysqlcon.h"
