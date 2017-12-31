@@ -3,8 +3,6 @@
 #include "signalRouter.h"
 #include <vector>
 #include <string>
-namespace namespaceModule{
-
   struct mySqlSignal{
     std::string DeviceID;
     std::string PortType;
@@ -50,9 +48,5 @@ namespace namespaceModule{
   void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot);       //done
   void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);                                                   //done
   void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal);  //done
-}
-
-
-
 
 #endif

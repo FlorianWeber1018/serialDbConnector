@@ -2,9 +2,7 @@
 #define signalRouter__h
 #include "module.h"
 #include <map>
-namespace SignalRouter
-{
-  using namespace namespaceModule;
+
     class SignalRouterIn : public Module
     {
     public:
@@ -23,5 +21,5 @@ namespace SignalRouter
       std::map<mySqlSignal, Slot> slotMap;
     protected:
     };
-}
+
 #endif
