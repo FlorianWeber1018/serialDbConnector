@@ -26,7 +26,7 @@ namespace SignalSlots{
     int min;
     int max;
     int executionLevel;
-    vector<Slot*> slots;
+    std::vector<Slot*> slots;
   };
 
   class Module
