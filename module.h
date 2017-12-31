@@ -10,7 +10,7 @@ namespace SignalSlots{
     std::string PortType;
     std::string Port;
     std::string Pin;
-  }
+  };
 
   struct Slot
   {
@@ -32,9 +32,9 @@ namespace SignalSlots{
   class Module
   {
   public:
-    vector<Signal> m_signals;
-    vector<Slot> m_slots;
-    vector<Module*> m_postModules;
+    std::vector<Signal> m_signals;
+    std::vector<Slot> m_slots;
+    std::vector<Module*> m_postModules;
     void trigger();
 
   private:
