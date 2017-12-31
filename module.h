@@ -6,10 +6,10 @@
 namespace SignalSlots{
 
   struct mySqlSignal{
-    const& std::string DeviceID;
-    const& std::string PortType;
-    const& std::string Port;
-    const& std::string Pin;
+    std::string DeviceID;
+    std::string PortType;
+    std::string Port;
+    std::string Pin;
   }
 
   struct Slot
