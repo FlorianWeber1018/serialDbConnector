@@ -4,7 +4,7 @@
 #include <map>
 namespace SignalRouter
 {
-    class SignalRouterIn : public Module
+    class SignalRouterIn : public Module::Module
     {
     public:
       *Signal createSignalIfNotexist(const& mySqlSignal _extSignal);
@@ -13,7 +13,8 @@ namespace SignalRouter
     protected:
 
     }
-    class SignalRouterOut : public Module
+
+    class SignalRouterOut : public Module::Module
     {
     public:
       *Slot createSlotIfNotExist(const& mySqlSignal _extSignal);

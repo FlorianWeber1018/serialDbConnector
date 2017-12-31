@@ -3,7 +3,7 @@
 #include "signalRouter.h"
 #include <vector>
 #include <string>
-namespace SignalSlots{
+namespace Module{
 
   struct mySqlSignal{
     std::string DeviceID;
