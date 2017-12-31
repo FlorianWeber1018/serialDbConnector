@@ -1,6 +1,6 @@
 #ifndef module__h
 #define module__h
-
+#include "signalRouter.h"
 #include <vector>
 #include <string>
 namespace SignalSlots{
