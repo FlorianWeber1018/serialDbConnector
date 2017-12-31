@@ -4,7 +4,7 @@
 #include <map>
 namespace SignalRouter
 {
-  using namespace Module;
+  using namespace namespaceModule;
     class SignalRouterIn : public Module
     {
     public:
