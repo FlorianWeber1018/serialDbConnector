@@ -1,6 +1,6 @@
 #ifndef module__h
 #define module__h
-#include "signalRouter.h"
+
 #include <vector>
 #include <string>
   struct mySqlSignal{
@@ -44,7 +44,7 @@
     void emitSignal(int signalNumber, int value);
     int getSignal(int slotNumber);
   };
-
+#include "signalRouter.h"
   void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot);       //done
   void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);                                                   //done
   void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal);  //done
