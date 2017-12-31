@@ -33,24 +33,47 @@ namespace SignalSlots {
     return preRet;
   }
 
-
-
-
-
-  void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Slot* _Slot)
+  void Module::trigger()
   {
-  connect( signalRouter->createSignalIfNotexist(_extSignal) , _Slot );
+    bool allInputsSynced=true;
+    for(auto slot : m_slots){
+      if(!slot.synced){
+        allInputsSynced=false;
+      }
+    }
+    if(allInputsSynced){
+      process();
+      triggerNext();
+    }
   }
 
-  void connect(Signal* _Signal, Slot* _Slot)
+  void Module::triggerNext()
+  {
+    for(auto postModule : m_postModules){
+      postModule->trigger();
+    }
+  }
+
+  void Module::process()
+  {
+    std::cout << "virtual method: Module::process() that does nothing" << std::endl;
+  }
+
+  void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot)
+  {
+    connect( signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
+  }
+
+  void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
   {
     _Slot->value = &(_Signal->value);
     _Signal->slots.append(_Slot);
+    sender->m_postModules.append(receiver);
   }
 
-  void connect(Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal)
+  void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal)
   {
-    connect( _Signal, signalRouter->createSlotIfNotExist(_extSignal) );
+    connect( sender, _Signal, signalRouter, signalRouter->createSlotIfNotExist(_extSignal) );
   }
 
 

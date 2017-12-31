@@ -1,6 +1,7 @@
 #ifndef signalRouter__h
 #define signalRouter__h
 #include "module.h"
+#include <map>
 namespace SignalRouter
 {
     class SignalRouterIn : public Module
@@ -17,7 +18,7 @@ namespace SignalRouter
     public:
       *Slot createSlotIfNotExist(const& mySqlSignal _extSignal);
     private:
-      std::map<mySqlSignal, Slot> signalMap;
+      std::map<mySqlSignal, Slot> slotMap;
     protected:
     }
 }

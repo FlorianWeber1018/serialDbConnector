@@ -17,7 +17,7 @@ namespace SignalSlots{
     int* value;
     int min;
     int max;
-    int executionLevel;
+    bool synced = false;
   };
 
   struct Signal
@@ -34,17 +34,22 @@ namespace SignalSlots{
   public:
     vector<Signal> m_signals;
     vector<Slot> m_slots;
-    virtual void trigger() = 0;
+    vector<Module*> m_postModules;
+    void trigger();
+
   private:
 
   protected:
+
+    void triggerNext();
+    virtual void process();
     void emitSignal(int signalNumber, int value);
     int getSignal(int slotNumber);
   };
 
-  void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Slot* _Slot);       //done
-  void connect(Signal* _Signal, Slot* _Slot);                                                   //done
-  void connect(Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal);  //done
+  void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot);       //done
+  void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);                                                   //done
+  void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal);  //done
 }
 
 
