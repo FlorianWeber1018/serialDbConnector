@@ -1,14 +1,14 @@
 #ifndef signalRouter__h
 #define signalRouter__h
 #include "util.h"
-#include "module.h"
+
 #include <map>
 
     struct Signal;
     struct Slot;
     struct mySqlSignal;
     class Module;
-    
+
     class SignalRouterIn : public Module
     {
     public:
