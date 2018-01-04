@@ -3,9 +3,11 @@
 #include "util.h"
 #include "module.h"
 #include <map>
-extern struct Signal;
-extern struct Slot;
-extern struct mySqlSignal;
+
+    struct Signal;
+    struct Slot;
+    struct mySqlSignal;
+    
     class SignalRouterIn : public Module
     {
     public:
