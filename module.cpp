@@ -1,5 +1,5 @@
 #include "module.h"
-namespace SignalSlots {
+
   void Module::emitSignal(int signalNumber, int value)
   {
     Signal* signal = m_signals[signal];
@@ -58,8 +58,3 @@ namespace SignalSlots {
   {
     std::cout << "virtual method: Module::process() that does nothing" << std::endl;
   }
-
-
-
-
-}
