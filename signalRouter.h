@@ -7,6 +7,7 @@
     struct Signal;
     struct Slot;
     struct mySqlSignal;
+    class Module;
     
     class SignalRouterIn : public Module
     {
