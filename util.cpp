@@ -1,5 +1,6 @@
 #include "util.h"
-
+#include "signalRouter.h"
+#include "module.h"
 void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot)
 {
   connect( signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
