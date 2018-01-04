@@ -21,7 +21,7 @@
     Slot* slot = m_slots[slotNumber];
     int preRet = 0;
     if(slot != nullptr){
-      preRet = slot->value*;
+      preRet = *(slot->value);
       if(preRet > slot->max){
         preRet = slot->max;
       }else{
