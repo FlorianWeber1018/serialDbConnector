@@ -3,11 +3,33 @@
 
 #include <vector>
 #include <string>
-#include "util.h"
 
 
 
 
+struct mySqlSignal{
+  std::string DeviceID;
+  std::string PortType;
+  std::string Port;
+  std::string Pin;
+};
+
+struct Slot
+{
+  int* value;
+  int min;
+  int max;
+  bool synced = false;
+};
+
+struct Signal
+{
+  int value;
+  int min;
+  int max;
+  int executionLevel;
+  std::vector<Slot*> slots;
+};
   class Module
   {
   public:
