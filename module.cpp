@@ -1,5 +1,5 @@
 #include "module.h"
-
+#include <iostream>
   void Module::emitSignal(int signalNumber, int value)
   {
     Signal* signal = m_signals[signalNumber];
