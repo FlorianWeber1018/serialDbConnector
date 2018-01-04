@@ -37,7 +37,7 @@
   {
     bool allInputsSynced=true;
     for(auto slot : m_slots){
-      if(!slot.synced){
+      if(!slot->synced){
         allInputsSynced=false;
       }
     }
