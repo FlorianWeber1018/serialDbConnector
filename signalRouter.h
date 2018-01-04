@@ -3,8 +3,7 @@
 
 #include "module.h"
 #include <map>
-    struct mySqlSignal;
-    
+
     class SignalRouterIn : public Module
     {
     public:
