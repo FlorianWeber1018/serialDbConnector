@@ -1,9 +1,10 @@
 #ifndef signalRouter__h
 #define signalRouter__h
-#include "util.h"
+
 #include "module.h"
 #include <map>
-
+    struct mySqlSignal;
+    
     class SignalRouterIn : public Module
     {
     public:
