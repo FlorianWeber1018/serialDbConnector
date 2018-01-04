@@ -2,7 +2,7 @@
 
   void Module::emitSignal(int signalNumber, int value)
   {
-    Signal* signal = m_signals[signal];
+    Signal* signal = m_signals[signalNumber];
     if(signal != nullptr){
       if(value > signal->max){
         signal->value = signal->max;
