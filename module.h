@@ -25,7 +25,7 @@
     void emitSignal(int signalNumber, int value);
     int getSignal(int slotNumber);
   };
-  
+
 
 
 #endif
