@@ -1,7 +1,7 @@
 #ifndef signalRouter__h
 #define signalRouter__h
 #include "module.h"
-##include "util.h"
+#include "util.h"
 #include <map>
 
     class SignalRouterIn : public Module
