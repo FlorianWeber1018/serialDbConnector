@@ -5,6 +5,7 @@
 #include <map>
 extern struct Signal;
 extern struct Slot;
+extern struct mySqlSignal;
     class SignalRouterIn : public Module
     {
     public:
