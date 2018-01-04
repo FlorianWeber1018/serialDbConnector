@@ -6,22 +6,7 @@
 #include "util.h"
 
 
-  struct Slot
-  {
-    int* value;
-    int min;
-    int max;
-    bool synced = false;
-  };
 
-  struct Signal
-  {
-    int value;
-    int min;
-    int max;
-    int executionLevel;
-    std::vector<Slot*> slots;
-  };
 
   class Module
   {
@@ -40,7 +25,7 @@
     void emitSignal(int signalNumber, int value);
     int getSignal(int slotNumber);
   };
-
+  
 
 
 #endif

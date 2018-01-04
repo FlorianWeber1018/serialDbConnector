@@ -10,6 +10,26 @@ struct mySqlSignal{
   std::string Pin;
 };
 
+struct Slot
+{
+  int* value;
+  int min;
+  int max;
+  bool synced = false;
+};
+
+struct Signal
+{
+  int value;
+  int min;
+  int max;
+  int executionLevel;
+  std::vector<Slot*> slots;
+};
+class SignalRouterIn;
+class SignalRouterOut;
+class Module;
+
 void connect(SignalRouterIn* signalRouter, const& mySqlSignal _extSignal, Module* receiver, Slot* _Slot);       //done
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);                                                   //done
 void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, const& mySqlSignal _extSignal);  //done
