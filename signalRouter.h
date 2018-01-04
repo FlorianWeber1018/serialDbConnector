@@ -3,7 +3,8 @@
 #include "util.h"
 #include "module.h"
 #include <map>
-
+extern struct Signal;
+extern struct Slot;
     class SignalRouterIn : public Module
     {
     public:
