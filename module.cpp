@@ -1,4 +1,4 @@
-#include "module__h"
+#include "module.h"
 namespace SignalSlots {
   void Module::emitSignal(int signalNumber, int value)
   {
@@ -59,7 +59,7 @@ namespace SignalSlots {
     std::cout << "virtual method: Module::process() that does nothing" << std::endl;
   }
 
-  
+
 
 
 }
