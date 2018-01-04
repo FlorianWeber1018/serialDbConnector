@@ -1,6 +1,7 @@
 #ifndef util__h
 #define util__h
 #include "signalRouter.h"
+#include "module.h"
 
 struct mySqlSignal{
   std::string DeviceID;
