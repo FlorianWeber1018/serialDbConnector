@@ -3,11 +3,11 @@
 
 #include "module.h"
 #include <map>
-struct mySqlSignal;
+
     class SignalRouterIn : public Module
     {
     public:
-      Signal* createSignalIfNotexist(mySqlSignal _extSignal);
+      Signal* createSignalIfNotexist(mySqlSignal const& _extSignal);
     private:
       std::map<mySqlSignal, Signal> signalMap;
     protected:
@@ -17,7 +17,7 @@ struct mySqlSignal;
     class SignalRouterOut : public Module
     {
     public:
-      Slot* createSlotIfNotExist(mySqlSignal _extSignal);
+      Slot* createSlotIfNotExist(mySqlSignal const& _extSignal);
     private:
       std::map<mySqlSignal, Slot> slotMap;
     protected:
