@@ -2,7 +2,7 @@
 #define util__h
 
 #include "signalRouter.h"
-#include "module.h"
+
 
 
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal, Module* receiver, Slot* _Slot);       //done
