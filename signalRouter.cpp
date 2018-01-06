@@ -1,10 +1,10 @@
 #include "signalRouter.h"
-Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& _extSignal)
+Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
 {
-
+  return signalMap[extSignal];
 }
 
-Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& _extSignal)
+Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
 {
-
+  return slotMap[extSignal];
 }
