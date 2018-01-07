@@ -9,6 +9,7 @@ Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
   }
   Signal* newSignal = new Signal();
   m_signalMap[newSignal] = mySqlSignal;
+  return newSignal;
 }
 
 Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
@@ -20,4 +21,5 @@ Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
   }
   Slot* newSlot = new Slot();
   m_slotMap[newSlot] = mySqlSignal;
+  return newSlot;
 }
