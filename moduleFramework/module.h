@@ -9,7 +9,7 @@ struct mySqlSignal{
   std::string PortType;
   std::string Port;
   std::string Pin;
-  bool operator==(mySqlSignal otherSig);
+  bool operator==(mySqlSignal const& otherSig);
 };
 
 struct Slot
