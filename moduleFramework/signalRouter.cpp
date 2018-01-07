@@ -1,5 +1,6 @@
 #include "signalRouter.h"
 #include <map>
+#include <iostream>
 Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
 {
 
