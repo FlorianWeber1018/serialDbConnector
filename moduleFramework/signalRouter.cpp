@@ -10,7 +10,8 @@ Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
     }
   }
   Signal* newSignal = new Signal();
-  std::cout<< m_signalMap[newSignal] ;
+  mySqlSignal newRow = extSignal;
+  m_signalMap [newSignal] = newRow;
   return newSignal;
 }
 
