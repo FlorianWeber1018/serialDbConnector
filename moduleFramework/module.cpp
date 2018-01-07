@@ -58,3 +58,7 @@
   {
     std::cout << "virtual method: Module::process() that does nothing" << std::endl;
   }
+bool mySqlSignal::operator==(mySqlSignal sig0, mySqlSignal sig1)
+{
+  return false;
+}
