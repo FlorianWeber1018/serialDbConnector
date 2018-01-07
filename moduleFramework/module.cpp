@@ -60,5 +60,5 @@
   }
 bool mySqlSignal::operator==(mySqlSignal otherSig)
 {
-  return false;
+  return des musch noch schreibe!!!;
 }
