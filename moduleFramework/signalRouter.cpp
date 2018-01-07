@@ -1,6 +1,4 @@
 #include "signalRouter.h"
-#include <map>
-#include <iostream>
 Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
 {
 
@@ -10,8 +8,7 @@ Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
     }
   }
   Signal* newSignal = new Signal();
-  mySqlSignal newRow = extSignal;
-  m_signalMap [newSignal] = newRow;
+  m_signalMap[newSignal] = extSignal;
   return newSignal;
 }
 
@@ -23,6 +20,6 @@ Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
     }
   }
   Slot* newSlot = new Slot();
-  //Ym_slotMap[newSlot] = mySqlSignal;
+  m_slotMap[newSlot] = extSignal;
   return newSlot;
 }
