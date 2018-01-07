@@ -9,7 +9,7 @@ class SignalRouterIn : public Module
 public:
   Signal* createSignalIfNotexist(mySqlSignal const& extSignal);
 private:
-  std::map<mySqlSignal, Signal> signalMap;
+  std::map<Signal*, mySqlSignal> m_signalMap;
 protected:
 };
 
@@ -18,7 +18,7 @@ class SignalRouterOut : public Module
 public:
   Slot* createSlotIfNotExist(mySqlSignal const& extSignal);
 private:
-  std::map<mySqlSignal, Slot> slotMap;
+  std::map<Slot*, mySqlSignal> m_slotMap;
 protected:
 };
 
