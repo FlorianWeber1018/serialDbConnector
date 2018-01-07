@@ -54,6 +54,7 @@ struct module_config
   mysql_config config;
 };
 
+// ____Module which provides a constant Signal defined by Config________________
 struct module_config_constant : private module_config
 {
   int const_value;
@@ -62,13 +63,13 @@ struct module_config_constant : private module_config
 class module_constant: public Module
 {
 public:
-    module_constant
+
 private:
 
 protected:
 
 };
-
+// _____________________________________________________________________________
 
 
 #endif
