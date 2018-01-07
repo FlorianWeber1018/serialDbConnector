@@ -9,7 +9,7 @@ Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
     }
   }
   Signal* newSignal = new Signal();
-  //m_signalMap[newSignal] = mySqlSignal;
+  cout<< m_signalMap[newSignal] ;
   return newSignal;
 }
 
