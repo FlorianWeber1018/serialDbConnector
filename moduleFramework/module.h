@@ -64,7 +64,7 @@ struct module_config_constant : private module_config
 class module_constant: public Module
 {
 public:
-
+  module_constant();
 private:
 
 protected:

@@ -67,3 +67,8 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
     this->Pin       ==  otherSig.Pin
   );
 }
+
+module_constant::module_constant()
+{
+
+}
