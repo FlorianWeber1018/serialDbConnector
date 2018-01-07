@@ -58,7 +58,12 @@
   {
     std::cout << "virtual method: Module::process() that does nothing" << std::endl;
   }
-bool mySqlSignal::operator==(mySqlSignal otherSig)
+bool mySqlSignal::operator==(mySqlSignal const& otherSig)
 {
-  return des musch noch schreibe!!!;
+  return (
+    this->DeviceID  ==  otherSig.DeviceID   &&
+    this->PortType  ==  otherSig.PortType   &&
+    this->Port      ==  otherSig.Port       &&
+    this->Pin       ==  otherSig.Pin
+  );
 }
