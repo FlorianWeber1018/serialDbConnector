@@ -43,7 +43,31 @@ protected:
   void emitSignal(int signalNumber, int value);
   int getSignal(int slotNumber);
 };
+struct mysql_config
+{
+  unsigned int ID;
+};
 
+
+struct module_config
+{
+  mysql_config config;
+};
+
+struct module_config_constant : private module_config
+{
+  int const_value;
+};
+
+class module_constant: public Module
+{
+public:
+    module_constant
+private:
+
+protected:
+
+};
 
 
 
