@@ -100,6 +100,16 @@ Slot* Module::createSlot(std::string slotName)
   }
 }
 
+Signal* Module::getSignal()
+{
+
+}
+
+Slot* Module::getSlot()
+{
+
+}
+
 Module::~Module()
 {
   if(debug){
