@@ -35,7 +35,7 @@ class Module
 public:
   Signal* getSignal();
   Slot* getSlot();
-  getSlot()
+
   std::vector<Module*> m_postModules;
   void trigger();
   ~Module();

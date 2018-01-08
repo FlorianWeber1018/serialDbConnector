@@ -24,7 +24,7 @@ void Module::emitSignal(std::string signalName, int value)
   }
 }
 
-int Module::getSignal(std::string slotName)
+int Module::getSignalvalue(std::string slotName)
 {
   Slot* slot = nullptr;
   int preRet = 0;
@@ -131,6 +131,5 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 
 module_constant::module_constant()
 {
-  newSlot
-  m_signals["I0"]=
+  createSlot(debugInput);
 }
