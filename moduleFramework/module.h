@@ -31,8 +31,8 @@ struct Signal
 class Module
 {
 public:
-  std::vector<Signal*> m_signals;
-  std::vector<Slot*> m_slots;
+  std::map<std::string, Signal*> m_signals;
+  std::map<std::string, Slot*> m_slots;
   std::vector<Module*> m_postModules;
   void trigger();
 

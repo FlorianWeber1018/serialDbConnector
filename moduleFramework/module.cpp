@@ -1,63 +1,75 @@
 #include "module.h"
 #include <iostream>
-  void Module::emitSignal(int signalNumber, int value)
+void Module::emitSignal(std::string signalName, int value)
+{
+  Signal* signal = nullptr;
+  try { signal = m_signals.at(signalName); }
+  catch (const std::exception& e)
   {
-    Signal* signal = m_signals[signalNumber];
-    if(signal != nullptr){
-      if(value > signal->max){
-        signal->value = signal->max;
+    std::cout << "exception was cought : " << e.what() << std::endl;
+    return;
+  }
+  if(signal != nullptr){
+    if(value > signal->max){
+      signal->value = signal->max;
+    }else{
+      if(value < signal->min){
+        signal->value = signal->min;
       }else{
-        if(value < signal->min){
-          signal->value = signal->min;
-        }else{
-          signal->value = value;
-        }
+        signal->value = value;
       }
     }
   }
+}
 
-  int Module::getSignal(int slotNumber)
+int Module::getSignal(std::string slotName)
+{
+  Slot* slot = nullptr;
+  int preRet = 0;
+  try { slot = m_slots.at(slotName) }
+  catch (const std::exception& e)
   {
-    Slot* slot = m_slots[slotNumber];
-    int preRet = 0;
-    if(slot != nullptr){
-      preRet = *(slot->value);
-      if(preRet > slot->max){
-        preRet = slot->max;
-      }else{
-        if(preRet < slot->min){
-          preRet= slot->min;
-        }
-      }
-    }
+    std::cout << "exception was cought : " << e.what() << std::endl;
     return preRet;
   }
-
-  void Module::trigger()
-  {
-    bool allInputsSynced=true;
-    for(auto slot : m_slots){
-      if(!slot->synced){
-        allInputsSynced=false;
+    if(slot != nullptr){
+    preRet = *(slot->value);
+    if(preRet > slot->max){
+      preRet = slot->max;
+    }else{
+      if(preRet < slot->min){
+        preRet= slot->min;
       }
     }
-    if(allInputsSynced){
-      process();
-      triggerNext();
+  }
+  return preRet;
+}
+
+void Module::trigger()
+{
+  bool allInputsSynced=true;
+  for(auto slot : m_slots){
+    if(!slot->synced){
+      allInputsSynced=false;
     }
   }
-
-  void Module::triggerNext()
-  {
-    for(auto postModule : m_postModules){
-      postModule->trigger();
-    }
+  if(allInputsSynced){
+    process();
+    triggerNext();
   }
+}
 
-  void Module::process()
-  {
-    std::cout << "virtual method: Module::process() that does nothing" << std::endl;
+void Module::triggerNext()
+{
+  for(auto postModule : m_postModules){
+    postModule->trigger();
   }
+}
+
+void Module::process()
+{
+  std::cout << "virtual method: Module::process() that does nothing" << std::endl;
+}
 bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 {
   return (
