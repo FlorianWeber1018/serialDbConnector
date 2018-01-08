@@ -6,7 +6,7 @@
 
 #include <vector>
 #include <string>
-
+#include <map>
 struct mySqlSignal{
   std::string DeviceID;
   std::string PortType;
