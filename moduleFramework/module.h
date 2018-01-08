@@ -1,6 +1,6 @@
 #ifndef module__h
 #define module__h
-#define debug = 1
+#define debug 1
 
 
 
