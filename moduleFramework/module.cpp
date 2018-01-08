@@ -51,7 +51,7 @@ void Module::trigger()
 {
   bool allInputsSynced=true;
   for(auto slotName_slot : m_slots){
-    if(!slotName_slot->second->synced){
+    if(!slotName_slot.second->synced){
       allInputsSynced=false;
     }
   }
@@ -73,7 +73,7 @@ void Module::process()
   if(debug){
     std::cout << "virtual Module::process():" << std::endl;
     for(auto&& keyValPair : m_signals){
-      std::cout << "    " << keyValPair.first << keyValPair.second->value << std::endl
+      std::cout << "    " << keyValPair.first << keyValPair.second->value << std::endl;
     }
   }
 }
