@@ -33,20 +33,24 @@ struct Signal
 class Module
 {
 public:
-  std::map<std::string, Signal*> m_signals;
-  std::map<std::string, Slot*> m_slots;
+  Signal* getSignal();
+  Slot* getSlot();
+  getSlot()
   std::vector<Module*> m_postModules;
   void trigger();
   ~Module();
 private:
 
 protected:
+  std::map<std::string, Signal*> m_signals;
+  std::map<std::string, Slot*> m_slots;
   Signal* createSignal(std::string signalName);
   Slot* createSlot(std::string slotName);
   void triggerNext();
   virtual void process();
   void emitSignal(std::string signalName, int value);
-  int getSignal(std::string slotName);
+  int getSignalvalue(std::string slotName);
+
 };
 struct mysql_config
 {
