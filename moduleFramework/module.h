@@ -1,5 +1,8 @@
 #ifndef module__h
 #define module__h
+#define debug = 1
+
+
 
 #include <vector>
 #include <string>
@@ -25,7 +28,6 @@ struct Signal
   int value;
   int min;
   int max;
-  int executionLevel;
   std::vector<Slot*> slots;
 };
 class Module
@@ -35,14 +37,16 @@ public:
   std::map<std::string, Slot*> m_slots;
   std::vector<Module*> m_postModules;
   void trigger();
-
+  ~Module();
 private:
 
 protected:
+  Signal* createSignal(std::string signalName);
+  Slot* createSlot(std::string slotName);
   void triggerNext();
   virtual void process();
-  void emitSignal(int signalNumber, int value);
-  int getSignal(int slotNumber);
+  void emitSignal(std::string signalName, int value);
+  int getSignal(std::string slotName);
 };
 struct mysql_config
 {

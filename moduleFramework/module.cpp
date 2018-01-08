@@ -6,7 +6,9 @@ void Module::emitSignal(std::string signalName, int value)
   try { signal = m_signals.at(signalName); }
   catch (const std::exception& e)
   {
-    std::cout << "exception was cought : " << e.what() << std::endl;
+    if(debug){
+      std::cout << "exception was cought : " << e.what() << std::endl;
+    }
     return;
   }
   if(signal != nullptr){
@@ -68,8 +70,55 @@ void Module::triggerNext()
 
 void Module::process()
 {
-  std::cout << "virtual method: Module::process() that does nothing" << std::endl;
+  if(debug){
+    std::cout << "virtual Module::process():" << std::endl;
+    for(auto&& keyValPair : m_signals){
+      cout << "    " << keyValPair.first << keyValPair.second->value << std::endl
+    }
+  }
 }
+
+Signal* Module::createSignal(std::string signalName)
+{
+  if(m_signals.count(signalName) == 0){
+    Signal* newSignal = new Signal();
+    m_signals[signalName] = newSignal;
+    return newSignal;
+  }else{
+    return m_signals.at(signalName);
+  }
+}
+
+Slot* Module::createSlot(std::string slotName)
+{
+  if(m_slots.count(slotName) == 0){
+    Slot* newSlot = new Slot();
+    m_slots[slotName] = newSlot;
+    return newSlot;
+  }else{
+    return m_slots.at(slotName);
+  }
+}
+
+Module::~Module()
+{
+  if(debug){
+    std::cout << "debug:~Module()" << std::endl;
+  }
+  for(auto&& keyValPair : m_signals){
+    delete keyValPair.second;
+    if(debug){
+      std::cout << "deletet Signal: " << keyValPair.first << std::endl;
+    }
+  }
+  for(auto&& keyValPair : m_slots){
+    delete keyValPair.second;
+    if(debug){
+      std::cout << "deletet Slot: " << keyValPair.first << std::endl;
+    }
+  }
+}
+
 bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 {
   return (
@@ -82,5 +131,6 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 
 module_constant::module_constant()
 {
-
+  newSlot
+  m_signals["I0"]=
 }
