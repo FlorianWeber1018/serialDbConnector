@@ -28,7 +28,7 @@ int Module::getSignalvalue(std::string slotName)
 {
   Slot* slot = nullptr;
   int preRet = 0;
-  try { slot = m_slots.at(slotName) }
+  try { slot = m_slots.at(slotName); }
   catch (const std::exception& e)
   {
     std::cout << "exception was cought : " << e.what() << std::endl;
@@ -50,8 +50,8 @@ int Module::getSignalvalue(std::string slotName)
 void Module::trigger()
 {
   bool allInputsSynced=true;
-  for(auto slot : m_slots){
-    if(!slot->synced){
+  for(auto slotName_slot : m_slots){
+    if(!slotName_slot->second->synced){
       allInputsSynced=false;
     }
   }
@@ -73,7 +73,7 @@ void Module::process()
   if(debug){
     std::cout << "virtual Module::process():" << std::endl;
     for(auto&& keyValPair : m_signals){
-      cout << "    " << keyValPair.first << keyValPair.second->value << std::endl
+      std::cout << "    " << keyValPair.first << keyValPair.second->value << std::endl
     }
   }
 }
@@ -141,5 +141,5 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 
 module_constant::module_constant()
 {
-  createSlot(debugInput);
+  createSignal("constSig");
 }
