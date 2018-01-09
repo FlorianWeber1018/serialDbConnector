@@ -170,7 +170,8 @@ Module_debug::Module_debug()
 
 void Module_debug::process()
 {
-  std::cout << m_config.identifier << ": \"" << getSignalValue("debugSlot");
+  std::cout << "Module_debug::" << m_config.identifier << ": \""
+  << getSignalValue("debugSlot") << "\"";
 }
 
 // _____________________________________________________________________________
