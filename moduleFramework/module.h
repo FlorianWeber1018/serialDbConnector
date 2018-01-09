@@ -88,7 +88,16 @@ struct module_config_debug : public module_config
   std::string identifier = "Debug";
 }
 
-class module_debug : public Module
+class Module_debug : public Module
+{
+  public:
+    Module_debug();
+    module_config_debug m_config;
+  private:
+
+  protected:
+    void process() override;
+};
 
 
 // _____________________________________________________________________________

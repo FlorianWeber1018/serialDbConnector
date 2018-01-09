@@ -24,7 +24,7 @@ void Module::emitSignal(std::string signalName, int value)
   }
 }
 
-int Module::getSignalvalue(std::string slotName)
+int Module::getSignalValue(std::string slotName)
 {
   Slot* slot = nullptr;
   int preRet = 0;
@@ -162,4 +162,15 @@ void Module_constant::process()
 {
   emitSignal("constSig", m_config.constValue);
 }
+// _____________________________________________________________________________
+Module_debug::Module_debug()
+{
+  createSlot("debugSlot");
+}
+
+void Module_debug::process()
+{
+  std::cout << m_config.identifier << ": \"" << getSignalValue("debugSlot");
+}
+
 // _____________________________________________________________________________
