@@ -9,7 +9,7 @@ int main()
   /*Module* _1x1 = new Module();
   _1x1->*/
   Module_constant modConst;
-  modConst.m_config.constValue = 42;
+  modConst.m_config.constValue = 50;
 
 
   Module_debug modDebug;
@@ -24,12 +24,7 @@ int main()
 
 
 
-  Clock clock(std::chrono::milliseconds(100),
-  triggerGlobalClock );
-  clock.run();
-  while(1){
-    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
-  }
+  init();
   //globalClock.trigger();
   return 0;
 }
@@ -37,4 +32,13 @@ int main()
 void triggerGlobalClock()
 {
   globalClock.trigger();
+}
+void init()
+{
+  Clock clock(std::chrono::milliseconds(100),
+  triggerGlobalClock );
+  clock.run();
+  while(1){
+    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+  }
 }

@@ -5,7 +5,7 @@
 
 int main();
 void triggerGlobalClock();
-
+void init();
 
 
 
