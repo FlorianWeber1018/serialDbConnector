@@ -22,7 +22,7 @@ int main()
     modDebug.getSlot("debugSlot")
   );
   Clock clock(std::chrono::milliseconds(1000),
-  static_cast< void* >triggerGlobalClock);
+  static_cast< void* > &triggerGlobalClock);
   clock.run();
   while(1){
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
