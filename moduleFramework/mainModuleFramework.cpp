@@ -1,5 +1,6 @@
 #include "mainModuleFramework.h"
 #include "clock.h"
+#include <thread>
 ClockDistributer globalClock;
 
 int main()
