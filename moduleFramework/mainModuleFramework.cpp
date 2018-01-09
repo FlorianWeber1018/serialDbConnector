@@ -22,7 +22,7 @@ int main()
     modDebug.getSlot("debugSlot")
   );
 
-  void (*callback)(void *);
+  void (*callback)(void);
   callback = (void *)triggerGlobalClock;
 
   Clock clock(std::chrono::milliseconds(1000),
