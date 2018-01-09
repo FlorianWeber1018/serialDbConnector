@@ -1,6 +1,6 @@
 #ifndef module__h
 #define module__h
-#define debug 0
+#define debug 1
 
 
 #include <climits>
@@ -60,8 +60,8 @@ protected:
 class ClockDistributer{
   public:
     void trigger();
-    addDestination(Module* destModule);
-    rmDestination(Module* destModule);
+    void addDestination(Module* destModule);
+    void rmDestination(Module* destModule);
   protected:
     set<Module*> m_destModules;
 };
@@ -88,6 +88,7 @@ class Module_constant: public Module
 {
 public:
   Module_constant();
+  ~Module_constant();
   module_config_constant m_config;
 private:
 

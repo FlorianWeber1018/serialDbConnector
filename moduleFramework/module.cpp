@@ -1,5 +1,7 @@
 #include "module.h"
 #include <iostream>
+extern ClockDistributer globalClock;
+
 // ____Module___________________________________________________________________
 void Module::emitSignal(std::string signalName, int value)
 {
@@ -151,8 +153,25 @@ Module::~Module()
   }
 }
 // ____ClockDistributer_________________________________________________________
-
-
+void ClockDistributer::trigger()
+{
+  for(auto&& destModule : m_destModules){
+    destModule->trigger();
+  }
+}
+void ClockDistributer::addDestination(Module* destModule)
+{
+  m_destModules.insert(destModule);
+}
+void ClockDistributer::rmDestination(Module* destModule)
+{
+  if(m_destModules.erase(destModule) < 1){
+    if(debug){
+      std::cout << "ClockDistributer::rmDestination : Element to remove
+      is not in m_destModules" << std::endl;
+    }
+  }
+}
 // ____mySqlSignal______________________________________________________________
 bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 {
@@ -166,7 +185,13 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 // ____Module_constant__________________________________________________________
 Module_constant::Module_constant()
 {
+  globalClock.addDestination(this);
   createSignal("constSig");
+}
+
+Module_constant::~Module_constant()
+{
+  globalClock.rmDestination(this);
 }
 
 void Module_constant::process()

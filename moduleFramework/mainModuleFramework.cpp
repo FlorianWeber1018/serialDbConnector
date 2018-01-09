@@ -1,5 +1,5 @@
 #include "mainModuleFramework.h"
-
+ClockDistributer globalClock;
 
 int main()
 {
@@ -18,6 +18,6 @@ int main()
     static_cast<Module*>(&modDebug),
     modDebug.getSlot("debugSlot")
   );
-  modConst.trigger();
+  globalClock.trigger();
   return 0;
 }
