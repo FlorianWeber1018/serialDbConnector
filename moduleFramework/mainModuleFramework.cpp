@@ -10,7 +10,7 @@ int main()
 
 
   Module_debug modDebug;
-  modDebug.m_config.identifier = "test passed when there is the truth :)";
+  modDebug.m_config.identifier = "test passed when there is the truth ";
 
   connect(
     static_cast<Module*>(&modConst),
