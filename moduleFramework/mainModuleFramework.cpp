@@ -20,7 +20,8 @@ int main()
     static_cast<Module*>(&modDebug),
     modDebug.getSlot("debugSlot")
   );
-  Clock clock(std::chrono::milliseconds(1000));
+  Clock clock(std::chrono::milliseconds(1000),
+  [modConst]() {modConst.trigger();} );
   clock.run();
   while(1){
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));

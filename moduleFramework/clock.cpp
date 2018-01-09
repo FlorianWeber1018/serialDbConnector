@@ -1,8 +1,9 @@
 #include "clock.h"
 
-Clock::Clock(std::chrono::milliseconds T)
+Clock::Clock(std::chrono::milliseconds T, void (*callback)())
 {
   this->T = T;
+  this->m_callback=callback;
 }
 
 void Clock::run()
@@ -12,7 +13,7 @@ void Clock::run()
     std::thread t(&Clock::run, this);
     t.detach();
   }
-  std::cout << "TICK!" << std::endl;
+  m_callback();
 }
 
 void Clock::stop(){
@@ -22,11 +23,4 @@ void Clock::stop(){
 void Clock::setTimebase(std::chrono::milliseconds T)
 {
   this->T = T;
-}
-
-void Clock::tick()
-{
-
-
-
 }
