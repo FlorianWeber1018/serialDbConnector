@@ -3,6 +3,7 @@
 #include <thread>
 ClockDistributer globalClock;
 
+
 int main()
 {
   /*Module* _1x1 = new Module();
@@ -21,11 +22,16 @@ int main()
     modDebug.getSlot("debugSlot")
   );
   Clock clock(std::chrono::milliseconds(1000),
-  [modConst]() {modConst.trigger();} );
+  static_cast< void* >triggerGlobalClock);
   clock.run();
   while(1){
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
   }
   //globalClock.trigger();
   return 0;
+}
+
+void triggerGlobalClock()
+{
+  globalClock.trigger();
 }
