@@ -14,7 +14,7 @@ public:
 protected:
   bool m_run;
   void tick();
-  std::chrono::milliseconds T
+  std::chrono::milliseconds T;
 private:
 
 };
