@@ -1,6 +1,6 @@
 #include "module.h"
 #include <iostream>
-
+// ____Module___________________________________________________________________
 void Module::emitSignal(std::string signalName, int value)
 {
   Signal* signal = nullptr;
@@ -150,7 +150,10 @@ Module::~Module()
     }
   }
 }
+// ____ClockDistributer_________________________________________________________
 
+
+// ____mySqlSignal______________________________________________________________
 bool mySqlSignal::operator == (mySqlSignal const& otherSig)
 {
   return (
