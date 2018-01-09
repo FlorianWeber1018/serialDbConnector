@@ -21,6 +21,9 @@ int main()
   );
   Clock clock(std::chrono::milliseconds(1000));
   clock.run();
+  while(1){
+    int i=0;
+  }
   //globalClock.trigger();
   return 0;
 }
