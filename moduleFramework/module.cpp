@@ -21,6 +21,9 @@ void Module::emitSignal(std::string signalName, int value)
         signal->value = value;
       }
     }
+    for(auto&& slot: signal->slots){
+      slot->synced=true;
+    }
   }
 }
 
@@ -56,6 +59,9 @@ void Module::trigger()
     }
   }
   if(allInputsSynced){
+    for(auto slotName_slot : m_slots){
+      slotName_slot.second->synced=false;
+    }
     process();
     triggerNext();
   }
@@ -63,6 +69,7 @@ void Module::trigger()
 
 void Module::triggerNext()
 {
+  if(debug) std::cout << "Module::triggerNext" << std::endl;
   for(auto postModule : m_postModules){
     postModule->trigger();
   }
