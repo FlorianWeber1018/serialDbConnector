@@ -3,7 +3,7 @@
 #define debug 1
 
 
-#include <limits.h>
+#include <climits>
 #include <vector>
 #include <string>
 #include <map>
@@ -18,16 +18,16 @@ struct mySqlSignal{
 struct Slot
 {
   int* value;
-  int min = std::INT_MIN;
-  int max = std::INT_MAX;
+  int min = INT_MIN;
+  int max = INT_MAX;
   bool synced = false;
 };
 
 struct Signal
 {
   int value;
-  int min = std::INT_MIN;
-  int max = std::INT_MAX;
+  int min = INT_MIN;
+  int max = INT_MAX;
   std::vector<Slot*> slots;
 };
 class Module
