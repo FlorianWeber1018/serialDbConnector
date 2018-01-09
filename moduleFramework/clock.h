@@ -7,14 +7,14 @@
 class Clock
 {
 public:
-  Clock(std::crono::milliseconds T);
+  Clock(std::chrono::milliseconds T);
   void run();
   void stop();
-  void setTimebase(std::crono::milliseconds T);
+  void setTimebase(std::chrono::milliseconds T);
 protected:
   bool m_run;
   void tick();
-  std::crono::milliseconds T
+  std::chrono::milliseconds T
 private:
 
 };

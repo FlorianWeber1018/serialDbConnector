@@ -1,6 +1,6 @@
 #include "clock.h"
 
-Clock::Clock(std::crono::milliseconds T)
+Clock::Clock(std::chrono::milliseconds T)
 {
   this->T = T;
 }
@@ -18,7 +18,7 @@ void Clock::stop(){
   bool run=false;
 }
 
-void Clock::setTimebase(std::crono::milliseconds T)
+void Clock::setTimebase(std::chrono::milliseconds T)
 {
   this->T = T;
 }
