@@ -63,7 +63,7 @@ class ClockDistributer{
     void addDestination(Module* destModule);
     void rmDestination(Module* destModule);
   protected:
-    set<Module*> m_destModules;
+    std::set<Module*> m_destModules;
 };
 
 
