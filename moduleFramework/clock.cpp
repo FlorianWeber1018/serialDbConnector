@@ -9,7 +9,8 @@ void Clock::run()
 {
   std::this_thread::sleep_for(T);
   if(m_run){
-    std::thread t(&run);
+    std::thread t(&Clock::run, this);
+    t.detach();
   }
   std::cout << "TICK!" << std::endl;
 }
