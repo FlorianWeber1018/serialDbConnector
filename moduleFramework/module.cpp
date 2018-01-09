@@ -167,8 +167,8 @@ void ClockDistributer::rmDestination(Module* destModule)
 {
   if(m_destModules.erase(destModule) < 1){
     if(debug){
-      std::cout << "ClockDistributer::rmDestination : Element to remove
-      is not in m_destModules" << std::endl;
+      std::cout << "ClockDistributer::rmDestination : Element to remove"
+      << "is not in m_destModules" << std::endl;
     }
   }
 }
