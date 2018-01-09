@@ -29,9 +29,3 @@ void Clock::tick()
 
 
 }
-
-
-
-while (run) {
-
-}
