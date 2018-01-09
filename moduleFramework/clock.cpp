@@ -1,6 +1,6 @@
 #include "clock.h"
 
-Clock::Clock(std::chrono::milliseconds T, void (*callback)())
+Clock::Clock(std::chrono::milliseconds T, void (*callback)(void))
 {
   this->T = T;
   this->m_callback=callback;
