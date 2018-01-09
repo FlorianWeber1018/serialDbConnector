@@ -1,4 +1,5 @@
 #include "mainModuleFramework.h"
+#include "clock.h"
 ClockDistributer globalClock;
 
 int main()
@@ -18,6 +19,8 @@ int main()
     static_cast<Module*>(&modDebug),
     modDebug.getSlot("debugSlot")
   );
-  globalClock.trigger();
+  Clock clock(std::chrono::milliseconds(1000));
+  clock.run();
+  //globalClock.trigger();
   return 0;
 }

@@ -5,15 +5,13 @@ Clock::Clock(std::crono::milliseconds T)
   this->T = T;
 }
 
-void Clock::run(bool runContiniusly)
+void Clock::run()
 {
-  if(runContiniusly){
-    thread t(&Clock::tick, this);
-  	t.detach();
-  }
   std::this_thread::sleep_for(T);
+  if(m_run){
+    std::thread t(run)
+  }
   std::cout << "TICK!" << std::endl;
-
 }
 
 void Clock::stop(){
@@ -27,6 +25,7 @@ void Clock::setTimebase(std::crono::milliseconds T)
 
 void Clock::tick()
 {
+
 
 
 }
