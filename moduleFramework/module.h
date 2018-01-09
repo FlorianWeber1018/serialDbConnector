@@ -49,7 +49,7 @@ protected:
   void triggerNext();
   virtual void process();
   void emitSignal(std::string signalName, int value);
-  int getSignalvalue(std::string slotName);
+  int getSignalValue(std::string slotName);
 
 };
 struct mysql_config
@@ -86,7 +86,7 @@ protected:
 struct module_config_debug : public module_config
 {
   std::string identifier = "Debug";
-}
+};
 
 class Module_debug : public Module
 {
