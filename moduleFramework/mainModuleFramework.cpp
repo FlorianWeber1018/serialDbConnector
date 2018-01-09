@@ -12,11 +12,11 @@ int main()
   modDebug.m_config.identifier = "test passed when there is the truth :)";
 
   connect(
-    static_cast<Module*>&modConst,
+    static_cast<Module*>(&modConst),
     modConst.getSignal("constSig"),
-    static_cast<Module*>&modDebug,
+    static_cast<Module*>(&modDebug),
     modDebug.getSlot("debugSlot")
   );
-  modConst.trigger();                     
+  modConst.trigger();
   return 0;
 }
