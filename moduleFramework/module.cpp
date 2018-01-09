@@ -160,7 +160,7 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
     this->Pin       ==  otherSig.Pin
   );
 }
-// _____________________________________________________________________________
+// ____Module_constant__________________________________________________________
 Module_constant::Module_constant()
 {
   createSignal("constSig");
@@ -171,7 +171,7 @@ void Module_constant::process()
   if(debug) std::cout << "Module_constant::process" << std::endl;
   emitSignal("constSig", m_config.constValue);
 }
-// _____________________________________________________________________________
+// ____Module_debug_____________________________________________________________
 Module_debug::Module_debug()
 {
   createSlot("debugSlot");

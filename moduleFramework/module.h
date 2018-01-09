@@ -7,6 +7,10 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <set>
+
+
+
 struct mySqlSignal{
   std::string DeviceID;
   std::string PortType;
@@ -52,6 +56,17 @@ protected:
   int getSignalValue(std::string slotName);
 
 };
+
+class ClockDistributer{
+  public:
+    void trigger();
+    addDestination(Module* destModule);
+    rmDestination(Module* destModule);
+  protected:
+    set<Module*> m_destModules;
+};
+
+
 struct mysql_config
 {
   unsigned int ID;
