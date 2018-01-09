@@ -1,6 +1,6 @@
 #ifndef clock__h
 #define clock__h
-#include <crono>
+#include <chrono>
 #include <iostream>
 #include <thread>
 
