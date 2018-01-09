@@ -33,8 +33,8 @@ struct Signal
 class Module
 {
 public:
-  Signal* getSignal();
-  Slot* getSlot();
+  Signal* getSignal(std::string signalName);
+  Slot* getSlot(std::string slotName);
 
   std::vector<Module*> m_postModules;
   void trigger();
@@ -64,21 +64,32 @@ struct module_config
 };
 
 // ____Module which provides a constant Signal defined by Config________________
-struct module_config_constant : private module_config
+struct module_config_constant : public module_config
 {
-  int const_value;
+  int constValue = 0;
 };
 
-class module_constant: public Module
+class Module_constant: public Module
 {
 public:
-  module_constant();
+  Module_constant();
+  module_config_constant m_config;
 private:
 
 protected:
-
+  void process() override;
 };
 // _____________________________________________________________________________
 
+// ____Module which prints an Value for debugging to console,____________________
+//     identifier is given by config
+struct module_config_debug : public module_config
+{
+  std::string identifier = "Debug";
+}
 
+class module_debug : public Module
+
+
+// _____________________________________________________________________________
 #endif

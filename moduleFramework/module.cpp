@@ -100,14 +100,28 @@ Slot* Module::createSlot(std::string slotName)
   }
 }
 
-Signal* Module::getSignal()
+Signal* Module::getSignal(std::string signalName)
 {
-
+  try { return m_signals.at(signalName); }
+  catch (const std::exception& e)
+  {
+    if(debug){
+      std::cout << "exception was cought : " << e.what() << std::endl;
+    }
+    return nullptr;
+  }
 }
 
-Slot* Module::getSlot()
+Slot* Module::getSlot(std::string slotName)
 {
-
+  try { return m_slots.at(slotName); }
+  catch (const std::exception& e)
+  {
+    if(debug){
+      std::cout << "exception was cought : " << e.what() << std::endl;
+    }
+    return nullptr;
+  }
 }
 
 Module::~Module()
@@ -138,8 +152,14 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
     this->Pin       ==  otherSig.Pin
   );
 }
-
-module_constant::module_constant()
+// _____________________________________________________________________________
+Module_constant::Module_constant()
 {
   createSignal("constSig");
 }
+
+void Module_constant::process()
+{
+  emitSignal("constSig", m_config.constValue);
+}
+// _____________________________________________________________________________
