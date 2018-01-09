@@ -24,7 +24,7 @@ int main()
 
 
 
-  Clock clock(std::chrono::milliseconds(1000),
+  Clock clock(std::chrono::milliseconds(100),
   triggerGlobalClock );
   clock.run();
   while(1){
