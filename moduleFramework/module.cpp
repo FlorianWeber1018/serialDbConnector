@@ -1,5 +1,6 @@
 #include "module.h"
 #include <iostream>
+
 void Module::emitSignal(std::string signalName, int value)
 {
   Signal* signal = nullptr;
