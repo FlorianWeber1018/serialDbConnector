@@ -16,3 +16,12 @@ void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, myS
 {
   connect( sender, _Signal, signalRouter, signalRouter->createSlotIfNotExist(_extSignal) );
 }
+
+void moveToBorders(float &value, float const& min, float const& max)
+{
+  if(value < min){
+    value = min;
+  }else if(value > max){
+    value = max;
+  }
+}
