@@ -48,4 +48,11 @@ void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
   }else{
     PWMinc = static_cast<int>(pwminc);
   }
+  if(pwmdec < config.decPWM_min){
+    PWMdec = 0;
+  }else if(pwmdec >= config.decPWM_max){
+    PWMdec = static_cast<int>(config.decPWM_max);
+  }else{
+    PWMdec = static_cast<int>(pwmdec);
+  }
 }
