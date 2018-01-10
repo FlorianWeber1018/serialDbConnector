@@ -1,6 +1,7 @@
 #ifndef module__h
 #define module__h
 
+#define testlalelu
 #define debug 0
 
 
