@@ -28,6 +28,25 @@ protected:
 private:
 };
 
+struct config_ServoPWM
+{
+  int input_max  = 30000;
+  int input_min  = -30000;
+  float incPWM_max = 255;
+  float incPWM_min = 50;
+  float decPWM_max = 255;
+  float decPWM_min = 50;
+};
 
+class ServoPWM
+{
+public:
+  void getOutput(int& PWMinc, int& PWMdec, int input);
+  config_ServoPWM config;
+protected:
+
+private:
+
+};
 
 #endif

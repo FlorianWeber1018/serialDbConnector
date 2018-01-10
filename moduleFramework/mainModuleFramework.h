@@ -5,8 +5,8 @@
 
 int main();
 void triggerGlobalClock();
-void init();
-
+void initGlobalClock();
+void test(int in);
 
 
 #endif

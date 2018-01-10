@@ -1,6 +1,9 @@
 #include "mainModuleFramework.h"
 #include "clock.h"
 #include <thread>
+#include "control.h"
+#include <iostream>
+
 ClockDistributer globalClock;
 
 
@@ -15,6 +18,9 @@ int main()
   Module_debug modDebug;
   modDebug.m_config.identifier = "test passed when there is the truth ";
 
+
+
+
   connect(
     static_cast<Module*>(&modConst),
     modConst.getSignal("constSig"),
@@ -23,9 +29,26 @@ int main()
   );
 
 
+  test(30001);
+  test(30000);
+  test(29999);
+  test(5883);
+  test(5882);
+  test(5881);
+  test(0);
+  test(-5881);
+  test(-5882);
+  test(-5883);
+  test(-29999);
+  test(-30000);
+  test(-30001);
 
-  init();
-  //globalClock.trigger();
+
+
+
+
+  //init();
+
   return 0;
 }
 
@@ -33,7 +56,7 @@ void triggerGlobalClock()
 {
   globalClock.trigger();
 }
-void init()
+void initGlobalClock()
 {
   Clock clock(std::chrono::milliseconds(100),
   triggerGlobalClock );
@@ -41,4 +64,14 @@ void init()
   while(1){
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
   }
+}
+
+void test(int in)
+{
+  ServoPWM dut;
+  int inc;
+  int dec;
+  dut.getOutput(inc, dec, in);
+  std::cout << "input = " << in << "  incPWM = " << inc <<
+  "  decPWM = " << dec << std::endl;
 }
