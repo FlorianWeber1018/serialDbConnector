@@ -9,7 +9,7 @@ void Module::emitSignal(std::string signalName, int value)
   try { signal = m_signals.at(signalName); }
   catch (const std::exception& e)
   {
-    if(debug){
+    if(debugMode){
       std::cout << "exception was cought : " << e.what() << std::endl;
     }
     return;
@@ -72,7 +72,7 @@ void Module::trigger()
 
 void Module::triggerNext()
 {
-  if(debug) std::cout << "Module::triggerNext" << std::endl;
+  if(debugMode) std::cout << "Module::triggerNext" << std::endl;
   for(auto postModule : m_postModules){
     postModule->trigger();
   }
@@ -80,7 +80,7 @@ void Module::triggerNext()
 
 void Module::process()
 {
-  if(debug){
+  if(debugMode){
     std::cout << "virtual Module::process():" << std::endl;
     for(auto&& keyValPair : m_signals){
       std::cout << "    " << keyValPair.first << keyValPair.second->value << std::endl;
@@ -115,7 +115,7 @@ Signal* Module::getSignal(std::string signalName)
   try { return m_signals.at(signalName); }
   catch (const std::exception& e)
   {
-    if(debug){
+    if(debugMode){
       std::cout << "exception was cought : " << e.what() << std::endl;
     }
     return nullptr;
@@ -127,7 +127,7 @@ Slot* Module::getSlot(std::string slotName)
   try { return m_slots.at(slotName); }
   catch (const std::exception& e)
   {
-    if(debug){
+    if(debugMode){
       std::cout << "exception was cought : " << e.what() << std::endl;
     }
     return nullptr;
@@ -136,18 +136,18 @@ Slot* Module::getSlot(std::string slotName)
 
 Module::~Module()
 {
-  if(debug){
+  if(debugMode){
     std::cout << "debug:~Module()" << std::endl;
   }
   for(auto&& keyValPair : m_signals){
     delete keyValPair.second;
-    if(debug){
+    if(debugMode){
       std::cout << "deletet Signal: " << keyValPair.first << std::endl;
     }
   }
   for(auto&& keyValPair : m_slots){
     delete keyValPair.second;
-    if(debug){
+    if(debugMode){
       std::cout << "deletet Slot: " << keyValPair.first << std::endl;
     }
   }
@@ -166,7 +166,7 @@ void ClockDistributer::addDestination(Module* destModule)
 void ClockDistributer::rmDestination(Module* destModule)
 {
   if(m_destModules.erase(destModule) < 1){
-    if(debug){
+    if(debugMode){
       std::cout << "ClockDistributer::rmDestination : Element to remove"
       << "is not in m_destModules" << std::endl;
     }
@@ -196,7 +196,7 @@ Module_constant::~Module_constant()
 
 void Module_constant::process()
 {
-  if(debug) std::cout << "Module_constant::process" << std::endl;
+  if(debugMode) std::cout << "Module_constant::process" << std::endl;
   emitSignal("constSig", m_config.constValue);
 }
 // ____Module_debug_____________________________________________________________
@@ -207,7 +207,7 @@ Module_debug::Module_debug()
 
 void Module_debug::process()
 {
-  if(debug) std::cout << "Module_debug::process" << std::endl;
+  if(debugMode) std::cout << "Module_debug::process" << std::endl;
   std::cout << "Module_debug::" << m_config.identifier << " = "
   << getSignalValue("debugSlot") << std::endl;
 }
