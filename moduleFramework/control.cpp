@@ -30,7 +30,7 @@ float PID::getOutput(float x, float w)
 void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
 {
   if(input > config.input_max){
-    input = input_max;
+    input = config.input_max;
   }else if(input < config.input_min){
     input = config.input_min;
   }
@@ -41,7 +41,7 @@ void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
   float pwminc = inc_m * static_cast<float>(input);
   float pwmdec = dec_m * static_cast<float>(input);
 
-  if(pwminc < incPWM_min){
+  if(pwminc < config.incPWM_min){
     PWMinc = 0;
   }else if(pwminc >= config.incPWM_max){
     PWMinc = static_cast<int>(config.incPWM_max);
