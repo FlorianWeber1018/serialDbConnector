@@ -9,6 +9,7 @@
 #include <map>
 #include <set>
 
+#include "control.h"
 
 
 struct mySqlSignal{
@@ -117,5 +118,28 @@ class Module_debug : public Module
 
 
 // _____________________________________________________________________________
+
+//____Module which controls an 3-way-valve______________________________________
+//    IN:  requiredTemperature , actualTemperatur
+//    OUT: DutyCyclePWMinc, DutyCyclePWMdec,
+struct module_config_3WayValve{
+  config_ServoPWM* pwmConfig;
+  config_PID* pidConfig;
+}
+
+
+class Module_3WayValve : public Module
+{
+public:
+  Module_3WayValve();
+  module_config_3WayValve m_config;
+protected:
+  PID pid;
+  ServoPWM pwm;
+  void process() override;
+private:
+};
+//______________________________________________________________________________
+
 
 #endif

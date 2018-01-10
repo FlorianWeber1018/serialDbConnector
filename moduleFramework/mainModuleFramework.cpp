@@ -28,7 +28,7 @@ int main()
     modDebug.getSlot("debugSlot")
   );
 
-
+/*
   test(30001);
   test(30000);
   test(29999);
@@ -42,12 +42,12 @@ int main()
   test(-29999);
   test(-30000);
   test(-30001);
+*/
 
 
 
 
-
-  //init();
+  initGlobalClock();
 
   return 0;
 }
@@ -66,7 +66,7 @@ void initGlobalClock()
   }
 }
 
-void test(int in)
+/*void test(int in)
 {
   ServoPWM dut;
   int inc;
@@ -75,3 +75,4 @@ void test(int in)
   std::cout << "input = " << in << "  incPWM = " << inc <<
   "  decPWM = " << dec << std::endl;
 }
+*/
