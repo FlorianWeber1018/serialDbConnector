@@ -11,7 +11,11 @@ Signal* SignalRouterIn::createSignalIfNotexist(mySqlSignal const& extSignal)
   m_signalMap[newSignal] = extSignal;
   return newSignal;
 }
+void SignalRouterIn::process()
+{
 
+}
+// _____________________________________________________________________________
 Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
 {
   for(auto&& keyValPair : m_slotMap){
@@ -22,4 +26,8 @@ Slot* SignalRouterOut::createSlotIfNotExist(mySqlSignal const& extSignal)
   Slot* newSlot = new Slot();
   m_slotMap[newSlot] = extSignal;
   return newSlot;
+}
+void SignalRouterOut::process()
+{
+
 }
