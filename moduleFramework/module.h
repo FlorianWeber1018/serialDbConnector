@@ -1,9 +1,8 @@
 #ifndef module__h
 #define module__h
 
-#ifndef debug
-  #define debug 0
-#endif
+#define debug 0
+
 
 #include <climits>
 #include <vector>

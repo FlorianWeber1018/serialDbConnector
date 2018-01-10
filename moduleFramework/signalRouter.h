@@ -1,10 +1,10 @@
 #ifndef signalRouter__h
 #define signalRouter__h
-
+#include "../IoD/mysqlcon.h"
 #include "module.h"
 #include <map>
 
-#include "../IoD/mysqlcon.h"
+
 
 class SignalRouterIn : public Module//, public mysqlcon
 {
