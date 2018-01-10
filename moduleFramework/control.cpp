@@ -1,5 +1,5 @@
 #include "control.h"
-
+#include "util.h"
 float PID::getOutput(float x, float w)
 {
   float e = w - x;
@@ -27,7 +27,7 @@ float PID::getOutput(float x, float w)
   return y;
 }
 
-int ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
+void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
 {
   if(input > config.input_max){
     input = input_max;
