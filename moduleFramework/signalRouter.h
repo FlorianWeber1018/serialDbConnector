@@ -6,10 +6,12 @@
 
 
 
-class SignalRouterIn : public Module, public mysqlcon
+class SignalRouterIn : public Module
 {
 public:
+
   Signal* createSignalIfNotexist(mySqlSignal const& extSignal);
+  mysqlcon* mySqlConnection;
 private:
   std::map<Signal*, mySqlSignal> m_signalMap;
 protected:
