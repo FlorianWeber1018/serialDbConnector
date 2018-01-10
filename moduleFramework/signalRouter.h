@@ -6,7 +6,7 @@
 
 
 
-class SignalRouterIn : public Module//, public mysqlcon
+class SignalRouterIn : public Module, public mysqlcon
 {
 public:
   Signal* createSignalIfNotexist(mySqlSignal const& extSignal);
@@ -16,7 +16,7 @@ protected:
   void process() override;
 };
 
-class SignalRouterOut : public Module//, public mysqlcon
+class SignalRouterOut : public Module, public mysqlcon
 {
 public:
   Slot* createSlotIfNotExist(mySqlSignal const& extSignal);
