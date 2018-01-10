@@ -4,7 +4,7 @@
 #include "module.h"
 #include <map>
 
-#include "../mysqlcon.h"
+#include "../IoD/mysqlcon.h"
 
 class SignalRouterIn : public Module//, public mysqlcon
 {
