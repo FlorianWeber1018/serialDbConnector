@@ -125,7 +125,7 @@ class Module_debug : public Module
 struct module_config_3WayValve{
   config_ServoPWM* pwmConfig;
   config_PID* pidConfig;
-}
+};
 
 
 class Module_3WayValve : public Module
