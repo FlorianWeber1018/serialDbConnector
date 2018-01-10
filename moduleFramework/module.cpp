@@ -218,11 +218,11 @@ Module_3WayValve::Module_3WayValve()
   createSlot("actualTemperatur");
   createSignal("DutyCyclePWMinc");
   createSignal("DutyCyclePWMdec");
-  m_config.config_ServoPWM = &(pwm.config);
-  m_config.config_PID = &(pid.config);
+  m_config.pwmConfig = &(pwm.config);
+  m_config.pidConfig = &(pid.config);
 
 }
-Module_3WayValve::process()
+void Module_3WayValve::process()
 {
   int y = static_cast<int> (
     pid.getOutput(
