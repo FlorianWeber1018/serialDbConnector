@@ -1,5 +1,5 @@
 #include "signalRouter.h"
-SignalRouter::SignalRouter(
+SignalRouter::SignalRouterIn(
    std::string host, unsigned int port, std::string user, std::string pw,
    std::string db
 )
@@ -10,6 +10,7 @@ SignalRouter::SignalRouter(
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
 }
+/*
 Signal* SignalRouter::createSignalIfNotexist(mySqlSignal const& extSignal)
 {
   if(m_signals.find(extSignal)){
@@ -89,3 +90,4 @@ void SignalRouter::writeMySqlSignalsToDatabase()
 {
 
 }
+*/

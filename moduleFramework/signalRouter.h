@@ -4,7 +4,8 @@
 #include "module.h"
 #include <map>
 
-class SignalRouterIn{
+class SignalRouterIn :
+{
 public:
   SignalRouterIn(
      std::string host, unsigned int port, std::string user, std::string pw,
