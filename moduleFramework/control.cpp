@@ -41,18 +41,11 @@ void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
   float pwminc = inc_m * static_cast<float>(input);
   float pwmdec = dec_m * static_cast<float>(input);
 
-  if(pwminc < config.incPWM_min){
-    PWMinc = 0;
-  }else if(pwminc >= config.incPWM_max){
-    PWMinc = static_cast<int>(config.incPWM_max);
-  }else{
-    PWMinc = static_cast<int>(pwminc);
-  }
-  if(pwmdec < config.decPWM_min){
-    PWMdec = 0;
-  }else if(pwmdec >= config.decPWM_max){
-    PWMdec = static_cast<int>(config.decPWM_max);
-  }else{
-    PWMdec = static_cast<int>(pwmdec);
+  moveToBorders(
+    pwminc, config.incPWM_min, config.incPWM_max, 0, config.incPWM_max);
+  moveToBorders(
+    pwmdec, config.decPWM_min, config.decPWM_max, 0, config.decPWM_max);
+  PWMinc = static_cast<int>(pwminc);
+  PWMdec = static_cast<int>(pwmdec);
   }
 }

@@ -6,23 +6,15 @@
 
 
 
-class SignalRouterIn : public Module
+class SignalRouter : public Module
 {
 public:
 
   Signal* createSignalIfNotexist(mySqlSignal const& extSignal);
+  Slot* createSlotIfNotExist(mySqlSignal const& extSignal);
   mysqlcon* mySqlConnection;
 private:
   std::map<Signal*, mySqlSignal> m_signalMap;
-protected:
-  void process() override;
-};
-
-class SignalRouterOut : public Module, public mysqlcon
-{
-public:
-  Slot* createSlotIfNotExist(mySqlSignal const& extSignal);
-private:
   std::map<Slot*, mySqlSignal> m_slotMap;
 protected:
   void process() override;
