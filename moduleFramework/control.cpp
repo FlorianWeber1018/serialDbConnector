@@ -29,6 +29,8 @@ float PID::getOutput(float x, float w)
 
 void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
 {
+  moveToBorders(input, config.input_min, config.input_max);
+
   if(input > config.input_max){
     input = config.input_max;
   }else if(input < config.input_min){
@@ -45,7 +47,9 @@ void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
     pwminc, config.incPWM_min, config.incPWM_max, 0, config.incPWM_max);
   moveToBorders(
     pwmdec, config.decPWM_min, config.decPWM_max, 0, config.decPWM_max);
+
   PWMinc = static_cast<int>(pwminc);
   PWMdec = static_cast<int>(pwmdec);
+
   }
 }
