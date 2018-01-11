@@ -46,7 +46,7 @@ bool serialCmdInterface::serialFlush(string cmdstr)
 	{
 		cmdstr += eot;
 		while(bufOut.size() >= SizeBufOutMax){
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 		bufOut.push_back(cmdstr);
 		return false;
@@ -147,12 +147,13 @@ void serialCmdInterface::Sending()
 			string temp = bufOut.front();
 			//if(rtr){
 				//rtr=false;
-				sendOne(temp);
-				std::this_thread::sleep_for(std::chrono::milliseconds(20));
-				bufOut.pop_front();
+			sendOne(temp);
+			std::cout << temp << std::endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			bufOut.pop_front();
 			//}
 		}else{
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	}
 }

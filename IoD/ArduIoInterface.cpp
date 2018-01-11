@@ -74,7 +74,7 @@ void ArduIoInterface::mainloop()
     sendConfig(false);
     sendOutput(false);
     getInput();
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
   }
 }
@@ -109,7 +109,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
 {
   std::string sqlQuery="Select IoValue.Port, IoValue.Pin, IoValue.targetState from IoValue";
   sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.PortType = IoValue.PortType AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
-  sqlQuery.append(" WHERE (actualConfig = 2 OR actualConfig = 3) AND IoValue.PortType = 'I' AND IoValue.DeviceID = \'");
+  sqlQuery.append(" WHERE (actualConfig = 2 OR actualConfig = 3 OR actualConfig = 4 OR actualConfig = 5) AND IoValue.PortType = 'I' AND IoValue.DeviceID = \'");
   sqlQuery.append(device);
   if(sendAll){
     sqlQuery.append("\';");
