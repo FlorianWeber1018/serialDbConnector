@@ -182,6 +182,15 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
     this->Pin       ==  otherSig.Pin
   );
 }
+bool mySqlSignal::operator < ( const mySqlSignal &otherSig )
+{
+  return(
+    ( this->DeviceID <  otherSig.DeviceID )  ||
+    ( this->DeviceID == otherSig.DeviceID && this->PortType <  otherSig.PortType ) ||
+    ( this->DeviceID == otherSig.DeviceID && this->PortType == otherSig.PortType && this->Port <  otherSig.Port ) ||
+    ( this->DeviceID == otherSig.DeviceID && this->PortType == otherSig.PortType && this->Port == otherSig.Port && this->Pin <  otherSig.Pin )
+  );
+}
 // ____Module_constant__________________________________________________________
 Module_constant::Module_constant()
 {

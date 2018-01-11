@@ -12,25 +12,23 @@ SignalRouter::SignalRouter(
 }
 Signal* SignalRouter::createSignalIfNotexist(mySqlSignal const& extSignal)
 {
-  for(auto&& keyValPair : m_signalMap){
-    if(keyValPair.second == extSignal){
-      return keyValPair.first;
-    }
+  if(m_signals.find(extSignal)){
+
+  }else{
+    Signal* newSignal = new Signal();
+    m_signals[extSignal] = newSignal;
   }
-  Signal* newSignal = new Signal();
-  m_signalMap[newSignal] = extSignal;
-  return newSignal;
+  return m_signalMap[extSignal];
 }
 Slot* SignalRouter::createSlotIfNotExist(mySqlSignal const& extSignal)
 {
-  for(auto&& keyValPair : m_slotMap){
-    if(keyValPair.second == extSignal){
-      return keyValPair.first;
-    }
+  if(m_slots.find(extSignal)){
+
+  }else{
+    Slot* newSlot = new Slot();
+    m_slots[extSignal] = newSlot;
   }
-  Slot* newSlot = new Slot();
-  m_slotMap[newSlot] = extSignal;
-  return newSlot;
+  return m_slots[extSignal];
 }
 void SignalRouter::process()
 {
@@ -40,8 +38,44 @@ void SignalRouter::readMySqlSignalsFromDatabase()
 {
   std::string sqlQuery="SELECT IoValue.DeviceID, IoValue.PortType, IoValue.Port,
   IoValue.Pin, IoValue.actualState From IoValue;";
+  if(debugMode){
+    std::cout<<sqlQuery<<std::endl;
+  }
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
 
-//  std::cout<<sqlQuery<<std::endl;
+  MYSQL_ROW row;
+
+  while(row = mysql_fetch_row(result)){
+    mySqlSignal tempSignal;
+    tempSignal.DeviceID = row[0];
+    tempSignal.PortType = row[1];
+    tempSignal.PortType = row[2];
+    tempSignal.Pin      = row[3];
+    for (auto signal_mysqlsignal : m_signalMap){
+      if(signal_mysqlsignal.second == tempSignal){
+        Signal* signal = signal_mysqlsignal.first;
+        int value = row[4];
+        if(signal != nullptr){
+          if(value > signal->max){
+            signal->value = signal->max;
+          }else{
+            if(value < signal->min){
+              signal->value = signal->min;
+            }else{
+              signal->value = value;
+            }
+          }
+          for(auto&& slot: signal->slots){
+            slot->synced=true;
+          }
+      }
+    }
+    for(auto postModule : m_postModules){
+      postModule->trigger();
+    }
+
+  }
+  mysql_free_result(result);
 
 
 std::string sqlQuery="Select IoValue.PortType, IoValue.Port, IoValue.Pin from IoValue ";

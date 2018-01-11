@@ -2,7 +2,8 @@
 
 void connect(SignalRouter* signalRouter, mySqlSignal const& _extSignal, Module* receiver, Slot* _Slot)
 {
-  connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
+  //connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
+  MACH NEU!!!
 }
 
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
@@ -14,5 +15,6 @@ void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
 
 void connect(Module* sender, Signal* _Signal, SignalRouter* signalRouter, mySqlSignal const& _extSignal)
 {
-  connect( sender, _Signal, signalRouter, signalRouter->createSlotIfNotExist(_extSignal) );
+  //connect( sender, _Signal, signalRouter, signalRouter->createSlotIfNotExist(_extSignal) );
+  MACH NEU!!!
 }
