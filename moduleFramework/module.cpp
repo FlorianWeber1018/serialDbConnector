@@ -224,7 +224,7 @@ void Module_debug::process()
 Module_3WayValve::Module_3WayValve()
 {
   createSlot("requiredTemperature");
-  createSlot("actualTemperatur");
+  createSlot("actualTemperature");
   createSignal("DutyCyclePWMinc");
   createSignal("DutyCyclePWMdec");
   m_config.pwmConfig = &(pwm.config);
@@ -235,7 +235,7 @@ void Module_3WayValve::process()
 {
   int y = static_cast<int> (
     pid.getOutput(
-      static_cast<float>( getSignalValue("actualTemperatur") ),
+      static_cast<float>( getSignalValue("actualTemperature") ),
       static_cast<float>( getSignalValue("requiredTemperature") )
     )
   );
