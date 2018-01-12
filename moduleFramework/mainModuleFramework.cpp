@@ -5,7 +5,7 @@
 #include <iostream>
 
 ClockDistributer globalClock;
-
+volatile bool recourcesAvailable = true;
 
 int main()
 {
@@ -125,12 +125,15 @@ int main()
 
 void triggerGlobalClock()
 {
-  globalClock.trigger();
+  if(recourcesAvailable){
+    recourcesAvailable = false;
+      globalClock.trigger();
+    recourcesAvailable = true;
+  }
 }
 void initGlobalClock()
 {
-  Clock clock(std::chrono::milliseconds(200),
-  triggerGlobalClock );
+  Clock clock(std::chrono::milliseconds(200), triggerGlobalClock );
   if (debugMode) std::cout << "Now starting mainloop" << std::endl;
   clock.run();
   while(1){

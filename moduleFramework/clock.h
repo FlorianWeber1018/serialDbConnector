@@ -13,7 +13,6 @@ public:
   void setTimebase(std::chrono::milliseconds T);
 protected:
   bool m_run;
-
   std::chrono::milliseconds T;
   void (*m_callback)(void);
 private:
