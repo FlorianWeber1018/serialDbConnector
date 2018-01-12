@@ -29,6 +29,7 @@ float PID::getOutput(float x, float w)
 
 void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
 {
+  std::cout << "servo input = " << input << std::endl;
   moveToBorders(input, config.input_min, config.input_max);
 
   if(input > config.input_max){
