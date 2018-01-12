@@ -1,16 +1,17 @@
 #ifndef control__h
 #define control__h
+#include <climits>
 struct config_PID
 {
-  float kp        = 0;
-    float up_max  = 0;
-    float up_min  = 0;
-  float ki        = 0;
-    float ui_max  = 0;
-    float ui_min  = 0;
-  float kd        = 0;
-    float ud_max  = 0;
-    float ud_min  = 0;
+  float kp        = 0.5;
+    float up_max  = INT_MAX;
+    float up_min  = INT_MIN;
+  float ki        = 0.5;
+    float ui_max  = INT_MAX;
+    float ui_min  = INT_MIN;
+  float kd        = 0.5;
+    float ud_max  = INT_MAX;
+    float ud_min  = INT_MIN;
 };
 
 class PID
