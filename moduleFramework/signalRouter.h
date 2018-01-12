@@ -12,7 +12,7 @@ public:
      std::string host, unsigned int port, std::string user, std::string pw,
      std::string db
   );
-  Signal* createSignalIfNotexist( mySqlSignal const& key);
+  Signal* createSignalIfNotexist(const mySqlSignal& key);
   void trigger();
 
 protected:
