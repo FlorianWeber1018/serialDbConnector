@@ -100,7 +100,7 @@ void SignalRouterOut::process()
     sqlQuery.append( key_val.first.Pin );
     sqlQuery.append("' ;");
     MYSQL_RES* result = nullptr;
-//std::cout << sqlQuery << std::endl;
+    std::cout << sqlQuery << std::endl;
     result = mySqlConnection->sendCommand_senderThread(sqlQuery);
     if (result!= nullptr){
       mysql_free_result(result);
