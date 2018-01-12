@@ -3,7 +3,7 @@
 #include <climits>
 struct config_PID
 {
-  float kp        = 2000;
+  float kp        = 3000;
     float up_max  = INT_MAX;
     float up_min  = INT_MIN;
   float ki        = 0;
