@@ -20,6 +20,6 @@ protected:
   std::map<mysqlcon, Signal*> m_signals;
   void emitSignal(const mySqlSignal& key, int value);
 private:
-}
+};
 
 #endif
