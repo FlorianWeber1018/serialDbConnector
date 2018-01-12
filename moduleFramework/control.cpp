@@ -51,5 +51,4 @@ void ServoPWM::getOutput(int& PWMinc, int& PWMdec, int input)
   PWMinc = static_cast<int>(pwminc);
   PWMdec = static_cast<int>(pwmdec);
 
-  }
 }
