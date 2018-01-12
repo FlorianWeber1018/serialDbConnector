@@ -6,7 +6,7 @@ struct config_PID
   float kp        = 3800;
     float up_max  = INT_MAX;
     float up_min  = INT_MIN;
-  float ki        = 0;
+  float ki        = 50;
     float ui_max  = INT_MAX;
     float ui_min  = INT_MIN;
   float kd        = 500;
@@ -34,9 +34,9 @@ struct config_ServoPWM
   int input_max  = 30000;
   int input_min  = -30000;
   float incPWM_max = 255;
-  float incPWM_min = 100;
+  float incPWM_min = 50;
   float decPWM_max = 255;
-  float decPWM_min = 100;
+  float decPWM_min = 50;
 };
 
 class ServoPWM
