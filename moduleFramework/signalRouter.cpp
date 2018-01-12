@@ -1,6 +1,5 @@
 #include "signalRouter.h"
-#include <chrono>
-#include <thread>
+
 
 extern ClockDistributer globalClock;
 // ____signalRouterIn___________________________________________________________
@@ -11,7 +10,6 @@ SignalRouterIn::SignalRouterIn(
 {
   mySqlConnection = new mysqlcon( host, port, user, pw, db );
   while(!mySqlConnection->connect()){
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
   globalClock.addDestination(this);

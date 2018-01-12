@@ -20,13 +20,13 @@ struct mySqlSignal{
   std::string Port;
   std::string Pin;
   bool operator==(mySqlSignal const& otherSig);
-  bool operator < ( const mySqlSignal &otherSig );
+  bool operator < (  mySqlSignal const& otherSig );
 };
-struct mySqlSignalCompare
+/*struct mySqlSignalCompare
 {
    bool operator() (const mySqlSignal& lhs, const mySqlSignal& rhs) const;
 };
-
+*/
 struct Slot
 {
   int* value;
