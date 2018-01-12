@@ -88,7 +88,7 @@ void SignalRouterOut::process()
   if (debugMode) std::cout << "SignalRouterOut::process()"
     << "  NOTHING WILL HAPPEN HERE" << std::endl;
   for(auto&& key_val : m_slots){
-    std::string sqlQuery = "UPDATE IoValue SET targetState = "
+    std::string sqlQuery = "UPDATE IoValue SET targetState = ";
     int preVal = *(key_val.second->value);
     moveToBorders( preVal, key_val.second->min, key_val.second->max );
     sqlQuery.append(std::to_string( preVal ) );
