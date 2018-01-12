@@ -27,11 +27,6 @@ Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
   return signal;
 }
 
-void SignalRouterIn::trigger()
-{
-  Module::trigger();
-}
-
 void SignalRouterIn::process()
 {
   std::string sqlQuery="SELECT IoValue.DeviceID, IoValue.PortType, IoValue.Port, IoValue.Pin, IoValue.actualState From IoValue;";
@@ -60,14 +55,35 @@ void SignalRouterIn::process()
       }
     }
     mysql_free_result(result);
-  }
+
   if(debugMode) std::cout << "signalRouterIn::process()" << std::endl;
 }
 // ____signalRouterOut__________________________________________________________
 
-/*
-void SignalRouterOut::writeMySqlSignalsToDatabase()
+SignalRouterOut::SignalRouterOut(
+   std::string host, unsigned int port, std::string user, std::string pw,
+   std::string db
+)
 {
-
+  mySqlConnection = new mysqlcon( host, port, user, pw, db );
+  while(!mySqlConnection->connect()){
+    std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
+  }
+  if(debugMode) std::cout << "SignalRouterOut::SignalRouterOut()" << std::endl;
 }
-*/
+
+Slot* SignalRouterOut::createSlotIfNotexist(const mySqlSignal& key)
+{
+  Slot* slot = nullptr;
+  try{ slot = m_slots.at(key); }
+  catch (const std::out_of_range& oor) {
+    slot = new Slot();
+    m_slots[key] = slot;
+  }
+  return slot;
+}
+
+void SignalRouterOut::process()
+{
+5e6ufgzu;
+}

@@ -34,9 +34,9 @@ struct config_ServoPWM
   int input_max  = 30000;
   int input_min  = -30000;
   float incPWM_max = 255;
-  float incPWM_min = 50;
+  float incPWM_min = 0;
   float decPWM_max = 255;
-  float decPWM_min = 50;
+  float decPWM_min = 0;
 };
 
 class ServoPWM
