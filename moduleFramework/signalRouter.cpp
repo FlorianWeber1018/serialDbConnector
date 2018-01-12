@@ -13,6 +13,7 @@ SignalRouterIn::SignalRouterIn(
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
   globalClock.addDestination(this);
+  if(debugMode) std::cout << "SignalRouterIn::SignalRouterIn()" << std::endl;
 }
 
 Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
