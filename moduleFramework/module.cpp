@@ -200,10 +200,10 @@ bool mySqlSignalCompare::operator() (
   const mySqlSignal& lhs, const mySqlSignal& rhs) const
 {
   return(
-    ( lhs->DeviceID <  rhs.DeviceID )  ||
-    ( lhs->DeviceID == rhs.DeviceID && lhs->PortType <  rhs.PortType ) ||
-    ( lhs->DeviceID == rhs.DeviceID && lhs->PortType == rhs.PortType && lhs->Port <  rhs.Port ) ||
-    ( lhs->DeviceID == rhs.DeviceID && lhs->PortType == rhs.PortType && lhs->Port == rhs.Port && lhs->Pin <  rhs.Pin )
+    ( lhs.DeviceID <  rhs.DeviceID )  ||
+    ( lhs.DeviceID == rhs.DeviceID && lhs.PortType <  rhs.PortType ) ||
+    ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType && lhs.Port <  rhs.Port ) ||
+    ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType && lhs.Port == rhs.Port && lhs.Pin <  rhs.Pin )
   );
 }
 // ____Module_constant__________________________________________________________
