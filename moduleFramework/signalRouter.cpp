@@ -19,11 +19,13 @@ SignalRouterIn::SignalRouterIn(
 
 Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
 {
-  if(!m_signals.find(key)){
+  if(m_signals.find(key)){
+
+  }else{
     Signal* newSignal = new Signal();
     m_signals[key] = newSignal;
   }
-  return m_signalMap[key];
+  return m_signals[key];
 }
 
 void SignalRouterIn::trigger()

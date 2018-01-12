@@ -196,7 +196,7 @@ bool mySqlSignal::operator < ( const mySqlSignal &otherSig )
   );
 }
 
-bool mySqlSignalCompare::operator() (
+/*bool mySqlSignalCompare::operator() (
   const mySqlSignal& lhs, const mySqlSignal& rhs) const
 {
   return(
@@ -205,7 +205,7 @@ bool mySqlSignalCompare::operator() (
     ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType && lhs.Port <  rhs.Port ) ||
     ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType && lhs.Port == rhs.Port && lhs.Pin <  rhs.Pin )
   );
-}
+}*/
 // ____Module_constant__________________________________________________________
 Module_constant::Module_constant()
 {
