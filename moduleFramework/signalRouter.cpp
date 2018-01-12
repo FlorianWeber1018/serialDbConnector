@@ -19,13 +19,13 @@ SignalRouterIn::SignalRouterIn(
 
 Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
 {
-  if(m_signals.find(key)){
-
-  }else{
-    Signal* newSignal = new Signal();
-    m_signals[key] = newSignal;
+  Signal* signal = nullptr;
+  try{ signal = m_signals.at(key); }
+  catch (const std::out_of_range& oor) {
+    signal = new Signal();
+    m_signals[key] = signal;
   }
-  return m_signals[key];
+  return signal;
 }
 
 void SignalRouterIn::trigger()
