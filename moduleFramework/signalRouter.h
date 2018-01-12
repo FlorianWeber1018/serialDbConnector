@@ -3,6 +3,7 @@
 #include "../IoD/mysqlcon.h"
 #include "module.h"
 #include <map>
+#include <iostream>
 
 class SignalRouterIn : protected Module
 {
