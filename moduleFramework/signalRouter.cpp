@@ -1,5 +1,5 @@
 #include "signalRouter.h"
-
+#include "util.h"
 
 extern ClockDistributer globalClock;
 // ____signalRouterIn___________________________________________________________
@@ -85,5 +85,27 @@ Slot* SignalRouterOut::createSlotIfNotexist(const mySqlSignal& key)
 
 void SignalRouterOut::process()
 {
-5e6ufgzu;
+  if (debugMode) std::cout << "SignalRouterOut::process()"
+    << "  NOTHING WILL HAPPEN HERE" << std::endl;
+  for(auto&& key_val : m_slots){
+    std::string sqlQuery = "UPDATE IoValue SET targetState = "
+    int preVal = *(key_val.second->value);
+    moveToBorders( preVal, key_val.second->min, key_val.second->max );
+    sqlQuery.append(std::to_string( preVal ) );
+    sqlQuery.append(" WHERE DeviceID = ");
+    sqlQuery.append(std::to_string( key_val.first.DeviceID ));
+    sqlQuery.append(" AND PortType = ");
+    sqlQuery.append(std::to_string( key_val.first.PortType ));
+    sqlQuery.append(" AND Port = ");
+    sqlQuery.append(std::to_string( key_val.first.Port ));
+    sqlQuery.append(" AND Pin = ");
+    sqlQuery.append(std::to_string( key_val.first.Pin ));
+    sqlQuery.append(" ;");
+    MYSQL_RES* result = nullptr;
+    result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+    if (result!= nullptr){
+      mysql_free_result(result);
+    }
+  }
+
 }

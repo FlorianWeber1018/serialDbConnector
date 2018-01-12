@@ -13,6 +13,12 @@ void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
   _Signal->slots.push_back(_Slot);
   sender->addPostModule(receiver);
 }
+
+void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, mySqlSignal const& _extSignal)
+{
+  connect( sender, _Signal,  signalRouter, signalRouter->createSlotIfNotexist(_extSignal));
+}
+
 /*
 void connect(Module* sender, Signal* _Signal, SignalRouter* signalRouter, mySqlSignal const& _extSignal)
 {

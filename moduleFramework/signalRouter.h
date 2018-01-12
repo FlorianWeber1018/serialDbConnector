@@ -20,7 +20,6 @@ protected:
   void process() override;
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Signal*> m_signals;
-  void emitSignal(const mySqlSignal& key, int value);
 private:
 };
 
@@ -38,7 +37,6 @@ protected:
   void process() override;
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Slot*> m_slots;
-  int getSignalValue(const mySqlSignal& key);
 private:
 };
 

@@ -14,11 +14,26 @@ int main()
   SignalRouterIn* modRouterIn =
     new SignalRouterIn("localhost", 3306, "IoD", "637013", "heizung");
 
-  mySqlSignal temp;
+  SignalRouterOut* modRouterOut =
+    new SignalRouterOut("localhost", 3306, "IoD", "637013", "heizung");
+
+  mySqlSignal actualTemp;
   temp.DeviceID = "/dev/ttyACM0";
   temp.PortType = "A";
   temp.Port     = "0";
   temp.Pin      = "0";
+
+  mySqlSignal pwmInc;
+  pwmInc.DeviceID = "/dev/ttyACM0";
+  pwmInc.PortType = "I";
+  pwmInc.Port     = "2";
+  pwmInc.Pin      = "5";
+
+  mySqlSignal pwmDec;
+  pwmDec.DeviceID = "/dev/ttyACM0";
+  pwmDec.PortType = "I";
+  pwmDec.Port     = "2";
+  pwmDec.Pin      = "6";
 
   Module_3WayValve* pidMod = new Module_3WayValve();
 
@@ -31,12 +46,20 @@ int main()
   Module_constant* modRequiredTemp = new Module_constant();
   modRequiredTemp->m_config.constValue = 50;
 
+
   connect(    //CONNECT DC_INC-> debug
     pidMod,
     pidMod->getSignal("DutyCyclePWMinc"),
     modDebugInc,
     modDebugInc->getSlot("debugSlot")
   );
+  connect(    //CONNECT DC_INC-> OUT
+    pidMod,
+    pidMod->getSignal("DutyCyclePWMinc"),
+    modRouterOut,
+    pwmInc
+  );
+
 
   connect(    //CONNECT DC_DEC-> debug
     pidMod,
@@ -44,10 +67,16 @@ int main()
     modDebugDec,
     modDebugDec->getSlot("debugSlot")
   );
+  connect(    //CONNECT DC_DEC-> OUT
+    pidMod,
+    pidMod->getSignal("DutyCyclePWMdec"),
+    modRouterOut,
+    pwmDec
+  );
 
   connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
     modRouterIn,
-    temp,
+    actualTemp,
     pidMod,
     pidMod->getSlot("actualTemperature")
   );
