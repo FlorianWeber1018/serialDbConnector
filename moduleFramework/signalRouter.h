@@ -18,7 +18,7 @@ public:
 protected:
   mysqlcon* mySqlConnection = nullptr;
   void process() override;
-  std::map<mysqlcon, Signal*> m_signals;
+  std::map<mySqlSignal, Signal*> m_signals;
   void emitSignal(const mySqlSignal& key, int value);
 private:
 };
