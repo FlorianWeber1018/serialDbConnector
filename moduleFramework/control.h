@@ -3,13 +3,13 @@
 #include <climits>
 struct config_PID
 {
-  float kp        = 10;
+  float kp        = 2000;
     float up_max  = INT_MAX;
     float up_min  = INT_MIN;
-  float ki        = 10;
+  float ki        = 0;
     float ui_max  = INT_MAX;
     float ui_min  = INT_MIN;
-  float kd        = 10;
+  float kd        = 0;
     float ud_max  = INT_MAX;
     float ud_min  = INT_MIN;
 };
@@ -34,9 +34,9 @@ struct config_ServoPWM
   int input_max  = 30000;
   int input_min  = -30000;
   float incPWM_max = 255;
-  float incPWM_min = 0;
+  float incPWM_min = 30;
   float decPWM_max = 255;
-  float decPWM_min = 0;
+  float decPWM_min = 30;
 };
 
 class ServoPWM

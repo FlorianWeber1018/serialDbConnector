@@ -44,7 +44,7 @@ int main()
   modDebugDec->m_config.identifier = "pwm Dec";
 
   Module_constant* modRequiredTemp = new Module_constant();
-  modRequiredTemp->m_config.constValue = 50;
+  modRequiredTemp->m_config.constValue = 60;
 
 
   connect(    //CONNECT DC_INC-> debug
@@ -129,7 +129,7 @@ void triggerGlobalClock()
 }
 void initGlobalClock()
 {
-  Clock clock(std::chrono::milliseconds(100),
+  Clock clock(std::chrono::milliseconds(200),
   triggerGlobalClock );
   if (debugMode) std::cout << "Now starting mainloop" << std::endl;
   clock.run();
