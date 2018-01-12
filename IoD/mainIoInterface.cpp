@@ -22,7 +22,7 @@ int main()
 				cout<<"sucessfully connected to both"<<std::endl;
 				m_ArduIoInterface->mainloop();
 			}
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 		}
 	cout<<"app ended"<<endl;
 	return 0;
