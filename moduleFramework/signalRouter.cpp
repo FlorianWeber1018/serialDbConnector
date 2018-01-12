@@ -51,7 +51,7 @@ void SignalRouterIn::process()
       try{ signal = m_signals.at(tempSignal); }
       catch (const std::out_of_range& oor) { continue; }
       if(signal != nullptr){
-        signal->value = row[4];
+        signal->value = std::stoi(row[4]);
         for(auto&& slot: signal->slots){
           slot->synced=true;
         }
