@@ -22,6 +22,10 @@ struct mySqlSignal{
   bool operator==(mySqlSignal const& otherSig);
   bool operator < ( const mySqlSignal &otherSig );
 };
+struct mySqlSignalCompare
+{
+   bool operator() (const mySqlSignal& lhs, const mySqlSignal& rhs) const;
+};
 
 struct Slot
 {
