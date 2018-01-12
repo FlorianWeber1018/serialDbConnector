@@ -93,13 +93,13 @@ void SignalRouterOut::process()
     moveToBorders( preVal, key_val.second->min, key_val.second->max );
     sqlQuery.append(std::to_string( preVal ) );
     sqlQuery.append(" WHERE DeviceID = ");
-    sqlQuery.append(std::to_string( key_val.first.DeviceID ));
+    sqlQuery.append( key_val.first.DeviceID );
     sqlQuery.append(" AND PortType = ");
-    sqlQuery.append(std::to_string( key_val.first.PortType ));
+    sqlQuery.append( key_val.first.PortType );
     sqlQuery.append(" AND Port = ");
-    sqlQuery.append(std::to_string( key_val.first.Port ));
+    sqlQuery.append( key_val.first.Port );
     sqlQuery.append(" AND Pin = ");
-    sqlQuery.append(std::to_string( key_val.first.Pin ));
+    sqlQuery.append( key_val.first.Pin );
     sqlQuery.append(" ;");
     MYSQL_RES* result = nullptr;
     result = mySqlConnection->sendCommand_senderThread(sqlQuery);
