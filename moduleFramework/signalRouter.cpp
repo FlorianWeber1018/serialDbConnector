@@ -17,7 +17,7 @@ SignalRouterIn::SignalRouterIn(
   globalClock.addDestination(this);
 }
 
-Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
+Signal* SignalRouterIn::createSignalIfNotexist( mySqlSignal const& key)
 {
   if(!m_signals.find(key)){
     Signal* newSignal = new Signal();
