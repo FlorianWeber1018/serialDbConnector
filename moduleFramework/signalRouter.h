@@ -5,7 +5,7 @@
 #include <map>
 #include <iostream>
 
-class SignalRouterIn : protected Module
+class SignalRouterIn : public Module
 {
 public:
   SignalRouterIn(
