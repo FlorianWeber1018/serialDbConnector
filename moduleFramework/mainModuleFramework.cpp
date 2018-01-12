@@ -20,7 +20,7 @@ int main()
   temp.Port     = "0";
   temp.Pin      = "0";
 
-  Module_3WayValve* pidMod= new Module_3WayValve()
+  Module_3WayValve* pidMod = new Module_3WayValve();
 
   Module_debug* modDebugInc = new Module_debug();
   modDebugInc->m_config.identifier = "pwm Inc";
