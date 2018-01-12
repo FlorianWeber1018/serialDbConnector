@@ -6,11 +6,13 @@
 
 
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
-  Module* receiver, Slot* _Slot);
+  Module* receiver, Slot* _Slot
+);
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);
 void connect(
   Module* sender, Signal* _Signal,
-  SignalRouterOut* signalRouter, mySqlSignal const& _extSignal);
+  SignalRouterOut* signalRouter, mySqlSignal const& _extSignal
+);
 
 template <typename T>
 void moveToBorders(T &value, T const& min, T const& max)
