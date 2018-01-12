@@ -10,7 +10,7 @@ void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot);                                                   //done
 //void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, mySqlSignal const& _extSignal);  //done
 
-template <typname T>
+template <typename T>
 void moveToBorders(T &value, T const& min, T const& max)
 {
   if(value < min){
@@ -20,7 +20,7 @@ void moveToBorders(T &value, T const& min, T const& max)
   }
 };
 
-template <typname T>
+template <typename T>
 void moveToBorders(
   T &value, T const& min, T const& max, T const& min_value, T const& max_value)
 {
