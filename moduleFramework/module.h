@@ -19,7 +19,15 @@ struct mySqlSignal{
   std::string PortType;
   std::string Port;
   std::string Pin;
-  bool operator==(mySqlSignal const& otherSig);
+  bool operator==(mySqlSignal const& otherSig)
+  {
+    return (
+      this->DeviceID  ==  otherSig.DeviceID   &&
+      this->PortType  ==  otherSig.PortType   &&
+      this->Port      ==  otherSig.Port       &&
+      this->Pin       ==  otherSig.Pin
+    );
+  };
   bool operator < ( const mySqlSignal& otherSig )
   {
     return(
