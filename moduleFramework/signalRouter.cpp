@@ -37,7 +37,7 @@ void SignalRouterIn::process()
 {
   std::string sqlQuery="SELECT IoValue.DeviceID, IoValue.PortType, IoValue.Port, IoValue.Pin, IoValue.actualState From IoValue;";
 
-  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
+  MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
 
   MYSQL_ROW row;
 
