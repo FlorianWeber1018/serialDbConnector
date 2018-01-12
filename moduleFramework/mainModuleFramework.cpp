@@ -20,7 +20,7 @@ int main()
   temp.Port     = "0";
   temp.Pin      = "0";
 
-  Module_3WayValve* = new Module_3WayValve()
+  Module_3WayValve* pidMod= new Module_3WayValve()
 
   Module_debug* modDebugInc = new Module_debug();
   modDebugInc->m_config.identifier = "pwm Inc";
@@ -32,15 +32,15 @@ int main()
   modRequiredTemp->m_config.constValue = 50;
 
   connect(    //CONNECT DC_INC-> debug
-    Module_3WayValve,
-    Module_3WayValve->getSignal("DutyCyclePWMinc"),
+    pidMod,
+    pidMod->getSignal("DutyCyclePWMinc"),
     modDebugInc,
     modDebugInc->getSlot("debugSlot")
   );
 
   connect(    //CONNECT DC_DEC-> debug
-    Module_3WayValve,
-    Module_3WayValve->getSignal("DutyCyclePWMdec"),
+    pidMod,
+    pidMod->getSignal("DutyCyclePWMdec"),
     modDebugDec,
     modDebugDec->getSlot("debugSlot")
   );
@@ -48,15 +48,15 @@ int main()
   connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
     modRouterIn,
     temp,
-    Module_3WayValve,
-    Module_3WayValve->getSlot("actualTemperature")
+    pidMod,
+    pidMod->getSlot("actualTemperature")
   );
 
   connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
     modRequiredTemp,
     modRequiredTemp->getSignal("constSig"),
-    Module_3WayValve,
-    Module_3WayValve->getSlot("requiredTemperature")
+    pidMod,
+    pidMod->getSlot("requiredTemperature")
   );
 
 
