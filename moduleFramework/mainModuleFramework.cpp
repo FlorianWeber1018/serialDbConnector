@@ -36,23 +36,23 @@ int main()
   pwmDec.Pin      = "6";
 
   Module_3WayValve* pidMod = new Module_3WayValve();
-
+/*
   Module_debug* modDebugInc = new Module_debug();
   modDebugInc->m_config.identifier = "pwm Inc";
 
   Module_debug* modDebugDec = new Module_debug();
   modDebugDec->m_config.identifier = "pwm Dec";
-
+*/
   Module_constant* modRequiredTemp = new Module_constant();
-  modRequiredTemp->m_config.constValue = 60;
+  modRequiredTemp->m_config.constValue = 55;
 
 
-  connect(    //CONNECT DC_INC-> debug
+/*  connect(    //CONNECT DC_INC-> debug
     pidMod,
     pidMod->getSignal("DutyCyclePWMinc"),
     modDebugInc,
     modDebugInc->getSlot("debugSlot")
-  );
+  );*/
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
     pidMod->getSignal("DutyCyclePWMinc"),
@@ -60,13 +60,13 @@ int main()
     pwmInc
   );
 
-
+/*
   connect(    //CONNECT DC_DEC-> debug
     pidMod,
     pidMod->getSignal("DutyCyclePWMdec"),
     modDebugDec,
     modDebugDec->getSlot("debugSlot")
-  );
+  );*/
   connect(    //CONNECT DC_DEC-> OUT
     pidMod,
     pidMod->getSignal("DutyCyclePWMdec"),
