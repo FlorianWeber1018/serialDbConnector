@@ -43,13 +43,13 @@ class Module
 public:
   Signal* getSignal(std::string signalName);
   Slot* getSlot(std::string slotName);
-
-  std::vector<Module*> m_postModules;
+  void addPostModule(Module* postModule);
   void trigger();
   ~Module();
 private:
 
 protected:
+  std::vector<Module*> m_postModules;
   std::map<std::string, Signal*> m_signals;
   std::map<std::string, Slot*> m_slots;
   Signal* createSignal(std::string signalName);

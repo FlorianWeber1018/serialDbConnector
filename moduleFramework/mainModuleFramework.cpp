@@ -11,6 +11,10 @@ int main()
 {
   /*Module* _1x1 = new Module();
   _1x1->*/
+  SignalRouterIn modRouterIn;
+
+
+
   Module_constant modConst;
   modConst.m_config.constValue = 50;
 

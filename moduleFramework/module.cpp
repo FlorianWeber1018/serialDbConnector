@@ -121,6 +121,10 @@ Signal* Module::getSignal(std::string signalName)
     return nullptr;
   }
 }
+void Module::addPostModule(Module* postModule)
+{
+  m_postModules.push_back(postModule);
+}
 
 Slot* Module::getSlot(std::string slotName)
 {
