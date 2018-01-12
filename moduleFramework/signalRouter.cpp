@@ -60,6 +60,7 @@ void SignalRouterIn::process()
     }
     mysql_free_result(result);
   }
+  if(debugMode) std::cout << "signalRouterIn::process()" << std::endl;
 }
 // ____signalRouterOut__________________________________________________________
 
