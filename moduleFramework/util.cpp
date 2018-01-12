@@ -1,6 +1,7 @@
 #include "util.h"
 #include <chrono>
 #include <thread>
+#include "signalRouter.h"
 void connect(SignalRouter* signalRouter, mySqlSignal const& _extSignal, Module* receiver, Slot* _Slot)
 {
   connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
