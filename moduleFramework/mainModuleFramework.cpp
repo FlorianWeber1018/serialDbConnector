@@ -18,10 +18,10 @@ int main()
     new SignalRouterOut("localhost", 3306, "IoD", "637013", "heizung");
 
   mySqlSignal actualTemp;
-  temp.DeviceID = "/dev/ttyACM0";
-  temp.PortType = "A";
-  temp.Port     = "0";
-  temp.Pin      = "0";
+  actualTemp.DeviceID = "/dev/ttyACM0";
+  actualTemp.PortType = "A";
+  actualTemp.Port     = "0";
+  actualTemp.Pin      = "0";
 
   mySqlSignal pwmInc;
   pwmInc.DeviceID = "/dev/ttyACM0";
