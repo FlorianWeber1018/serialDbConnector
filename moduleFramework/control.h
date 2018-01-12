@@ -9,7 +9,7 @@ struct config_PID
   float ki        = 0;
     float ui_max  = INT_MAX;
     float ui_min  = INT_MIN;
-  float kd        = 1500;
+  float kd        = 800;
     float ud_max  = INT_MAX;
     float ud_min  = INT_MIN;
 };
