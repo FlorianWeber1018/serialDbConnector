@@ -24,8 +24,7 @@ Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
 
 void SignalRouterIn::trigger()
 {
-  process();
-  triggerNext();
+  Module::trigger();
 }
 
 void SignalRouterIn::process()
