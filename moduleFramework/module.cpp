@@ -186,7 +186,7 @@ bool mySqlSignal::operator == (mySqlSignal const& otherSig)
     this->Pin       ==  otherSig.Pin
   );
 }
-bool mySqlSignal::operator < ( mySqlSignal const& otherSig )
+bool mySqlSignal::operator < (const mySqlSignal otherSig)
 {
   return(
     ( this->DeviceID <  otherSig.DeviceID )  ||
