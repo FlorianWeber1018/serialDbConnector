@@ -177,15 +177,7 @@ void ClockDistributer::rmDestination(Module* destModule)
   }
 }
 // ____mySqlSignal______________________________________________________________
-bool mySqlSignal::operator == (mySqlSignal const& otherSig)
-{
-  return (
-    this->DeviceID  ==  otherSig.DeviceID   &&
-    this->PortType  ==  otherSig.PortType   &&
-    this->Port      ==  otherSig.Port       &&
-    this->Pin       ==  otherSig.Pin
-  );
-}
+
 
 
 /*bool mySqlSignalCompare::operator() (
