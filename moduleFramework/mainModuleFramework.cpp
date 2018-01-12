@@ -26,14 +26,14 @@ int main()
   Module_debug* modDebug = new Module_debug();
   modDebug->m_config.identifier = "TEST";
 
-/*  connect(
+  connect(
     modRouterIn,
     temp,
     modDebug,
     modDebug->getSlot("debugSlot")
   );
 
-*/
+
 
 
 /*
