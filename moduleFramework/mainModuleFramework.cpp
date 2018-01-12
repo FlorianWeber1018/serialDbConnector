@@ -11,20 +11,30 @@ int main()
 {
   /*Module* _1x1 = new Module();
   _1x1->*/
-  SignalRouterIn modRouterIn;
+  SignalRouterIn* modRouterIn =
+    new SignalRouterIn("localhost", 3306, "IoD", "637013", "heizung");
 
-
-
-  Module_constant modConst;
-  modConst.m_config.constValue = 50;
-
-
-  Module_debug modDebug;
-  modDebug.m_config.identifier = "test passed when there is the truth ";
+  mySqlSignal temp;
+  temp.DeviceID = "/dev/ttyACM0";
+  temp.PortType = "A";
+  temp.Port     = "0";
+  temp.Pin      = "0";
 
 
 
 
+  Module_debug* modDebug = new Module_debug();
+  modDebug->m_config.identifier = "TEST";
+
+  connect(
+    modRouterIn,
+    temp,
+    modDebug,
+    modDebug->getSlot("debugSlot")
+  );
+
+
+/*
   connect(
     static_cast<Module*>(&modConst),
     modConst.getSignal("constSig"),
@@ -32,7 +42,7 @@ int main()
     modDebug.getSlot("debugSlot")
   );
 
-/*
+
   test(30001);
   test(30000);
   test(29999);
