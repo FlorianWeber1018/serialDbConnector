@@ -45,7 +45,7 @@ void SignalRouterIn::process()
       mySqlSignal tempSignal;
       tempSignal.DeviceID = row[0];
       tempSignal.PortType = row[1];
-      tempSignal.PortType = row[2];
+      tempSignal.Port     = row[2];
       tempSignal.Pin      = row[3];
 
       Signal* signal = nullptr;
@@ -53,6 +53,7 @@ void SignalRouterIn::process()
       catch (const std::out_of_range& oor) { continue; }
       if(signal != nullptr){
         signal->value = std::stoi(row[4]);
+
         for(auto&& slot: signal->slots){
           slot->synced=true;
         }
