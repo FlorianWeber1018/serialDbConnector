@@ -74,7 +74,7 @@ void Module::triggerNext()
 {
   if(debugMode) std::cout << "Module::triggerNext" << std::endl;
   for(auto postModule : m_postModules){
-    std::cout << "1 Module triggered" << std::endl;
+    if (debugMode) std::cout << "1 Module triggered" << std::endl;
     postModule->trigger();
   }
 }
