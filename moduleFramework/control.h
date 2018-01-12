@@ -3,10 +3,10 @@
 #include <climits>
 struct config_PID
 {
-  float kp        = 3000;
+  float kp        = 2000;
     float up_max  = INT_MAX;
     float up_min  = INT_MIN;
-  float ki        = 0;
+  float ki        = 200;
     float ui_max  = INT_MAX;
     float ui_min  = INT_MIN;
   float kd        = 1500;
