@@ -74,7 +74,7 @@ void initGlobalClock()
 {
   Clock clock(std::chrono::milliseconds(100),
   triggerGlobalClock );
-  if (debugMode) std::cout << "Now starting mainloop"
+  if (debugMode) std::cout << "Now starting mainloop" << std::endl;
   clock.run();
   while(1){
     std::this_thread::sleep_for(std::chrono::milliseconds(10000));
