@@ -69,7 +69,7 @@ int main()
     pidMod,
     pidMod->getSlot("actualTemperature")
   );
-
+*/
   connect(    //CONNECT constant Signal -> requiredTemperature of PID
     modRequiredTemp,
     modRequiredTemp->getSignal("constSig"),
@@ -80,7 +80,7 @@ int main()
 
 
 
-*/
+
 
 
 
