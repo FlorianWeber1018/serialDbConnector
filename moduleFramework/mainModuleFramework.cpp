@@ -47,14 +47,14 @@ int main()
   modRequiredTemp->m_config.constValue = 55;
 
 
-/*
+/* */
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
     pidMod->getSignal("DutyCyclePWMinc"),
     modRouterOut,
     pwmInc
   );
-*/
+
 
   connect(    //CONNECT DC_DEC-> OUT
     pidMod,
