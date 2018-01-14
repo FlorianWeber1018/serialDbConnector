@@ -47,12 +47,7 @@ int main()
   modRequiredTemp->m_config.constValue = 55;
 
 
-/*  connect(    //CONNECT DC_INC-> debug
-    pidMod,
-    pidMod->getSignal("DutyCyclePWMinc"),
-    modDebugInc,
-    modDebugInc->getSlot("debugSlot")
-  );*/
+/*
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
     pidMod->getSignal("DutyCyclePWMinc"),
@@ -60,13 +55,7 @@ int main()
     pwmInc
   );
 
-/*
-  connect(    //CONNECT DC_DEC-> debug
-    pidMod,
-    pidMod->getSignal("DutyCyclePWMdec"),
-    modDebugDec,
-    modDebugDec->getSlot("debugSlot")
-  );*/
+
   connect(    //CONNECT DC_DEC-> OUT
     pidMod,
     pidMod->getSignal("DutyCyclePWMdec"),
@@ -81,7 +70,7 @@ int main()
     pidMod->getSlot("actualTemperature")
   );
 
-  connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
+  connect(    //CONNECT constant Signal -> requiredTemperature of PID
     modRequiredTemp,
     modRequiredTemp->getSignal("constSig"),
     pidMod,
@@ -91,28 +80,6 @@ int main()
 
 
 
-/*
-  connect(
-    static_cast<Module*>(&modConst),
-    modConst.getSignal("constSig"),
-    static_cast<Module*>(&modDebug),
-    modDebug.getSlot("debugSlot")
-  );
-
-
-  test(30001);
-  test(30000);
-  test(29999);
-  test(5883);
-  test(5882);
-  test(5881);
-  test(0);
-  test(-5881);
-  test(-5882);
-  test(-5883);
-  test(-29999);
-  test(-30000);
-  test(-30001);
 */
 
 
