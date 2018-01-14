@@ -44,7 +44,7 @@ int main()
   modDebugDec->m_config.identifier = "pwm Dec";
 */
   Module_constant* modRequiredTemp = new Module_constant();
-  modRequiredTemp->m_config.constValue = 55;
+  modRequiredTemp->m_config.constValue = 45;
 
 
 /* */
