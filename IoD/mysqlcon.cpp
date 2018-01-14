@@ -30,12 +30,14 @@ bool mysqlcon::connect()
 	if (m_mysql_dispatcherThread == NULL)
 	{
 		mysql_close(m_mysql_dispatcherThread);
+		mysql_close(m_mysql_senderThread);
 		return false;
 	}
 
 	//Connect to the database
 	if (mysql_real_connect(m_mysql_senderThread, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
+		mysql_close(m_mysql_dispatcherThread);
 		mysql_close(m_mysql_senderThread);
 		return false;
 	}
@@ -45,6 +47,7 @@ bool mysqlcon::connect()
 	}
 	if (mysql_real_connect(m_mysql_dispatcherThread, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
+		mysql_close(m_mysql_senderThread);
 		mysql_close(m_mysql_dispatcherThread);
 		return false;
 	}
