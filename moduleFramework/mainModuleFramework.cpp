@@ -62,14 +62,14 @@ int main()
     modRouterOut,
     pwmDec
   );
-
+*/
   connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
     modRouterIn,
     actualTemp,
     pidMod,
     pidMod->getSlot("actualTemperature")
   );
-*/
+
   connect(    //CONNECT constant Signal -> requiredTemperature of PID
     modRequiredTemp,
     modRequiredTemp->getSignal("constSig"),
