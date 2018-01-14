@@ -9,6 +9,7 @@ volatile bool recourcesAvailable = true;
 
 int main()
 {
+  std::this_thread::sleep_for(std::chrono::seconds(15));
   /*Module* _1x1 = new Module();
   _1x1->*/
   SignalRouterIn* modRouterIn =
