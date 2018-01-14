@@ -54,7 +54,7 @@ int main()
     modRouterOut,
     pwmInc
   );
-
+*/
 
   connect(    //CONNECT DC_DEC-> OUT
     pidMod,
@@ -62,7 +62,7 @@ int main()
     modRouterOut,
     pwmDec
   );
-*/
+
   connect(    //CONNECT Temperature Signal -> actualTemperatur of PID
     modRouterIn,
     actualTemp,
