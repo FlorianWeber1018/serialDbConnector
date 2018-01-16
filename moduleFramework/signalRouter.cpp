@@ -38,7 +38,7 @@ Signal* SignalRouterIn::createSignalIfNotexist(const mySqlSignal& key)
 
 void SignalRouterIn::process()
 {
-  //getTime();
+  getTime();
   std::string sqlQuery="SELECT IoValue.DeviceID, IoValue.PortType, IoValue.Port, IoValue.Pin, IoValue.actualState From IoValue;";
 
   MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
@@ -82,14 +82,14 @@ void SignalRouterIn::getTime()
   MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
 
   MYSQL_ROW row;
-  std::string now = "";
+  std::string now;
   if(result != nullptr){
     now = row[0];
     mysql_free_result(result);
   }else{
     return;
   }
-
+/*
   for (auto&& signalName_signal : m_timeSignals){
     sqlQuery="SELECT ";
     sqlQuery.append(signalName_signal.first);
@@ -107,7 +107,7 @@ void SignalRouterIn::getTime()
       mysql_free_result(result);
     }
   }
-
+*/
 }
 // ____signalRouterOut__________________________________________________________
 
