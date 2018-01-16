@@ -37,13 +37,7 @@ int main()
   pwmDec.Pin      = "6";
 
   Module_3WayValve* pidMod = new Module_3WayValve();
-/*
-  Module_debug* modDebugInc = new Module_debug();
-  modDebugInc->m_config.identifier = "pwm Inc";
 
-  Module_debug* modDebugDec = new Module_debug();
-  modDebugDec->m_config.identifier = "pwm Dec";
-*/
   Module_constant* modRequiredTemp = new Module_constant();
   modRequiredTemp->m_config.constValue = 45;
 
@@ -79,8 +73,24 @@ int main()
   );
 
 
+  Module_debug* modMin = new Module_debug();
+  modMin->m_config.identifier = "minute";
 
+  Module_debug* modSec = new Module_debug();
+  modSec->m_config.identifier = "second";
 
+  connect(    //CONNECT constant Signal -> requiredTemperature of PID
+    modRouterIn,
+    "minute",
+    modMin,
+    pidMod->getSlot("debugSlot");
+  );
+  connect(    //CONNECT constant Signal -> requiredTemperature of PID
+    modRouterIn,
+    "second",
+    modSec,
+    modSec->getSlot("debugSlot");
+  );
 
 
 
