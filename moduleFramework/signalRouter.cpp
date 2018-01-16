@@ -86,7 +86,6 @@ void SignalRouterIn::getTime()
   if(result != nullptr){
     if(row = mysql_fetch_row(result)){
       now = row[0];
-      mysql_free_result(result);
     }else{
       mysql_free_result(result);
       return;
