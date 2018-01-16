@@ -23,13 +23,12 @@ bool mysqlcon::connect()
 	m_mysql_senderThread = mysql_init(NULL);
 	if (m_mysql_senderThread == NULL)
 	{
-		mysql_close(m_mysql_senderThread);
+
 		return false;
 	}
 	m_mysql_dispatcherThread = mysql_init(NULL);
 	if (m_mysql_dispatcherThread == NULL)
 	{
-		mysql_close(m_mysql_dispatcherThread);
 		mysql_close(m_mysql_senderThread);
 		return false;
 	}
