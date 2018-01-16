@@ -85,7 +85,7 @@ void SignalRouterIn::getTime()
   std::string now = "";
   if(result != nullptr){
     now = row[0];
-    mysql_free_result(result)
+    mysql_free_result(result);
   }else{
     return;
   }
