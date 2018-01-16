@@ -37,8 +37,8 @@ bool mysqlcon::connect()
 	//Connect to the database
 	if (mysql_real_connect(m_mysql_senderThread, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
-		mysql_close(m_mysql_dispatcherThread);
-		mysql_close(m_mysql_senderThread);
+		this->connected_senderThread = true;
+		this->disconnect();
 		return false;
 	}
 	else
@@ -47,8 +47,8 @@ bool mysqlcon::connect()
 	}
 	if (mysql_real_connect(m_mysql_dispatcherThread, host.c_str(), user.c_str(), pw.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
-		mysql_close(m_mysql_senderThread);
-		mysql_close(m_mysql_dispatcherThread);
+		this->connected_dispatcherThread = true;
+		this->disconnect();
 		return false;
 	}
 	else
