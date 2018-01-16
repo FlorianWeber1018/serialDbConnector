@@ -84,12 +84,18 @@ void SignalRouterIn::getTime()
   MYSQL_ROW row;
   std::string now;
   if(result != nullptr){
-    now = row[0];
+    if(row = mysql_fetch_row(result)){
+      now = row[0];
+      mysql_free_result(result);
+    }else{
+      mysql_free_result(result);
+      return;
+    }
     mysql_free_result(result);
   }else{
     return;
   }
-/*
+
   for (auto&& signalName_signal : m_timeSignals){
     sqlQuery="SELECT ";
     sqlQuery.append(signalName_signal.first);
@@ -98,16 +104,18 @@ void SignalRouterIn::getTime()
     sqlQuery.append("');");
     result = mySqlConnection->sendCommand_senderThread(sqlQuery);
     if(result != nullptr){
-      if(signalName_signal.second != nullptr){
-        signalName_signal.second->value = std::stoi(row[0]);
-        for(auto&& slot: signalName_signal.second->slots){
-          slot->synced=true;
+      if(row = mysql_fetch_row(result)){
+        if(signalName_signal.second != nullptr){
+          signalName_signal.second->value = std::stoi(row[0]);
+          for(auto&& slot: signalName_signal.second->slots){
+            slot->synced=true;
+          }
         }
       }
       mysql_free_result(result);
     }
   }
-*/
+
 }
 // ____signalRouterOut__________________________________________________________
 
