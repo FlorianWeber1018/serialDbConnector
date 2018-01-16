@@ -83,13 +83,14 @@ int main()
     modRouterIn,
     "minute",
     modMin,
-    pidMod->getSlot("debugSlot");
+    modMin->getSlot("debugSlot")
   );
+
   connect(    //CONNECT constant Signal -> requiredTemperature of PID
     modRouterIn,
     "second",
     modSec,
-    modSec->getSlot("debugSlot");
+    modSec->getSlot("debugSlot")
   );
 
 
