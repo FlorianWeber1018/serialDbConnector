@@ -21,7 +21,7 @@ protected:
   void getTime();
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Signal*> m_signals;
-  std::map<string, Signal*> m_timeSignals;
+  std::map<std::string, Signal*> m_timeSignals;
 
 
 private:
