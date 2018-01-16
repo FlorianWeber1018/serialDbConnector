@@ -79,14 +79,14 @@ int main()
   Module_debug* modSec = new Module_debug();
   modSec->m_config.identifier = "second";
 
-  connectTimeSignal(    //CONNECT constant Signal -> requiredTemperature of PID
+  connectToTime(    //CONNECT constant Signal -> requiredTemperature of PID
     modRouterIn,
     "minute",
     modMin,
     modMin->getSlot("debugSlot")
   );
 
-  connectTimeSignal(    //CONNECT constant Signal -> requiredTemperature of PID
+  connectToTime(    //CONNECT constant Signal -> requiredTemperature of PID
     modRouterIn,
     "second",
     modSec,
