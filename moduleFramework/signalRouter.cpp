@@ -12,6 +12,15 @@ SignalRouterIn::SignalRouterIn(
   while(!mySqlConnection->connect()){
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
+
+  m_timeSignals["year"] = new Signal();
+  m_timeSignals["month"] = new Signal();
+  m_timeSignals["day"] = new Signal();
+  m_timeSignals["weekday"] = new Signal();
+  m_timeSignals["hour"] = new Signal();
+  m_timeSignals["minute"] = new Signal();
+  m_timeSignals["second"] = new Signal();
+
   globalClock.addDestination(this);
   if(debugMode) std::cout << "SignalRouterIn::SignalRouterIn()" << std::endl;
 }
@@ -57,6 +66,47 @@ void SignalRouterIn::process()
     mysql_free_result(result);
   }
   if(debugMode) std::cout << "signalRouterIn::process()" << std::endl;
+}
+
+Signal* SignalRouterIn::getTimeSignal(const std::string& key)
+{
+  Signal* signal = nullptr;
+  try{ signal = m_timeSignals.at(key); }
+  catch (const std::out_of_range& oor) { return nullptr; }
+  return signal;
+}
+void SignalRouterIn::getTime()
+{
+  std::string sqlQuery="SELECT NOW();";
+  MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+
+  MYSQL_ROW row;
+  std::string now = "";
+  if(result != nullptr){
+    now = row[0];
+    mysql_free_result(result)
+  }else{
+    return;
+  }
+
+  for (auto&& signalName_signal : m_timeSignals){
+    sqlQuery="SELECT ";
+    sqlQuery.append(signalName_signal.first);
+    sqlQuery.append("('");
+    sqlQuery.append(now);
+    sqlQuery.append("');");
+    result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+    if(result != nullptr){
+      if(signalName_signal.second != nullptr){
+        signalName_signal.second->value = std::stoi(row[0]);
+        for(auto&& slot: signalName_signal.second->slots){
+          slot->synced=true;
+        }
+      }
+      mysql_free_result(result);
+    }
+  }
+
 }
 // ____signalRouterOut__________________________________________________________
 

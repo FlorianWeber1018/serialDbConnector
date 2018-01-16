@@ -13,17 +13,17 @@ public:
      std::string db
   );
   Signal* createSignalIfNotexist(const mySqlSignal& key);
-
+  Signal* getTimeSignal(const std::string& key);
 
 protected:
   mysqlcon* mySqlConnection = nullptr;
   void process() override;
+  void getTime();
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Signal*> m_signals;
-  Signal m_signal_WeekDay;
-  Signal m_signal_Hour;
-  Signal m_signal_Minute;
-  Signal m_signal_Second; 
+  std::map<string, Signal*> m_timeSignals;
+
+
 private:
 };
 
