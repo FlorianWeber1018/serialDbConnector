@@ -3,7 +3,16 @@
 
 #include "signalRouter.h"
 
-
+struct Time
+{
+  int year;
+  int month;
+  int weekday;
+  int day;
+  int hour;
+  int minute;
+  int second;
+};
 
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
   Module* receiver, Slot* _Slot

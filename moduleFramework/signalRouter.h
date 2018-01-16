@@ -20,6 +20,10 @@ protected:
   void process() override;
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Signal*> m_signals;
+  Signal m_signal_WeekDay;
+  Signal m_signal_Hour;
+  Signal m_signal_Minute;
+  Signal m_signal_Second; 
 private:
 };
 
