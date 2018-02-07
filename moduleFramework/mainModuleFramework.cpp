@@ -41,7 +41,21 @@ int main()
   Module_constant* modRequiredTemp = new Module_constant();
   modRequiredTemp->m_config.constValue = 45;
 
+  mySqlSignal WWTemp;
+  actualTemp.DeviceID = "/dev/ttyACM0";
+  actualTemp.PortType = "A";
+  actualTemp.Port     = "0";
+  actualTemp.Pin      = "1";
 
+  mySqlSignal HKP0;
+  actualTemp.DeviceID = "/dev/ttyACM0";
+  actualTemp.PortType = "I";
+  actualTemp.Port     = "2";
+  actualTemp.Pin      = "7";
+
+  Module_2Point* WW = new Module_2Point();
+  Module_constant* modWWTemp = new Module_constant();
+  modRequiredTemp->m_config.constValue = 45;
 /* */
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
@@ -73,20 +87,45 @@ int main()
   );
 
 
+
+
+  connect( // connect WWTemp min -> T2
+    modWWTemp,
+    modWWTemp->getSignal("constSig"),
+    WW,
+    WW->getSlot("T2")
+  );
+
+  connect( // connect WWTemp min -> T2
+    modRouterIn,
+    WWTemp
+    WW,
+    WW->getSlot("T1")
+  );
+
+  connect( // connect outState -> pumpe heizkreis
+    WW,
+    WW->getSignal("outState"),
+    modRouterOut,
+    HKP0
+  );
+
+
+
   Module_debug* modMin = new Module_debug();
   modMin->m_config.identifier = "minute";
 
   Module_debug* modSec = new Module_debug();
   modSec->m_config.identifier = "second";
 
-  connectToTime(    //CONNECT constant Signal -> requiredTemperature of PID
+  connectToTime(    //CONNECT minute Signal -> debug
     modRouterIn,
     "minute",
     modMin,
     modMin->getSlot("debugSlot")
   );
 
-  connectToTime(    //CONNECT constant Signal -> requiredTemperature of PID
+  connectToTime(    //CONNECT second Signal -> debug
     modRouterIn,
     "second",
     modSec,
