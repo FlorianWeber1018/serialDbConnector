@@ -250,6 +250,7 @@ Module_2Point::Module_2Point()
   createSlot("T1");
   createSlot("T2");
   createSignal("outState");
+  std::cout << "constructor 2point" <<  std::endl;
 }
 void Module_2Point::process()
 {
