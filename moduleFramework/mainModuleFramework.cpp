@@ -98,7 +98,7 @@ int main()
 
   connect( // connect WWTemp min -> T2
     modRouterIn,
-    WWTemp
+    WWTemp,
     WW,
     WW->getSlot("T1")
   );
