@@ -170,7 +170,7 @@ private:
 struct module_config_2Point : public module_config
 {
   int dT_on = 8;
-  int dT_off = 4;
+  int dT_off = 1;
 };
 
 
