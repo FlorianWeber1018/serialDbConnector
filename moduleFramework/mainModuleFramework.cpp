@@ -55,7 +55,7 @@ int main()
 
   Module_2Point* WW = new Module_2Point();
   Module_constant* modWWTemp = new Module_constant();
-  modRequiredTemp->m_config.constValue = 45;
+  modWWTemp->m_config.constValue = 45;
 /* */
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
