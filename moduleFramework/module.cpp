@@ -250,7 +250,6 @@ Module_2Point::Module_2Point()
   createSlot("T1");
   createSlot("T2");
   createSignal("outState");
-
 }
 void Module_2Point::process()
 {
