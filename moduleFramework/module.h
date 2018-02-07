@@ -165,7 +165,7 @@ private:
 };
 //______________________________________________________________________________
 //____Module which provides an 2-Point Controller_______________________________
-//    IN:  dT_on, dT_off
+//    IN:  T1, T2
 //    OUT: state (1/0)
 struct module_config_2Point : public module_config
 {
