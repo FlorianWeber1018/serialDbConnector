@@ -169,8 +169,8 @@ private:
 //    OUT: state (1/0)
 struct module_config_2Point : public module_config
 {
-  config_ServoPWM* pwmConfig;
-  config_PID* pidConfig;
+  int dT_on = 8;
+  int dT_off = 4;
 };
 
 
@@ -180,6 +180,7 @@ public:
   Module_2Point();
   module_config_2Point m_config;
 protected:
+  int outState = 0;
   void process() override;
 private:
 };
