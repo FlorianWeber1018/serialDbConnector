@@ -145,7 +145,8 @@ class Module_debug : public Module
 //____Module which controls an 3-way-valve______________________________________
 //    IN:  requiredTemperature , actualTemperatur
 //    OUT: DutyCyclePWMinc, DutyCyclePWMdec,
-struct module_config_3WayValve{
+struct module_config_3WayValve : public module_config
+{
   config_ServoPWM* pwmConfig;
   config_PID* pidConfig;
 };
@@ -159,6 +160,26 @@ public:
 protected:
   PID pid;
   ServoPWM pwm;
+  void process() override;
+private:
+};
+//______________________________________________________________________________
+//____Module which provides an 2-Point Controller_______________________________
+//    IN:  dT_on, dT_off
+//    OUT: state (1/0)
+struct module_config_2Point : public module_config
+{
+  config_ServoPWM* pwmConfig;
+  config_PID* pidConfig;
+};
+
+
+class Module_2Point : public Module
+{
+public:
+  Module_2Point();
+  module_config_2Point m_config;
+protected:
   void process() override;
 private:
 };
