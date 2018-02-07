@@ -42,18 +42,19 @@ int main()
   modRequiredTemp->m_config.constValue = 45;
 
   mySqlSignal WWTemp;
-  actualTemp.DeviceID = "/dev/ttyACM0";
-  actualTemp.PortType = "A";
-  actualTemp.Port     = "0";
-  actualTemp.Pin      = "1";
+  WWTemp.DeviceID = "/dev/ttyACM0";
+  WWTemp.PortType = "A";
+  WWTemp.Port     = "0";
+  WWTemp.Pin      = "1";
 
   mySqlSignal HKP0;
-  actualTemp.DeviceID = "/dev/ttyACM0";
-  actualTemp.PortType = "I";
-  actualTemp.Port     = "2";
-  actualTemp.Pin      = "7";
+  HKP0.DeviceID = "/dev/ttyACM0";
+  HKP0.PortType = "I";
+  HKP0.Port     = "2";
+  HKP0.Pin      = "7";
 
   Module_2Point* WW = new Module_2Point();
+
   Module_constant* modWWTemp = new Module_constant();
   modWWTemp->m_config.constValue = 45;
 /* */
