@@ -255,6 +255,7 @@ Module_2Point::Module_2Point()
 void Module_2Point::process()
 {
   int diff = getSignalValue("T1")-getSignalValue("T2");
+  std::cout << "diff: " << diff << std::endl;
   if(diff >= m_config.dT_on){
     outState=1;
   }else if(diff <= m_config.dT_off){
