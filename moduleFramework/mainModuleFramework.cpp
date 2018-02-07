@@ -111,7 +111,7 @@ int main()
   );
 
 
-
+/*
   Module_debug* modMin = new Module_debug();
   modMin->m_config.identifier = "minute";
 
@@ -131,7 +131,7 @@ int main()
     modSec,
     modSec->getSlot("debugSlot")
   );
-
+*/
 
 
 
