@@ -57,6 +57,13 @@ int main()
 
   Module_constant* modWWTemp = new Module_constant();
   modWWTemp->m_config.constValue = 45;
+
+  
+  Module_constant* modTRUE = new Module_constant();
+  modTRUE->m_config.constValue = 1;
+
+  Module_constant* modFALSE = new Module_constant();
+  modFALSE->m_config.constValue = 0;
 /* */
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
@@ -110,6 +117,7 @@ int main()
     modRouterOut,
     HKP0
   );
+
 
 
 /*
