@@ -188,4 +188,15 @@ private:
 //____Module which inverts an Bool Signal_______________________________________
 //    IN:  S (1/0)
 //    OUT: S (0/1)
+class Module_Inverter : public Module
+{
+public:
+  Module_Inverter();
+  module_config m_config;
+protected:
+  void process() override;
+private:
+};
+//______________________________________________________________________________
+
 #endif

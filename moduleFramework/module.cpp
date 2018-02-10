@@ -275,4 +275,22 @@ void Module_2Point::process()
   }
   emitSignal("outState", outState);
 }
+// ____MODULE_Inverter__________________________________________________________
+Module_Inverter::Module_Inverter()
+{
+  createSlot("S");
+  createSignal("S");
+}
+void Module_2Point::process()
+{
+  int value = getSignalValue("S");
+  if(value <= 1 && value >= 0){
+    if(value == 1){
+      value = 0;
+    }else{
+      value = 1;
+    }
+  }
+  emitSignal("S", value);
+}
 // _____________________________________________________________________________
