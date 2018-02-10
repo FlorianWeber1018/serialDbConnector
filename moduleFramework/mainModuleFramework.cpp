@@ -58,6 +58,8 @@ int main()
   Module_constant* modWWTemp = new Module_constant();
   modWWTemp->m_config.constValue = 45;
 
+  Module_Inverter* modInv = new Module_Inverter();
+
 
   Module_constant* modTRUE = new Module_constant();
   modTRUE->m_config.constValue = 1;
@@ -95,10 +97,17 @@ int main()
   );
 
   connect(    //CONNECT constant Signal -> !EN of PID
-    modFALSE,
-    modFALSE->getSignal("constSig"),
+    modInv,
+    modInv->getSignal("S"),
     pidMod,
     pidMod->getSlot("!EN")
+  );
+
+  connect(    //CONNECT Inverted Signal -> !EN of PID
+    WW,
+    WW->getSignal("outState"),
+    modInv,
+    modInv->getSlot("S")
   );
 
 
