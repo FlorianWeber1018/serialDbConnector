@@ -95,8 +95,8 @@ int main()
   );
 
   connect(    //CONNECT constant Signal -> !EN of PID
-    modTRUE,
-    modTRUE->getSignal("constSig"),
+    modFALSE,
+    modFALSE->getSignal("constSig"),
     pidMod,
     pidMod->getSlot("!EN")
   );
