@@ -281,7 +281,7 @@ Module_Inverter::Module_Inverter()
   createSlot("S");
   createSignal("S");
 }
-void Module_2Point::process()
+void Module_Inverter::process()
 {
   int value = getSignalValue("S");
   if(value <= 1 && value >= 0){
