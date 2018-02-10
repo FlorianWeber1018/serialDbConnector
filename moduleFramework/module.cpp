@@ -40,7 +40,11 @@ int Module::getSignalValue(std::string slotName)
     std::cout << "exception was cought : " << e.what() << std::endl;
     return preRet;
   }
-    if(slot != nullptr){
+  if(slot->value == nullptr){
+    return preRet;
+  }
+
+  if(slot != nullptr){
     preRet = *(slot->value);
     if(preRet > slot->max){
       preRet = slot->max;
