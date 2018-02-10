@@ -57,7 +57,7 @@ void Module::trigger()
 {
   bool allInputsSynced=true;
   for(auto slotName_slot : m_slots){
-    if((!slotName_slot.second->synced) && slotName_slot.second.value != nullptr){
+    if((!slotName_slot.second->synced) && slotName_slot.second->value != nullptr){
       allInputsSynced=false;
     }
   }
@@ -237,7 +237,7 @@ void Module_3WayValve::process()
 {
   int DC_inc, DC_dec;
   if(getSignalValue("!EN")){
-    DC_dec = m_config->pwmConfig.decPWM_max;
+    DC_dec = m_config.pwmConfig->decPWM_max;
     DC_inc = 0;
   }else{
     int y = static_cast<int> (
