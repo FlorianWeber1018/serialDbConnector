@@ -245,6 +245,7 @@ void Module_3WayValve::process()
     DC_dec = m_config.pwmConfig->decPWM_max;
     DC_inc = 0;
   }else{
+    std::cout << "RIGHT PATH" << std::endl;
     int y = static_cast<int> (
       pid.getOutput(
         static_cast<float>( getSignalValue("actualTemperature") ),
