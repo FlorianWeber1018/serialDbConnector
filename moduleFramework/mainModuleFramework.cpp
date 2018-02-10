@@ -58,7 +58,7 @@ int main()
   Module_constant* modWWTemp = new Module_constant();
   modWWTemp->m_config.constValue = 45;
 
-  
+
   Module_constant* modTRUE = new Module_constant();
   modTRUE->m_config.constValue = 1;
 
@@ -94,6 +94,12 @@ int main()
     pidMod->getSlot("requiredTemperature")
   );
 
+  connect(    //CONNECT constant Signal -> !EN of PID
+    modTRUE,
+    modTRUE->getSignal("constSig"),
+    pidMod,
+    pidMod->getSlot("!EN")
+  );
 
 
 
