@@ -2,6 +2,11 @@
 #include <chrono>
 #include <thread>
 
+void connectToServerT(SignalRouterIn* signalRouter, Time const& time, Module* receiver, Slot* _Slot)
+{
+  connect( signalRouter, signalRouter->getTimeSignal(time) , receiver, _Slot );
+}
+
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal, Module* receiver, Slot* _Slot)
 {
   connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
