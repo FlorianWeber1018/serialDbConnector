@@ -91,29 +91,21 @@ class ClockDistributer{
 };
 
 
-struct mysql_config
+
+class module_config
 {
+public:
   unsigned int ID;
-};
-
-
-struct module_config
-{
-  mysql_config config;
+  std::map<string, int> cnf;
 };
 
 // ____Module which provides a constant Signal defined by Config________________
-struct module_config_constant : public module_config
-{
-  int constValue = 0;
-};
-
 class Module_constant: public Module
 {
 public:
   Module_constant();
   ~Module_constant();
-  module_config_constant m_config;
+  module_config m_config;
 private:
 
 protected:
@@ -123,16 +115,13 @@ protected:
 
 // ____Module which prints an Value for debugging to console,____________________
 //     identifier is given by config
-struct module_config_debug : public module_config
-{
-  std::string identifier = "Debug";
-};
+
 
 class Module_debug : public Module
 {
   public:
     Module_debug();
-    module_config_debug m_config;
+    module_config m_config;
   private:
 
   protected:
@@ -156,7 +145,7 @@ class Module_3WayValve : public Module
 {
 public:
   Module_3WayValve();
-  module_config_3WayValve m_config;
+  module_config m_config;
 protected:
   PID pid;
   ServoPWM pwm;
