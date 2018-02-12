@@ -198,5 +198,17 @@ protected:
 private:
 };
 //______________________________________________________________________________
+//____Module which controlls an wood fired oven_________________________________
+//    IN:  S, VL_Wood, RL_Wood
+//    OUT: Fan (0/1)
+struct module_config_woodstove : public module_config
+{
+  int dT_on = 8;
+  int dT_off = 2;
+};
+class Module_woodstove : public Module
+{
 
+};
+//______________________________________________________________________________
 #endif
