@@ -201,6 +201,7 @@ Module_constant::Module_constant()
 {
   globalClock.addDestination(this);
   createSignal("constSig");
+  m_config.cnf["constSig"] = 0;
 }
 
 Module_constant::~Module_constant()
@@ -210,19 +211,18 @@ Module_constant::~Module_constant()
 
 void Module_constant::process()
 {
-  //if(debugMode) std::cout << "Module_constant::process" << std::endl;
-  emitSignal("constSig", m_config.constValue);
+  emitSignal("constSig", m_config.cnf["constSig"]);
 }
 // ____Module_debug_____________________________________________________________
 Module_debug::Module_debug()
 {
   createSlot("debugSlot");
+  m_config.cnf["identifier"] = 0;
 }
 
 void Module_debug::process()
 {
-  //if(debugMode) std::cout << "Module_debug::process" << std::endl;
-  std::cout << "Module_debug::" << m_config.identifier << " = "
+  std::cout << "Module_debug::" << m_config.cnf["identifier"] << " = "
   << getSignalValue("debugSlot") << std::endl;
 }
 // ____Module_3WayValve_________________________________________________________
@@ -233,9 +233,27 @@ Module_3WayValve::Module_3WayValve()
   createSlot("!EN");
   createSignal("DutyCyclePWMinc");
   createSignal("DutyCyclePWMdec");
+
+  m_config.cnf[kp]          = 3000;
+  m_config.cnf[up_max]      = INT_MAX;
+  m_config.cnf[up_min]      = INT_MIN;
+  m_config.cnf[ki]          = 0;
+  m_config.cnf[ui_max]      = INT_MAX;
+  m_config.cnf[ui_min]      = INT_MIN;
+  m_config.cnf[kd]          = 0;
+  m_config.cnf[ud_max]      = INT_MAX;
+  m_config.cnf[ud_min]      = INT_MIN;
+
+  m_config.cnf[input_max]   = 30000;
+  m_config.cnf[input_min]   = -30000;
+  m_config.cnf[incPWM_max]   = 150;
+  m_config.cnf[incPWM_min]   = 30;
+  m_config.cnf[decPWM_max]   = 150;
+  m_config.cnf[decPWM_min]   = 30;
+  /*
   m_config.pwmConfig = &(pwm.config);
   m_config.pidConfig = &(pid.config);
-
+  */
 }
 void Module_3WayValve::process()
 {
@@ -269,9 +287,9 @@ void Module_2Point::process()
   int diff = getSignalValue("T1")-getSignalValue("T2");
   if (debugMode) std::cout << "diff: " << diff << std::endl;
   if(diff >= m_config.dT_on){
-    outState=1;
+    outState = 1;
   }else if(diff <= m_config.dT_off){
-    outState=0;
+    outState = 0;
   }
   emitSignal("outState", outState);
 }
