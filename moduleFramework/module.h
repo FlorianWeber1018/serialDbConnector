@@ -145,7 +145,8 @@ class Module_debug : public Module
 //____Module which controls an 3-way-valve______________________________________
 //    IN:  requiredTemperature , actualTemperatur
 //    OUT: DutyCyclePWMinc, DutyCyclePWMdec,
-struct module_config_3WayValve{
+struct module_config_3WayValve : public module_config
+{
   config_ServoPWM* pwmConfig;
   config_PID* pidConfig;
 };
@@ -163,6 +164,39 @@ protected:
 private:
 };
 //______________________________________________________________________________
+//____Module which provides an 2-Point Controller_______________________________
+//    IN:  T1, T2
+//    OUT: state (1/0)
+struct module_config_2Point : public module_config
+{
+  int dT_on = 8;
+  int dT_off = 1;
+};
 
+
+class Module_2Point : public Module
+{
+public:
+  Module_2Point();
+  module_config_2Point m_config;
+protected:
+  int outState = 0;
+  void process() override;
+private:
+};
+//______________________________________________________________________________
+//____Module which inverts an Bool Signal_______________________________________
+//    IN:  S (1/0)
+//    OUT: S (0/1)
+class Module_Inverter : public Module
+{
+public:
+  Module_Inverter();
+  module_config m_config;
+protected:
+  void process() override;
+private:
+};
+//______________________________________________________________________________
 
 #endif

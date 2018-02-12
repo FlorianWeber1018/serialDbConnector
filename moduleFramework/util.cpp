@@ -2,11 +2,10 @@
 #include <chrono>
 #include <thread>
 
-void connectToServerT(SignalRouterIn* signalRouter, Time const& time, Module* receiver, Slot* _Slot)
+void connectToTime(SignalRouterIn* signalRouter, const std::string& key, Module* receiver, Slot* _Slot)
 {
-  connect( signalRouter, signalRouter->getTimeSignal(time) , receiver, _Slot );
+  connect( signalRouter, signalRouter->getTimeSignal(key), receiver, _Slot );
 }
-
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal, Module* receiver, Slot* _Slot)
 {
   connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
@@ -23,11 +22,3 @@ void connect(Module* sender, Signal* _Signal, SignalRouterOut* signalRouter, myS
 {
   connect( sender, _Signal,  signalRouter, signalRouter->createSlotIfNotexist(_extSignal));
 }
-
-/*
-void connect(Module* sender, Signal* _Signal, SignalRouter* signalRouter, mySqlSignal const& _extSignal)
-{
-  //connect( sender, _Signal, signalRouter, signalRouter->createSlotIfNotExist(_extSignal) );
-  MACH NEU!!!
-}
-*/

@@ -40,7 +40,11 @@ int Module::getSignalValue(std::string slotName)
     std::cout << "exception was cought : " << e.what() << std::endl;
     return preRet;
   }
-    if(slot != nullptr){
+  if(slot->value == nullptr){
+    return preRet;
+  }
+
+  if(slot != nullptr){
     preRet = *(slot->value);
     if(preRet > slot->max){
       preRet = slot->max;
@@ -57,7 +61,7 @@ void Module::trigger()
 {
   bool allInputsSynced=true;
   for(auto slotName_slot : m_slots){
-    if(!slotName_slot.second->synced){
+    if((!slotName_slot.second->synced) && slotName_slot.second->value != nullptr){
       allInputsSynced=false;
     }
   }
@@ -105,6 +109,7 @@ Slot* Module::createSlot(std::string slotName)
   if(m_slots.count(slotName) == 0){
     Slot* newSlot = new Slot();
     m_slots[slotName] = newSlot;
+    newSlot->value = nullptr;
     return newSlot;
   }else{
     return m_slots.at(slotName);
@@ -205,7 +210,7 @@ Module_constant::~Module_constant()
 
 void Module_constant::process()
 {
-  if(debugMode) std::cout << "Module_constant::process" << std::endl;
+  //if(debugMode) std::cout << "Module_constant::process" << std::endl;
   emitSignal("constSig", m_config.constValue);
 }
 // ____Module_debug_____________________________________________________________
@@ -216,7 +221,7 @@ Module_debug::Module_debug()
 
 void Module_debug::process()
 {
-  if(debugMode) std::cout << "Module_debug::process" << std::endl;
+  //if(debugMode) std::cout << "Module_debug::process" << std::endl;
   std::cout << "Module_debug::" << m_config.identifier << " = "
   << getSignalValue("debugSlot") << std::endl;
 }
@@ -225,6 +230,7 @@ Module_3WayValve::Module_3WayValve()
 {
   createSlot("requiredTemperature");
   createSlot("actualTemperature");
+  createSlot("!EN");
   createSignal("DutyCyclePWMinc");
   createSignal("DutyCyclePWMdec");
   m_config.pwmConfig = &(pwm.config);
@@ -233,15 +239,58 @@ Module_3WayValve::Module_3WayValve()
 }
 void Module_3WayValve::process()
 {
-  int y = static_cast<int> (
-    pid.getOutput(
-      static_cast<float>( getSignalValue("actualTemperature") ),
-      static_cast<float>( getSignalValue("requiredTemperature") )
-    )
-  );
   int DC_inc, DC_dec;
-  pwm.getOutput(DC_inc, DC_dec, y);
+  if(getSignalValue("!EN")){
+    DC_dec = m_config.pwmConfig->decPWM_max;
+    DC_inc = 0;
+  }else{
+    int y = static_cast<int> (
+      pid.getOutput(
+        static_cast<float>( getSignalValue("actualTemperature") ),
+        static_cast<float>( getSignalValue("requiredTemperature") )
+      )
+    );
+    pwm.getOutput(DC_inc, DC_dec, y);
+  }
+
   emitSignal("DutyCyclePWMinc", DC_inc);
   emitSignal("DutyCyclePWMdec", DC_dec);
+}
+// ____Module_2Point____________________________________________________________
+Module_2Point::Module_2Point()
+{
+  createSlot("T1");
+  createSlot("T2");
+  createSignal("outState");
+  //std::cout << "constructor 2point" <<  std::endl;
+}
+void Module_2Point::process()
+{
+  int diff = getSignalValue("T1")-getSignalValue("T2");
+  if (debugMode) std::cout << "diff: " << diff << std::endl;
+  if(diff >= m_config.dT_on){
+    outState=1;
+  }else if(diff <= m_config.dT_off){
+    outState=0;
+  }
+  emitSignal("outState", outState);
+}
+// ____MODULE_Inverter__________________________________________________________
+Module_Inverter::Module_Inverter()
+{
+  createSlot("S");
+  createSignal("S");
+}
+void Module_Inverter::process()
+{
+  int value = getSignalValue("S");
+  if(value <= 1 && value >= 0){
+    if(value == 1){
+      value = 0;
+    }else{
+      value = 1;
+    }
+  }
+  emitSignal("S", value);
 }
 // _____________________________________________________________________________

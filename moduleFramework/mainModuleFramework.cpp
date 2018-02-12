@@ -37,17 +37,35 @@ int main()
   pwmDec.Pin      = "6";
 
   Module_3WayValve* pidMod = new Module_3WayValve();
-/*
-  Module_debug* modDebugInc = new Module_debug();
-  modDebugInc->m_config.identifier = "pwm Inc";
 
-  Module_debug* modDebugDec = new Module_debug();
-  modDebugDec->m_config.identifier = "pwm Dec";
-*/
   Module_constant* modRequiredTemp = new Module_constant();
   modRequiredTemp->m_config.constValue = 45;
 
+  mySqlSignal WWTemp;
+  WWTemp.DeviceID = "/dev/ttyACM0";
+  WWTemp.PortType = "A";
+  WWTemp.Port     = "0";
+  WWTemp.Pin      = "1";
 
+  mySqlSignal HKP0;
+  HKP0.DeviceID = "/dev/ttyACM0";
+  HKP0.PortType = "I";
+  HKP0.Port     = "2";
+  HKP0.Pin      = "7";
+
+  Module_2Point* WW = new Module_2Point();
+
+  Module_constant* modWWTemp = new Module_constant();
+  modWWTemp->m_config.constValue = 45;
+
+  Module_Inverter* modInv = new Module_Inverter();
+
+
+  Module_constant* modTRUE = new Module_constant();
+  modTRUE->m_config.constValue = 1;
+
+  Module_constant* modFALSE = new Module_constant();
+  modFALSE->m_config.constValue = 0;
 /* */
   connect(    //CONNECT DC_INC-> OUT
     pidMod,
@@ -78,10 +96,66 @@ int main()
     pidMod->getSlot("requiredTemperature")
   );
 
+  connect(    //CONNECT constant Signal -> !EN of PID
+    modInv,
+    modInv->getSignal("S"),
+    pidMod,
+    pidMod->getSlot("!EN")
+  );
+
+  connect(    //CONNECT Inverted Signal -> !EN of PID
+    WW,
+    WW->getSignal("outState"),
+    modInv,
+    modInv->getSlot("S")
+  );
 
 
 
+  connect( // connect WWTemp min -> T2
+    modWWTemp,
+    modWWTemp->getSignal("constSig"),
+    WW,
+    WW->getSlot("T2")
+  );
 
+  connect( // connect WWTemp min -> T2
+    modRouterIn,
+    WWTemp,
+    WW,
+    WW->getSlot("T1")
+  );
+
+  connect( // connect outState -> pumpe heizkreis
+    WW,
+    WW->getSignal("outState"),
+    modRouterOut,
+    HKP0
+  );
+
+
+
+/*
+  Module_debug* modMin = new Module_debug();
+  modMin->m_config.identifier = "minute";
+
+  Module_debug* modSec = new Module_debug();
+  modSec->m_config.identifier = "second";
+
+  connectToTime(    //CONNECT minute Signal -> debug
+    modRouterIn,
+    "minute",
+    modMin,
+    modMin->getSlot("debugSlot")
+  );
+
+  connectToTime(    //CONNECT second Signal -> debug
+    modRouterIn,
+    "second",
+    modSec,
+    modSec->getSlot("debugSlot")
+  );
+*/
 
 
 
