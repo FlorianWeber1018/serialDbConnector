@@ -1,6 +1,36 @@
 #include "module.h"
 #include <iostream>
 extern ClockDistributer globalClock;
+// ____Module_config____________________________________________________________
+Module_config::Module_config()
+{
+
+}
+Module_config::Module_config(unsigned int ID)
+{
+
+}
+int Module_config::get_param(std::string key)
+{
+  int value = 0;
+  try { value = cnf.at(key); }
+  catch (const std::exception& e)
+  {
+    std::cout << "exception was cought : " << e.what() << std::endl;
+    value = 0;
+  }
+  return value;
+}
+void reload_param(){
+
+}
+void reload_param(std::string key){
+
+}
+void Module_Inverter::set_param(std::string key, int value)
+{
+  cnf[key] = value;
+}
 
 // ____Module___________________________________________________________________
 void Module::emitSignal(std::string signalName, int value)

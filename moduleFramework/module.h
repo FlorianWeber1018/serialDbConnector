@@ -38,6 +38,24 @@ struct mySqlSignal{
     );
   }
 };
+struct mySqlParam{
+  unsigned int ID;
+  std::string paramKey;
+  bool operator == (const mySqlParam& otherParam) const
+  {
+    return(
+      this->ID        ==    otherParam.ID   &&
+      this->paramKey  ==    otherParam.paramKey
+    );
+  }
+  bool operator < (const mySqlParam& otherParam) const
+  {
+    return(
+      (this->ID <   otherParam.ID)    ||
+      (this->ID ==  otherParam.ID   &&  this->paramKey  <  otherParam.paramKey)
+    );
+  }
+}
 /*struct mySqlSignalCompare
 {
    bool operator() (const mySqlSignal& lhs, const mySqlSignal& rhs) const;
@@ -92,11 +110,19 @@ class ClockDistributer{
 
 
 
-class module_config
+class Module_config
 {
+
 public:
+  Module_config();
+  Module_config(unsigned int ID);
+  int get_param(std::string key);
+  void reload_param();
+  void reload_param(std::string key);
+protected:
+  void set_param(std::string key, int value);
   unsigned int ID;
-  std::map<string, int> cnf;
+  std::map<std::string, int> cnf;
 };
 
 // ____Module which provides a constant Signal defined by Config________________
@@ -105,7 +131,7 @@ class Module_constant: public Module
 public:
   Module_constant();
   ~Module_constant();
-  module_config m_config;
+  Module_config m_config;
 private:
 
 protected:
@@ -121,7 +147,7 @@ class Module_debug : public Module
 {
   public:
     Module_debug();
-    module_config m_config;
+    Module_config m_config;
   private:
 
   protected:
@@ -134,7 +160,7 @@ class Module_debug : public Module
 //____Module which controls an 3-way-valve______________________________________
 //    IN:  requiredTemperature , actualTemperatur
 //    OUT: DutyCyclePWMinc, DutyCyclePWMdec,
-struct module_config_3WayValve : public module_config
+struct Module_config_3WayValve : public Module_config
 {
   config_ServoPWM* pwmConfig;
   config_PID* pidConfig;
@@ -145,7 +171,7 @@ class Module_3WayValve : public Module
 {
 public:
   Module_3WayValve();
-  module_config m_config;
+  Module_config m_config;
 protected:
   PID pid;
   ServoPWM pwm;
@@ -156,7 +182,7 @@ private:
 //____Module which provides an 2-Point Controller_______________________________
 //    IN:  T1, T2
 //    OUT: state (1/0)
-struct module_config_2Point : public module_config
+struct Module_config_2Point : public Module_config
 {
   int dT_on = 8;
   int dT_off = 1;
@@ -167,7 +193,7 @@ class Module_2Point : public Module
 {
 public:
   Module_2Point();
-  module_config_2Point m_config;
+  Module_config_2Point m_config;
 protected:
   int outState = 0;
   void process() override;
@@ -181,7 +207,7 @@ class Module_Inverter : public Module
 {
 public:
   Module_Inverter();
-  module_config m_config;
+  Module_config m_config;
 protected:
   void process() override;
 private:
@@ -190,7 +216,7 @@ private:
 //____Module which controlls an wood fired oven_________________________________
 //    IN:  S, VL_Wood, RL_Wood
 //    OUT: Fan (0/1)
-struct module_config_woodstove : public module_config
+struct Module_config_woodstove : public Module_config
 {
   int dT_on = 8;
   int dT_off = 2;
