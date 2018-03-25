@@ -313,9 +313,6 @@ Module_2Point::Module_2Point() {
   globalParams.createParamIfNotExist(tempParamKey, 8);
   tempParamKey.paramKey = "dT_off";
   globalParams.createParamIfNotExist(tempParamKey, 2);
-
-
-
 }
 Module_2Point::Module_2Point(unsigned int ID) { this->ID = ID; }
 void Module_2Point::process() {
