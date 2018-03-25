@@ -283,7 +283,7 @@ void Module_3WayValve::process() {
   if (getSignalValue("!EN")) {
     tempParamKey.ID = this->ID;
     tempParamKey.paramKey = "decPWM_max";
-    DC_dec = globalParams.getParam(tempParamKey),
+    DC_dec = globalParams.getParam(tempParamKey);
 
     DC_inc = 0;
   } else {
@@ -303,15 +303,34 @@ Module_2Point::Module_2Point() {
   createSlot("T1");
   createSlot("T2");
   createSignal("outState");
-  // std::cout << "constructor 2point" <<  std::endl;
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this.ID = globalParams->getNextAvID;
+  }
+  tempParamKey.ID = this->ID;
+
+  tempParamKey.paramKey = "dT_on";
+  globalParams.createParamIfNotExist(tempParamKey, 8);
+  tempParamKey.paramKey = "dT_off";
+  globalParams.createParamIfNotExist(tempParamKey, 2);
+
+
 }
+Module_2Point::Module_2Point(unsigned int ID) { this->ID = ID; }
 void Module_2Point::process() {
+  mySqlParam tempParamKey; // create Key to Config Param
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "dT_on";
+  int dT_on = globalParams.getParam(tempParamKey);
+  tempParamKey.paramKey = "dT_off";
+  int dT_off = globalParams.getParam(tempParamKey);
+
   int diff = getSignalValue("T1") - getSignalValue("T2");
   if (debugMode)
     std::cout << "diff: " << diff << std::endl;
-  if (diff >= m_config.dT_on) {
+  if (diff >= dT_on) {
     outState = 1;
-  } else if (diff <= m_config.dT_off) {
+  } else if (diff <= dT_off) {
     outState = 0;
   }
   emitSignal("outState", outState);

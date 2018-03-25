@@ -144,18 +144,13 @@ class Module_debug : public Module
 //____Module which controls an 3-way-valve______________________________________
 //    IN:  requiredTemperature , actualTemperatur
 //    OUT: DutyCyclePWMinc, DutyCyclePWMdec,
-struct Module_config_3WayValve : public Module_config
-{
-  config_ServoPWM* pwmConfig;
-  config_PID* pidConfig;
-};
+
 
 
 class Module_3WayValve : public Module
 {
 public:
   Module_3WayValve();
-  Module_config m_config;
 protected:
   PID pid;
   ServoPWM pwm;
@@ -166,18 +161,13 @@ private:
 //____Module which provides an 2-Point Controller_______________________________
 //    IN:  T1, T2
 //    OUT: state (1/0)
-struct Module_config_2Point : public Module_config
-{
-  int dT_on = 8;
-  int dT_off = 1;
-};
-
 
 class Module_2Point : public Module
 {
 public:
   Module_2Point();
-  Module_config_2Point m_config;
+  Module_2Point(unsigned int ID);
+
 protected:
   int outState = 0;
   void process() override;
@@ -191,7 +181,6 @@ class Module_Inverter : public Module
 {
 public:
   Module_Inverter();
-  Module_config m_config;
 protected:
   void process() override;
 private:
@@ -200,11 +189,7 @@ private:
 //____Module which controlls an wood fired oven_________________________________
 //    IN:  S, VL_Wood, RL_Wood
 //    OUT: Fan (0/1)
-struct Module_config_woodstove : public Module_config
-{
-  int dT_on = 8;
-  int dT_off = 2;
-};
+
 class Module_woodstove : public Module
 {
 
