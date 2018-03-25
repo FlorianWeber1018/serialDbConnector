@@ -31,3 +31,9 @@ void ParamRouter::process() {
     mysql_free_result(result);
   }
 }
+bool ParamRouter::paramExist(mySqlParam key){
+
+}
+bool ParamRouter::IDExist(unsigned int ID){
+
+}
