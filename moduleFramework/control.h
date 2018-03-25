@@ -3,6 +3,7 @@
 #include <climits>
 struct config_PID
 {
+  void syncParam(unsigned int ID);
   float kp        = 3000;
     float up_max  = INT_MAX;
     float up_min  = INT_MIN;
@@ -31,6 +32,7 @@ private:
 
 struct config_ServoPWM
 {
+  void syncParam(unsigned int ID);
   int input_max  = 30000;
   int input_min  = -30000;
   float incPWM_max = 150;

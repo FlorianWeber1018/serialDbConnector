@@ -84,6 +84,7 @@ public:
   void addPostModule(Module* postModule);
   void trigger();
   ~Module();
+  unsigned int ID = 0;
 private:
 
 protected:
@@ -108,30 +109,14 @@ class ClockDistributer{
     std::set<Module*> m_destModules;
 };
 
-
-
-class Module_config
-{
-
-public:
-  Module_config();
-  Module_config(unsigned int ID);
-  int get_param(std::string key);
-  void reload_param();
-  void reload_param(std::string key);
-protected:
-  void set_param(std::string key, int value);
-  unsigned int ID;
-  std::map<std::string, int> cnf;
-};
-
 // ____Module which provides a constant Signal defined by Config________________
 class Module_constant: public Module
 {
 public:
   Module_constant();
+  Module_constant(unsigned int ID);
   ~Module_constant();
-  Module_config m_config;
+
 private:
 
 protected:
@@ -147,7 +132,6 @@ class Module_debug : public Module
 {
   public:
     Module_debug();
-    Module_config m_config;
   private:
 
   protected:

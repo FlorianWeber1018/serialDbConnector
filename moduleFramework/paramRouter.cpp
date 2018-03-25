@@ -15,13 +15,13 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
 int ParamRouter::getParam(mySqlParam key) { return completeCnfMap[key]; }
 
 void ParamRouter::process() {
-  std::string sqlQuery="SELECT ModuleID AS ID, ParamKey AS key,";
-  sqlQuery.append(" Param AS value from ModuleConfig order by ModuleID;";
+  std::string sqlQuery = "SELECT ModuleID AS ID, ParamKey AS key,";
+  sqlQuery.append(" Param AS value from ModuleConfig order by ModuleID;");
 
-  MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
 
   MYSQL_ROW row;
-  if(result != nullptr){
+  if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       mySqlParam keyOfParam;
       keyOfParam.ID = row[0];
@@ -31,7 +31,6 @@ void ParamRouter::process() {
     mysql_free_result(result);
   }
 }
-
 bool ParamRouter::paramExist(mySqlParam key) {
   bool ret = false;
   std::string sqlQuery = "SELECT * from ModuleConfig where ModuleID = ";
@@ -41,10 +40,10 @@ bool ParamRouter::paramExist(mySqlParam key) {
   sqlQuery.append("' LIMIT 1;");
 
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
-  if (result != nullptr){
-    if(mysql_fetch_row(result)){
+  if (result != nullptr) {
+    if (mysql_fetch_row(result)) {
       ret = true;
-    }else{
+    } else {
       ret = false;
     }
     mysql_free_result(result);
@@ -57,13 +56,50 @@ bool ParamRouter::IDExist(unsigned int ID) {
   sqlQuery.append(" LIMIT 1;");
 
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
-  if (result != nullptr){
-    if(mysql_fetch_row(result)){
+  if (result != nullptr) {
+    if (mysql_fetch_row(result)) {
       ret = true;
-    }else{
+    } else {
       ret = false;
     }
     mysql_free_result(result);
   }
   return ret;
+}
+unsigned int ParamRouter::getNextAvID() {
+  unsigned int nextAvID = UINT_MAX;
+  std::string sqlQuery =
+      "SELECT ModuleID from ModuleConfig Order By ModuleID DESC LIMIT 1;";
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  MYSQL_ROW row;
+  if (result != nullptr) {
+    if (row = mysql_fetch_row(result)) {
+      nextAvID = row[0] + 1;
+    } else {
+      nextAvID = 1;
+    }
+    mysql_free_result(result);
+  }
+  return nextAvID;
+}
+void createParam(mySqlParam key, unsigned int defaultParam) {
+  std::string sqlQuery = "INSERT INTO ModuleConfig (ModuleID, ParamKey, Param)";
+  sqlQuery.append(" VALUES (");
+  sqlQuery.append(std::to_string(key.ID));
+  sqlQuery.append(", '");
+  sqlQuery.append(key.paramKey);
+  sqlQuery.append("', ");
+  sqlQuery.append(std::to_string(defaultParam));
+  sqlQuery.append(");");
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr) {
+    mysql_free_result(result);
+  }else{
+
+  }
+}
+void createParamIfNotExist(mySqlParam key, unsigned int defaultParam) {
+  if(!paramExist(key)){
+    createParam(key, defaultParam);
+  }
 }

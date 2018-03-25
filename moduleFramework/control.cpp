@@ -1,5 +1,42 @@
 #include "control.h"
 #include "util.h"
+extern ParamRouter globalParams;
+void config_PID::syncParam(unsigned int ID){
+  tempParamKey.ID = ID;
+  tempParamKey.paramKey = "kp";
+  this->kp = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "up_max";
+  this->up_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "up_min";
+  this->up_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "ki";
+  this->ki = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "ui_max";
+  this->ui_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "ui_min";
+  this->ui_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "kd";
+  this->kd = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "ud_max";
+  this->ud_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "ud_min";
+  this->ud_min = static_cast<float>(globalParams.getParam(tempParamKey));
+}
+void config_ServoPWM::syncParam(unsigned int ID){
+  tempParamKey.ID = ID;
+  tempParamKey.paramKey = "input_max";
+  this->input_max = globalParams.getParam(tempParamKey);
+  tempParamKey.paramKey = "input_min";
+  this->input_min = globalParams.getParam(tempParamKey);
+  tempParamKey.paramKey = "incPWM_max";
+  this->incPWM_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "incPWM_min";
+  this->incPWM_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "decPWM_max";
+  this->decPWM_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  tempParamKey.paramKey = "decPWM_min";
+  this->decPWM_min = static_cast<float>(globalParams.getParam(tempParamKey));
+}
 float PID::getOutput(float x, float w)
 {
   float e = w - x;

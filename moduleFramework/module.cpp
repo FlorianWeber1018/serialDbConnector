@@ -3,27 +3,10 @@
 extern ClockDistributer globalClock;
 extern ParamRouter globalParams;
 unsigned int
-// ____Module_config____________________________________________________________
-Module_config::Module_config() {}
-Module_config::Module_config(unsigned int ID) {}
-int Module_config::get_param(std::string key) {
-  int value = 0;
-  try {
-    value = cnf.at(key);
-  } catch (const std::exception &e) {
-    std::cout << "exception was cought : " << e.what() << std::endl;
-    value = 0;
-  }
-  return value;
-}
-void reload_param() {}
-void reload_param(std::string key) {}
-void Module_Inverter::set_param(std::string key, int value) {
-  cnf[key] = value;
-}
 
-// ____Module___________________________________________________________________
-void Module::emitSignal(std::string signalName, int value) {
+    // ____Module___________________________________________________________________
+    void
+    Module::emitSignal(std::string signalName, int value) {
   Signal *signal = nullptr;
   try {
     signal = m_signals.at(signalName);
@@ -209,22 +192,40 @@ lhs.Port == rhs.Port && lhs.Pin <  rhs.Pin )
 Module_constant::Module_constant() {
   globalClock.addDestination(this);
   createSignal("constSig");
-  m_config.cnf["constSig"] = 0;
-}
 
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this.ID = globalParams.getNextAvID();
+  }
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "constSig";
+  globalParams.createParamIfNotExist(tempParamKey, 0); // Create Line on Server
+}
+Module_constant::Module_constant(unsigned int ID);
+{ this->ID = ID; }
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
 void Module_constant::process() {
-  emitSignal("constSig", m_config.cnf["constSig"]);
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "constSig";
+  emitSignal("constSig", globalParams.getParam(tempParamKey));
 }
 // ____Module_debug_____________________________________________________________
 Module_debug::Module_debug() {
   createSlot("debugSlot");
-  m_config.cnf["identifier"] = 0;
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this.ID = globalParams.getNextAvID();
+  }
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "identifier";
+  globalParams.createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
-
+Module_debug::Module_debug(unsigned int ID) { this->ID = ID; }
 void Module_debug::process() {
-  std::cout << "Module_debug::" << m_config.cnf["identifier"] << " = "
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "identifier";
+  std::cout << "Module_debug::" << globalParams.getParam(tempParamKey) << " = "
             << getSignalValue("debugSlot") << std::endl;
 }
 // ____Module_3WayValve_________________________________________________________
@@ -234,34 +235,60 @@ Module_3WayValve::Module_3WayValve() {
   createSlot("!EN");
   createSignal("DutyCyclePWMinc");
   createSignal("DutyCyclePWMdec");
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this.ID = globalParams->getNextAvID;
+  }
+  tempParamKey.ID = this->ID;
 
-  m_config.cnf[kp] = 3000;
-  m_config.cnf[up_max] = INT_MAX;
-  m_config.cnf[up_min] = INT_MIN;
-  m_config.cnf[ki] = 0;
-  m_config.cnf[ui_max] = INT_MAX;
-  m_config.cnf[ui_min] = INT_MIN;
-  m_config.cnf[kd] = 0;
-  m_config.cnf[ud_max] = INT_MAX;
-  m_config.cnf[ud_min] = INT_MIN;
+  tempParamKey.paramKey = "kp";
+  globalParams.createParamIfNotExist(tempParamKey, 3000);
+  tempParamKey.paramKey = "up_max";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  tempParamKey.paramKey = "up_min";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
 
-  m_config.cnf[input_max] = 30000;
-  m_config.cnf[input_min] = -30000;
-  m_config.cnf[incPWM_max] = 150;
-  m_config.cnf[incPWM_min] = 30;
-  m_config.cnf[decPWM_max] = 150;
-  m_config.cnf[decPWM_min] = 30;
-  /*
-  m_config.pwmConfig = &(pwm.config);
-  m_config.pidConfig = &(pid.config);
-  */
+  tempParamKey.paramKey = "ki";
+  globalParams.createParamIfNotExist(tempParamKey, 0);
+  tempParamKey.paramKey = "ui_max";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  tempParamKey.paramKey = "ui_min";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
+
+  tempParamKey.paramKey = "kd";
+  globalParams.createParamIfNotExist(tempParamKey, 0);
+  tempParamKey.paramKey = "ud_max";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  tempParamKey.paramKey = "ud_min";
+  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
+
+  tempParamKey.paramKey = "input_max";
+  globalParams.createParamIfNotExist(tempParamKey, 30000);
+  tempParamKey.paramKey = "input_min";
+  globalParams.createParamIfNotExist(tempParamKey, -30000);
+
+  tempParamKey.paramKey = "incPWM_max";
+  globalParams.createParamIfNotExist(tempParamKey, 150);
+  tempParamKey.paramKey = "incPWM_min";
+  globalParams.createParamIfNotExist(tempParamKey, 30);
+
+  tempParamKey.paramKey = "decPWM_max";
+  globalParams.createParamIfNotExist(tempParamKey, 150);
+  tempParamKey.paramKey = "decPWM_min";
+  globalParams.createParamIfNotExist(tempParamKey, 30);
 }
+Module_3WayValve::Module_3WayValve(unsigned int ID) { this->ID = ID; }
 void Module_3WayValve::process() {
   int DC_inc, DC_dec;
   if (getSignalValue("!EN")) {
-    DC_dec = m_config.pwmConfig->decPWM_max;
+    tempParamKey.ID = this->ID;
+    tempParamKey.paramKey = "decPWM_max";
+    DC_dec = globalParams.getParam(tempParamKey),
+
     DC_inc = 0;
   } else {
+    pid.syncParam(this->ID);
+    pwm.syncParam(this->ID);
     int y = static_cast<int>(pid.getOutput(
         static_cast<float>(getSignalValue("actualTemperature")),
         static_cast<float>(getSignalValue("requiredTemperature"))));
