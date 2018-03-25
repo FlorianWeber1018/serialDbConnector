@@ -10,6 +10,9 @@ public:
   ParamRouter(std::string host, unsigned int port, std::string user,
               std::string pw, std::string db);
   int getParamRef(mySqlParam key);
+  bool paramExist(mySqlParam key);
+  bool IDExist(unsigned int ID);
+  unsigned int getNextAvID();
 
 protected:
   mysqlcon *mySqlConnection = nullptr;

@@ -15,7 +15,7 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
 int ParamRouter::getParam(mySqlParam key) { return completeCnfMap[key]; }
 
 void ParamRouter::process() {
-  std::string sqlQuery="SELECT ModuleID AS ID, ParamKey AS key,"
+  std::string sqlQuery="SELECT ModuleID AS ID, ParamKey AS key,";
   sqlQuery.append(" Param AS value from ModuleConfig order by ModuleID;";
 
   MYSQL_RES* result = mySqlConnection->sendCommand_senderThread(sqlQuery);
@@ -31,9 +31,39 @@ void ParamRouter::process() {
     mysql_free_result(result);
   }
 }
-bool ParamRouter::paramExist(mySqlParam key){
 
+bool ParamRouter::paramExist(mySqlParam key) {
+  bool ret = false;
+  std::string sqlQuery = "SELECT * from ModuleConfig where ModuleID = ";
+  sqlQuery.append(std::to_string(key.ID));
+  sqlQuery.append(" AND ParamKey = '");
+  sqlQuery.append(key.paramKey);
+  sqlQuery.append("' LIMIT 1;");
+
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr){
+    if(mysql_fetch_row(result)){
+      ret = true;
+    }else{
+      ret = false;
+    }
+    mysql_free_result(result);
+  }
+  return ret;
 }
-bool ParamRouter::IDExist(unsigned int ID){
+bool ParamRouter::IDExist(unsigned int ID) {
+  std::string sqlQuery = "SELECT * from ModuleConfig where ModuleID = ";
+  sqlQuery.append(std::to_string(key.ID));
+  sqlQuery.append(" LIMIT 1;");
 
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr){
+    if(mysql_fetch_row(result)){
+      ret = true;
+    }else{
+      ret = false;
+    }
+    mysql_free_result(result);
+  }
+  return ret;
 }
