@@ -13,6 +13,7 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
     std::cout << "ParamRouter::ParamRouter()" << std::endl;
 }
 int ParamRouter::getParam(mySqlParam key) { return completeCnfMap[key]; }
+
 void ParamRouter::process() {
   std::string sqlQuery="SELECT ModuleID AS ID, ParamKey AS key,"
   sqlQuery.append(" Param AS value from ModuleConfig order by ModuleID;";
