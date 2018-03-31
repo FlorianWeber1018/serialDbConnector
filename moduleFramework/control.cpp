@@ -8,23 +8,23 @@ void config_PID::syncParam(unsigned int ID){
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = ID;
   tempParamKey.paramKey = "kp";
-  this->kp = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->kp = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "up_max";
-  this->up_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->up_max = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "up_min";
-  this->up_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->up_min = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "ki";
-  this->ki = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->ki = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "ui_max";
-  this->ui_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->ui_max = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "ui_min";
-  this->ui_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->ui_min = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "kd";
-  this->kd = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->kd = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "ud_max";
-  this->ud_max = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->ud_max = static_cast<float>(globalParams->getParam(tempParamKey));
   tempParamKey.paramKey = "ud_min";
-  this->ud_min = static_cast<float>(globalParams.getParam(tempParamKey));
+  this->ud_min = static_cast<float>(globalParams->getParam(tempParamKey));
 }
 void config_ServoPWM::syncParam(unsigned int ID){
   mySqlParam tempParamKey; // create Key to Config Param
