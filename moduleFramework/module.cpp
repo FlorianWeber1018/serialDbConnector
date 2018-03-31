@@ -202,7 +202,7 @@ Module_constant::Module_constant() {
   tempParamKey.paramKey = "constSig";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
-Module_constant::Module_constant(unsigned int ID);
+Module_constant::Module_constant(unsigned int ID)
 { this->ID = ID; }
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
