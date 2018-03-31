@@ -284,14 +284,15 @@ Module_3WayValve::Module_3WayValve(unsigned int ID) { this->ID = ID; }
 void Module_3WayValve::process() {
   int DC_inc, DC_dec;
   if (getSignalValue("!EN")) {
+    mySqlParam tempParamKey; // create Key to Config Param
     tempParamKey.ID = this->ID;
     tempParamKey.paramKey = "decPWM_max";
     DC_dec = globalParams->getParam(tempParamKey);
 
     DC_inc = 0;
   } else {
-    pid.syncParam(this->ID);
-    pwm.syncParam(this->ID);
+    pid.config.syncParam(this->ID);
+    pwm.config.syncParam(this->ID);
     int y = static_cast<int>(pid.getOutput(
         static_cast<float>(getSignalValue("actualTemperature")),
         static_cast<float>(getSignalValue("requiredTemperature"))));
@@ -308,7 +309,7 @@ Module_2Point::Module_2Point() {
   createSignal("outState");
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
-    this->ID = globalParams->getNextAvID;
+    this->ID = globalParams->getNextAvID();
   }
   tempParamKey.ID = this->ID;
 
