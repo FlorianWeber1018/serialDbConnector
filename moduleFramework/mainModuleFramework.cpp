@@ -6,7 +6,8 @@
 #include <thread>
 
 ClockDistributer globalClock;
-ParamRouter globalParams;
+ParamRouter *globalParams =
+  new ParamRouter("localhost", 3306, "IoD", "637013", "heizung");
 volatile bool recourcesAvailable = true;
 
 int main() {
