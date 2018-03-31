@@ -1,6 +1,7 @@
 #include "mainModuleFramework.h"
 #include "clock.h"
 #include "control.h"
+#include "ParamRouter.h"
 #include <iostream>
 #include <thread>
 
