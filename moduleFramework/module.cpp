@@ -2,8 +2,8 @@
 #include <iostream>
 #include "paramRouter.h"
 extern ClockDistributer globalClock;
-extern ParamRouter globalParams;
-unsigned int
+extern ParamRouter* globalParams;
+
 
     // ____Module___________________________________________________________________
 

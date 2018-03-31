@@ -1,6 +1,7 @@
 #include "paramRouter.h"
 
 extern ClockDistributer globalClock;
+extern ParamRouter* globalParams;
 
 ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
                          std::string pw, std::string db) {
@@ -8,7 +9,7 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
-  globalClock.addDestination(this);
+  globalClock->addDestination(this);
   if (debugMode)
     std::cout << "ParamRouter::ParamRouter()" << std::endl;
 }
