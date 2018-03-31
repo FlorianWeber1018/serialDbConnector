@@ -20,6 +20,6 @@ protected:
   mysqlcon *mySqlConnection = nullptr;
   void process() override;
   std::map<mySqlParam, int> completeCnfMap;
-}:
+};
 
 #endif
