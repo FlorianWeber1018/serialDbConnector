@@ -196,11 +196,11 @@ Module_constant::Module_constant() {
 
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
-    this.ID = globalParams.getNextAvID();
+    this->ID = globalParams->getNextAvID();
   }
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
-  globalParams.createParamIfNotExist(tempParamKey, 0); // Create Line on Server
+  globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
 Module_constant::Module_constant(unsigned int ID);
 { this->ID = ID; }
@@ -209,24 +209,24 @@ Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 void Module_constant::process() {
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
-  emitSignal("constSig", globalParams.getParam(tempParamKey));
+  emitSignal("constSig", globalParams->getParam(tempParamKey));
 }
 // ____Module_debug_____________________________________________________________
 Module_debug::Module_debug() {
   createSlot("debugSlot");
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
-    this.ID = globalParams.getNextAvID();
+    this->ID = globalParams->getNextAvID();
   }
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "identifier";
-  globalParams.createParamIfNotExist(tempParamKey, 0); // Create Line on Server
+  globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
 Module_debug::Module_debug(unsigned int ID) { this->ID = ID; }
 void Module_debug::process() {
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "identifier";
-  std::cout << "Module_debug::" << globalParams.getParam(tempParamKey) << " = "
+  std::cout << "Module_debug::" << globalParams->getParam(tempParamKey) << " = "
             << getSignalValue("debugSlot") << std::endl;
 }
 // ____Module_3WayValve_________________________________________________________
@@ -238,45 +238,45 @@ Module_3WayValve::Module_3WayValve() {
   createSignal("DutyCyclePWMdec");
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
-    this.ID = globalParams->getNextAvID;
+    this->ID = globalParams->getNextAvID();
   }
   tempParamKey.ID = this->ID;
 
   tempParamKey.paramKey = "kp";
-  globalParams.createParamIfNotExist(tempParamKey, 3000);
+  globalParams->createParamIfNotExist(tempParamKey, 3000);
   tempParamKey.paramKey = "up_max";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MAX);
   tempParamKey.paramKey = "up_min";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MIN);
 
   tempParamKey.paramKey = "ki";
-  globalParams.createParamIfNotExist(tempParamKey, 0);
+  globalParams->createParamIfNotExist(tempParamKey, 0);
   tempParamKey.paramKey = "ui_max";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MAX);
   tempParamKey.paramKey = "ui_min";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MIN);
 
   tempParamKey.paramKey = "kd";
-  globalParams.createParamIfNotExist(tempParamKey, 0);
+  globalParams->createParamIfNotExist(tempParamKey, 0);
   tempParamKey.paramKey = "ud_max";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MAX);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MAX);
   tempParamKey.paramKey = "ud_min";
-  globalParams.createParamIfNotExist(tempParamKey, INT_MIN);
+  globalParams->createParamIfNotExist(tempParamKey, INT_MIN);
 
   tempParamKey.paramKey = "input_max";
-  globalParams.createParamIfNotExist(tempParamKey, 30000);
+  globalParams->createParamIfNotExist(tempParamKey, 30000);
   tempParamKey.paramKey = "input_min";
-  globalParams.createParamIfNotExist(tempParamKey, -30000);
+  globalParams->createParamIfNotExist(tempParamKey, -30000);
 
   tempParamKey.paramKey = "incPWM_max";
-  globalParams.createParamIfNotExist(tempParamKey, 150);
+  globalParams->createParamIfNotExist(tempParamKey, 150);
   tempParamKey.paramKey = "incPWM_min";
-  globalParams.createParamIfNotExist(tempParamKey, 30);
+  globalParams->createParamIfNotExist(tempParamKey, 30);
 
   tempParamKey.paramKey = "decPWM_max";
-  globalParams.createParamIfNotExist(tempParamKey, 150);
+  globalParams->createParamIfNotExist(tempParamKey, 150);
   tempParamKey.paramKey = "decPWM_min";
-  globalParams.createParamIfNotExist(tempParamKey, 30);
+  globalParams->createParamIfNotExist(tempParamKey, 30);
 }
 Module_3WayValve::Module_3WayValve(unsigned int ID) { this->ID = ID; }
 void Module_3WayValve::process() {
@@ -284,7 +284,7 @@ void Module_3WayValve::process() {
   if (getSignalValue("!EN")) {
     tempParamKey.ID = this->ID;
     tempParamKey.paramKey = "decPWM_max";
-    DC_dec = globalParams.getParam(tempParamKey);
+    DC_dec = globalParams->getParam(tempParamKey);
 
     DC_inc = 0;
   } else {
@@ -306,23 +306,23 @@ Module_2Point::Module_2Point() {
   createSignal("outState");
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
-    this.ID = globalParams->getNextAvID;
+    this->ID = globalParams->getNextAvID;
   }
   tempParamKey.ID = this->ID;
 
   tempParamKey.paramKey = "dT_on";
-  globalParams.createParamIfNotExist(tempParamKey, 8);
+  globalParams->createParamIfNotExist(tempParamKey, 8);
   tempParamKey.paramKey = "dT_off";
-  globalParams.createParamIfNotExist(tempParamKey, 2);
+  globalParams->createParamIfNotExist(tempParamKey, 2);
 }
 Module_2Point::Module_2Point(unsigned int ID) { this->ID = ID; }
 void Module_2Point::process() {
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "dT_on";
-  int dT_on = globalParams.getParam(tempParamKey);
+  int dT_on = globalParams->getParam(tempParamKey);
   tempParamKey.paramKey = "dT_off";
-  int dT_off = globalParams.getParam(tempParamKey);
+  int dT_off = globalParams->getParam(tempParamKey);
 
   int diff = getSignalValue("T1") - getSignalValue("T2");
   if (debugMode)
