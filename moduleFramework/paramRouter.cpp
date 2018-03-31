@@ -9,7 +9,7 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
   }
-  globalClock->addDestination(this);
+  globalClock.addDestination(this);
   if (debugMode)
     std::cout << "ParamRouter::ParamRouter()" << std::endl;
 }
@@ -52,8 +52,9 @@ bool ParamRouter::paramExist(mySqlParam key) {
   return ret;
 }
 bool ParamRouter::IDExist(unsigned int ID) {
+  bool ret = false;
   std::string sqlQuery = "SELECT * from ModuleConfig where ModuleID = ";
-  sqlQuery.append(std::to_string(key.ID));
+  sqlQuery.append(std::to_string(ID));
   sqlQuery.append(" LIMIT 1;");
 
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
@@ -83,7 +84,7 @@ unsigned int ParamRouter::getNextAvID() {
   }
   return nextAvID;
 }
-void createParam(mySqlParam key, unsigned int defaultParam) {
+void ParamRouter::createParam(mySqlParam key, unsigned int defaultParam) {
   std::string sqlQuery = "INSERT INTO ModuleConfig (ModuleID, ParamKey, Param)";
   sqlQuery.append(" VALUES (");
   sqlQuery.append(std::to_string(key.ID));
@@ -99,7 +100,7 @@ void createParam(mySqlParam key, unsigned int defaultParam) {
 
   }
 }
-void createParamIfNotExist(mySqlParam key, unsigned int defaultParam) {
+void ParamRouter::createParamIfNotExist(mySqlParam key, unsigned int defaultParam) {
   if(!paramExist(key)){
     createParam(key, defaultParam);
   }
