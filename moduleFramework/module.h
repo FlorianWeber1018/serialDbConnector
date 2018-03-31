@@ -128,6 +128,7 @@ class Module_debug : public Module
 {
   public:
     Module_debug();
+    Module_debug(unsigned int ID);
   private:
 
   protected:
@@ -147,6 +148,7 @@ class Module_3WayValve : public Module
 {
 public:
   Module_3WayValve();
+  Module_3WayValve(unsigned int ID);
 protected:
   PID pid;
   ServoPWM pwm;
@@ -177,6 +179,7 @@ class Module_Inverter : public Module
 {
 public:
   Module_Inverter();
+  Module_Inverter(unsigned int ID);
 protected:
   void process() override;
 private:

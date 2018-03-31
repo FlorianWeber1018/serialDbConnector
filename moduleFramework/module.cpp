@@ -207,6 +207,7 @@ Module_constant::Module_constant(unsigned int ID)
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
 void Module_constant::process() {
+  mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
   emitSignal("constSig", globalParams->getParam(tempParamKey));
@@ -224,6 +225,7 @@ Module_debug::Module_debug() {
 }
 Module_debug::Module_debug(unsigned int ID) { this->ID = ID; }
 void Module_debug::process() {
+  mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "identifier";
   std::cout << "Module_debug::" << globalParams->getParam(tempParamKey) << " = "
@@ -339,6 +341,7 @@ Module_Inverter::Module_Inverter() {
   createSlot("S");
   createSignal("S");
 }
+Module_Inverter::Module_Inverter(unsigned int ID) { this->ID = ID; }
 void Module_Inverter::process() {
   int value = getSignalValue("S");
   if (value <= 1 && value >= 0) {
