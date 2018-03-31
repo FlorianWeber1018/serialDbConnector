@@ -55,12 +55,8 @@ struct mySqlParam{
       (this->ID ==  otherParam.ID   &&  this->paramKey  <  otherParam.paramKey)
     );
   }
-}
-/*struct mySqlSignalCompare
-{
-   bool operator() (const mySqlSignal& lhs, const mySqlSignal& rhs) const;
 };
-*/
+
 struct Slot
 {
   int* value;
