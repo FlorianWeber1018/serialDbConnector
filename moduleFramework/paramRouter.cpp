@@ -25,7 +25,7 @@ void ParamRouter::process() {
   if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       mySqlParam keyOfParam;
-      keyOfParam.ID = std::stoui(row[0]);
+      keyOfParam.ID = std::stoul(row[0]);
       keyOfParam.paramKey = row[1];
       completeCnfMap[keyOfParam] = std::stoi(row[2]);
     }
@@ -76,7 +76,7 @@ unsigned int ParamRouter::getNextAvID() {
   MYSQL_ROW row;
   if (result != nullptr) {
     if (row = mysql_fetch_row(result)) {
-      nextAvID = std::stoui(row[0] + 1);
+      nextAvID = std::stoul(row[0]) + 1;
     } else {
       nextAvID = 1;
     }
