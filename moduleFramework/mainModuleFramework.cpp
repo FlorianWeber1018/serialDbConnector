@@ -41,7 +41,7 @@ int main() {
   Module_3WayValve *pidMod = new Module_3WayValve();
 
   Module_constant *modRequiredTemp = new Module_constant();
-  modRequiredTemp->m_config.constValue = 45;
+//  modRequiredTemp->m_config.constValue = 45;
 
   mySqlSignal WWTemp;
   WWTemp.DeviceID = "/dev/ttyACM0";
@@ -58,15 +58,15 @@ int main() {
   Module_2Point *WW = new Module_2Point();
 
   Module_constant *modWWTemp = new Module_constant();
-  modWWTemp->m_config.constValue = 45;
+//  modWWTemp->m_config.constValue = 45;
 
   Module_Inverter *modInv = new Module_Inverter();
 
   Module_constant *modTRUE = new Module_constant();
-  modTRUE->m_config.constValue = 1;
+//  modTRUE->m_config.constValue = 1;
 
   Module_constant *modFALSE = new Module_constant();
-  modFALSE->m_config.constValue = 0;
+//  modFALSE->m_config.constValue = 0;
   /* */
   connect( // CONNECT DC_INC-> OUT
       pidMod, pidMod->getSignal("DutyCyclePWMinc"), modRouterOut, pwmInc);
