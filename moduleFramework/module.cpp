@@ -6,8 +6,8 @@ extern ParamRouter globalParams;
 unsigned int
 
     // ____Module___________________________________________________________________
-    void
-    Module::emitSignal(std::string signalName, int value) {
+
+void Module::emitSignal(std::string signalName, int value) {
   Signal *signal = nullptr;
   try {
     signal = m_signals.at(signalName);
