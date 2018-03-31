@@ -1,6 +1,9 @@
 #include "control.h"
 #include "util.h"
-extern ParamRouter globalParams;
+#include "paramRouter.h"
+
+extern ParamRouter* globalParams;
+
 void config_PID::syncParam(unsigned int ID){
   tempParamKey.ID = ID;
   tempParamKey.paramKey = "kp";
