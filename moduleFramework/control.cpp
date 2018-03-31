@@ -5,6 +5,7 @@
 extern ParamRouter* globalParams;
 
 void config_PID::syncParam(unsigned int ID){
+  mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = ID;
   tempParamKey.paramKey = "kp";
   this->kp = static_cast<float>(globalParams.getParam(tempParamKey));
@@ -26,6 +27,7 @@ void config_PID::syncParam(unsigned int ID){
   this->ud_min = static_cast<float>(globalParams.getParam(tempParamKey));
 }
 void config_ServoPWM::syncParam(unsigned int ID){
+  mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = ID;
   tempParamKey.paramKey = "input_max";
   this->input_max = globalParams.getParam(tempParamKey);
