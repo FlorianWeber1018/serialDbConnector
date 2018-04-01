@@ -2,7 +2,7 @@
 #define module__h
 
 
-#define debugMode 8
+#define debugMode 0
 
 
 #include <climits>
