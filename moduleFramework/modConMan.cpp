@@ -162,7 +162,13 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
       }
     }
   }
+  if(debugMode == 2){
+    for(auto&& ID_Module){
+      std::cout << "m_modulesMap.key:" << ID_Module.first << "m_modulesMap.value:" << ID_Module.second << std::endl;
+    }
+  }
 }
+
 void ModConMan::makeConnectionsFromCache(){
   if(debugMode==2){
     std::cout << "ModConMan::makeConnectionsFromCache()" << std::endl;
