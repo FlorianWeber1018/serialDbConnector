@@ -5,18 +5,19 @@
 extern SignalRouterIn* modRouterIn;
 extern SignalRouterOut* modRouterOut;
 
-std::map<std::string, unsigned int> mappingType_number;
-mappingType_number["2Point"]      = 0;
-mappingType_number["3WayValve"]   = 1;
-mappingType_number["constant"]    = 2;
-mappingType_number["debug"]       = 3;
-mappingType_number["Inverter"]    = 4;
+std::map <std::string, unsigned int> mappingType_number;
+
 
 
 ModConMan::ModConMan(std::string host, unsigned int port,
                                std::string user, std::string pw,
                                std::string db)
 {
+  mappingType_number["2Point"]      = 0;
+  mappingType_number["3WayValve"]   = 1;
+  mappingType_number["constant"]    = 2;
+  mappingType_number["debug"]       = 3;
+  mappingType_number["Inverter"]    = 4;
   mySqlConnection = new mysqlcon(host, port, user, pw, db);
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
