@@ -124,22 +124,37 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
   }
   for(auto&& ID_Type : constructionMap){
     if(debugMode==2){
-      std::cout << "ID:" << ID_Type.first << "Type:" << ID_Type.second << std::endl;
+      std::cout << "ID:" << ID_Type.first << " Type:" << ID_Type.second << std::endl;
     }
     switch(ID_Type.second){
       case 0:{
+        if(debugMode==2){
+          std::cout << "new Module_2Point created with ID: " << ID_Type.first << std::endl;
+        }
         m_modulesMap[ID_Type.first] = new Module_2Point(ID_Type.first);
       } break;
       case 1:{
+        if(debugMode==2){
+          std::cout << "new Module_3WayValve created with ID: " << ID_Type.first << std::endl;
+        }
         m_modulesMap[ID_Type.first] = new Module_3WayValve(ID_Type.first);
       } break;
       case 2:{
+        if(debugMode==2){
+          std::cout << "new Module_constant created with ID: " << ID_Type.first << std::endl;
+        }
         m_modulesMap[ID_Type.first] = new Module_constant(ID_Type.first);
       } break;
       case 3:{
+        if(debugMode==2){
+          std::cout << "new Module_debug created with ID: " << ID_Type.first << std::endl;
+        }
         m_modulesMap[ID_Type.first] = new Module_debug(ID_Type.first);
       } break;
       case 4:{
+        if(debugMode==2){
+          std::cout << "new Module_Inverter created with ID: " << ID_Type.first << std::endl;
+        }
         m_modulesMap[ID_Type.first] = new Module_Inverter(ID_Type.first);
       } break;
       default:{
@@ -216,7 +231,7 @@ void ModConMan::makeConnection(
   Slot* slot = nullptr;
   try {
     if(debugMode==2){
-      std::cout << "search for receiver at ID:" << _signalSlotKey.ID << std::endl;
+      std::cout << "search for receiver at ID: " << _signalSlotKey.ID << std::endl;
     }
     receiver  = m_modulesMap.at(_signalSlotKey.ID);
     slot      = receiver->getSlot(_signalSlotKey.Name);
@@ -246,8 +261,8 @@ void ModConMan::makeConnection(
   Slot* slot = nullptr;
   try {
     if(debugMode==2){
-      std::cout << "search for sender at ID:" << _signalSlotKeySender.ID;
-      std::cout << "search for receiver at ID:" << _signalSlotKeyReceiver.ID << std::endl;
+      std::cout << "search for sender at ID: " << _signalSlotKeySender.ID;
+      std::cout << "and for receiver at ID: " << _signalSlotKeyReceiver.ID << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKeySender.ID);
     signal    = sender->getSignal(_signalSlotKeySender.Name);
@@ -279,7 +294,7 @@ void ModConMan::makeConnection(
 
   try {
     if(debugMode==2){
-      std::cout << "search for sender at ID:" << _signalSlotKey.ID << std::endl;
+      std::cout << "search for sender at ID: " << _signalSlotKey.ID << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKey.ID);
     signal    = sender->getSignal(_signalSlotKey.Name);
