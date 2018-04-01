@@ -164,7 +164,7 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
   }
   if(debugMode == 2){
     for(auto&& ID_Module : m_modulesMap){
-      std::cout << "m_modulesMap.key:" << ID_Module.first << "m_modulesMap.value:" << ID_Module.second << std::endl;
+      std::cout << "m_modulesMap.key:" << ID_Module.first << " m_modulesMap.value:" << ID_Module.second << std::endl;
     }
   }
 }
@@ -232,6 +232,11 @@ void ModConMan::makeConnection(
 {
   if(debugMode==2){
     std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
+  if(debugMode == 2){
+    for(auto&& ID_Module : m_modulesMap){
+      std::cout << "m_modulesMap.key:" << ID_Module.first << " m_modulesMap.value:" << ID_Module.second << std::endl;
+    }
   }
   Module* receiver = nullptr;
   Slot* slot = nullptr;
