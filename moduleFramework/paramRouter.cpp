@@ -16,8 +16,8 @@ ParamRouter::ParamRouter(std::string host, unsigned int port, std::string user,
 int ParamRouter::getParam(mySqlParam key) { return completeCnfMap[key]; }
 
 void ParamRouter::process() {
-  std::string sqlQuery = "SELECT ModuleID AS ID, ParamKey AS key,";
-  sqlQuery.append(" Param AS value from ModuleConfig order by ModuleID;");
+  std::string sqlQuery = "SELECT ModuleID, ParamKey, Param from ModuleConfig;";
+
 
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
 
@@ -33,9 +33,11 @@ void ParamRouter::process() {
   }
   if (debugMode)
     std::cout << "ParamRouter::process()" << std::endl;
-  for(auto&& paramKey_param : completeCnfMap){
-    std::cout << paramKey_param.first.ID << "-" << paramKey_param.first.paramKey;
-    std::cout << "=" << paramKey_param.second << std::endl;
+  if (debugMode & 8)
+    for(auto&& paramKey_param : completeCnfMap){
+      std::cout << paramKey_param.first.ID << "-" << paramKey_param.first.paramKey;
+      std::cout << "=" << paramKey_param.second << std::endl;
+    }
   }
 }
 bool ParamRouter::paramExist(mySqlParam key) {
