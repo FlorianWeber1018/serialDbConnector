@@ -116,6 +116,7 @@ void ModConMan::createAllModules(){
       }
     }
     createModules(constructionMap);
+    std::cout << "back in ModConMan::createAllModules()" << std::endl;
     mysql_free_result(result);
   }
 }
@@ -169,6 +170,7 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
       std::cout << "m_modulesMap.key:" << ID_Module.first << " m_modulesMap.value:" << ID_Module.second << std::endl;
     }
   }
+  std::cout << "end of ModConMan::createModules(map)"<< std::endl;
 }
 
 void ModConMan::makeConnectionsFromCache(){

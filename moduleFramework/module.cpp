@@ -149,13 +149,13 @@ Module::~Module() {
   for (auto &&keyValPair : m_signals) {
     delete keyValPair.second;
     if (debugMode) {
-      std::cout << "deletet Signal: " << keyValPair.first << std::endl;
+      std::cout << "deleted Signal: " << keyValPair.first << std::endl;
     }
   }
   for (auto &&keyValPair : m_slots) {
     delete keyValPair.second;
     if (debugMode) {
-      std::cout << "deletet Slot: " << keyValPair.first << std::endl;
+      std::cout << "deleted Slot: " << keyValPair.first << std::endl;
     }
   }
 }
