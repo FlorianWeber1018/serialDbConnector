@@ -126,7 +126,6 @@ protected:
 class Module_debug : public Module
 {
   public:
-    Module_debug();
     Module_debug(unsigned int ID);
   private:
 
@@ -146,7 +145,6 @@ class Module_debug : public Module
 class Module_3WayValve : public Module
 {
 public:
-  Module_3WayValve();
   Module_3WayValve(unsigned int ID);
 protected:
   PID pid;
@@ -162,7 +160,6 @@ private:
 class Module_2Point : public Module
 {
 public:
-  Module_2Point();
   Module_2Point(unsigned int ID);
 
 protected:
@@ -177,7 +174,6 @@ private:
 class Module_Inverter : public Module
 {
 public:
-  Module_Inverter();
   Module_Inverter(unsigned int ID);
 protected:
   void process() override;

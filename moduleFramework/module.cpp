@@ -178,7 +178,9 @@ void ClockDistributer::rmDestination(Module *destModule) {
 }
 
 // ____Module_constant__________________________________________________________
-Module_constant::Module_constant() {
+
+Module_constant::Module_constant(unsigned int ID){
+  this->ID = ID;
   globalClock.addDestination(this);
   createSignal("constSig");
 
@@ -189,10 +191,6 @@ Module_constant::Module_constant() {
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
-}
-Module_constant::Module_constant(unsigned int ID){
-  this->ID = ID;
-  this->Module_constant();
 }
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
@@ -206,7 +204,9 @@ void Module_constant::process() {
   emitSignal("constSig", globalParams->getParam(tempParamKey));
 }
 // ____Module_debug_____________________________________________________________
-Module_debug::Module_debug() {
+
+Module_debug::Module_debug(unsigned int ID) {
+  this->ID = ID;
   createSlot("debugSlot");
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
@@ -215,10 +215,6 @@ Module_debug::Module_debug() {
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "identifier";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
-}
-Module_debug::Module_debug(unsigned int ID) {
-  this->ID = ID;
-  this->Module_debug();
 }
 void Module_debug::process() {
   if(debugMode==4){
@@ -231,7 +227,8 @@ void Module_debug::process() {
             << getSignalValue("debugSlot") << std::endl;
 }
 // ____Module_3WayValve_________________________________________________________
-Module_3WayValve::Module_3WayValve() {
+Module_3WayValve::Module_3WayValve(unsigned int ID) {
+  this->ID = ID;
   createSlot("requiredTemperature");
   createSlot("actualTemperature");
   createSlot("!EN");
@@ -279,10 +276,6 @@ Module_3WayValve::Module_3WayValve() {
   tempParamKey.paramKey = "decPWM_min";
   globalParams->createParamIfNotExist(tempParamKey, 30);
 }
-Module_3WayValve::Module_3WayValve(unsigned int ID) {
-  this->ID = ID;
-  this->Module_3WayValve();
-}
 void Module_3WayValve::process() {
   if(debugMode==4){
     std::cout << "Module_3WayValve::process()" << std::endl;
@@ -308,7 +301,8 @@ void Module_3WayValve::process() {
   emitSignal("DutyCyclePWMdec", DC_dec);
 }
 // ____Module_2Point____________________________________________________________
-Module_2Point::Module_2Point() {
+Module_2Point::Module_2Point(unsigned int ID) {
+  this->ID = ID;
   createSlot("T1");
   createSlot("T2");
   createSignal("outState");
@@ -322,10 +316,6 @@ Module_2Point::Module_2Point() {
   globalParams->createParamIfNotExist(tempParamKey, 8);
   tempParamKey.paramKey = "dT_off";
   globalParams->createParamIfNotExist(tempParamKey, 2);
-}
-Module_2Point::Module_2Point(unsigned int ID) {
-  this->ID = ID;
-  this->Module_2Point();
 }
 void Module_2Point::process() {
   if(debugMode==4){
@@ -349,13 +339,10 @@ void Module_2Point::process() {
   emitSignal("outState", outState);
 }
 // ____MODULE_Inverter__________________________________________________________
-Module_Inverter::Module_Inverter() {
-  createSlot("S");
-  createSignal("S");
-}
 Module_Inverter::Module_Inverter(unsigned int ID) {
   this->ID = ID;
-  this->Module_Inverter();
+  createSlot("S");
+  createSignal("S");
 }
 void Module_Inverter::process() {
   if(debugMode==4){
