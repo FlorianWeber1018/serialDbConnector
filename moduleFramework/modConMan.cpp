@@ -215,6 +215,9 @@ void ModConMan::makeConnection(
   Module* receiver = nullptr;
   Slot* slot = nullptr;
   try {
+    if(debugMode==2){
+      std::cout << "search for receiver at ID:" << _signalSlotKey.ID << std::endl;
+    }
     receiver  = m_modulesMap.at(_signalSlotKey.ID);
     slot      = receiver->getSlot(_signalSlotKey.Name);
   }
@@ -242,6 +245,10 @@ void ModConMan::makeConnection(
   Module* receiver = nullptr;
   Slot* slot = nullptr;
   try {
+    if(debugMode==2){
+      std::cout << "search for sender at ID:" << _signalSlotKeySender.ID;
+      std::cout << "search for receiver at ID:" << _signalSlotKeyReceiver.ID << std::endl;
+    }
     sender    = m_modulesMap.at(_signalSlotKeySender.ID);
     signal    = sender->getSignal(_signalSlotKeySender.Name);
     receiver  = m_modulesMap.at(_signalSlotKeyReceiver.ID);
@@ -271,6 +278,9 @@ void ModConMan::makeConnection(
   Signal* signal = nullptr;
 
   try {
+    if(debugMode==2){
+      std::cout << "search for sender at ID:" << _signalSlotKey.ID << std::endl;
+    }
     sender    = m_modulesMap.at(_signalSlotKey.ID);
     signal    = sender->getSignal(_signalSlotKey.Name);
   }
