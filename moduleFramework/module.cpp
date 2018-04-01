@@ -202,8 +202,10 @@ Module_constant::Module_constant() {
   tempParamKey.paramKey = "constSig";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
-Module_constant::Module_constant(unsigned int ID)
-{ this->ID = ID; }
+Module_constant::Module_constant(unsigned int ID){
+  this->ID = ID;
+  Module_constant();
+}
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
 void Module_constant::process() {
@@ -223,7 +225,10 @@ Module_debug::Module_debug() {
   tempParamKey.paramKey = "identifier";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
 }
-Module_debug::Module_debug(unsigned int ID) { this->ID = ID; }
+Module_debug::Module_debug(unsigned int ID) {
+  this->ID = ID;
+  Module_debug();
+}
 void Module_debug::process() {
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
@@ -280,7 +285,10 @@ Module_3WayValve::Module_3WayValve() {
   tempParamKey.paramKey = "decPWM_min";
   globalParams->createParamIfNotExist(tempParamKey, 30);
 }
-Module_3WayValve::Module_3WayValve(unsigned int ID) { this->ID = ID; }
+Module_3WayValve::Module_3WayValve(unsigned int ID) {
+  this->ID = ID;
+  Module_3WayValve();
+}
 void Module_3WayValve::process() {
   int DC_inc, DC_dec;
   if (getSignalValue("!EN")) {
@@ -318,7 +326,10 @@ Module_2Point::Module_2Point() {
   tempParamKey.paramKey = "dT_off";
   globalParams->createParamIfNotExist(tempParamKey, 2);
 }
-Module_2Point::Module_2Point(unsigned int ID) { this->ID = ID; }
+Module_2Point::Module_2Point(unsigned int ID) {
+  this->ID = ID;
+  Module_2Point();
+}
 void Module_2Point::process() {
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
@@ -342,7 +353,10 @@ Module_Inverter::Module_Inverter() {
   createSlot("S");
   createSignal("S");
 }
-Module_Inverter::Module_Inverter(unsigned int ID) { this->ID = ID; }
+Module_Inverter::Module_Inverter(unsigned int ID) {
+  this->ID = ID;
+  Module_Inverter();
+}
 void Module_Inverter::process() {
   int value = getSignalValue("S");
   if (value <= 1 && value >= 0) {
