@@ -150,6 +150,7 @@ void ModConMan::makeConnectionsFromCache(){
 void ModConMan::makeConnection(
   mySqlSignal _mySqlSignal, signalSlotKey _signalSlotKey)
 {
+
   Module* receiver = nullptr;
   Slot* slot = nullptr;
   try {
@@ -164,6 +165,9 @@ void ModConMan::makeConnection(
   }
   if( (slot != nullptr) && (receiver != nullptr) ){
     connect(modRouterIn, _mySqlSignal, receiver, slot);
+    if(debugMode==2){
+      std::cout << "connect input to module" << std::endl;
+    }
   }
 }
 void ModConMan::makeConnection(
@@ -188,6 +192,9 @@ void ModConMan::makeConnection(
   if( (signal != nullptr) && (sender != nullptr) &&
       (slot != nullptr) && (receiver != nullptr) ){
     connect(sender, signal, receiver, slot);
+    if(debugMode==2){
+      std::cout << "connect internal" << std::endl;
+    }
   }
 }
 void ModConMan::makeConnection(
@@ -208,5 +215,8 @@ void ModConMan::makeConnection(
   }
   if( (signal != nullptr) && (sender != nullptr) ){
     connect(sender, signal, modRouterOut, _mySqlSignal);
+    if(debugMode==2){
+      std::cout << "connect module to output" << std::endl;
+    }
   }
 }
