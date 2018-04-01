@@ -178,8 +178,7 @@ void ClockDistributer::rmDestination(Module *destModule) {
 }
 
 // ____Module_constant__________________________________________________________
-Module_constant::Module_constant(unsigned int ID){
-  this->ID = ID;
+Module_constant::Module_constant() {
   globalClock.addDestination(this);
   createSignal("constSig");
 
@@ -190,6 +189,10 @@ Module_constant::Module_constant(unsigned int ID){
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
+}
+Module_constant::Module_constant(unsigned int ID){
+  this->ID = ID;
+  this->Module_constant();
 }
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
@@ -215,7 +218,7 @@ Module_debug::Module_debug() {
 }
 Module_debug::Module_debug(unsigned int ID) {
   this->ID = ID;
-  Module_debug();
+  this->Module_debug();
 }
 void Module_debug::process() {
   if(debugMode==4){
@@ -278,7 +281,7 @@ Module_3WayValve::Module_3WayValve() {
 }
 Module_3WayValve::Module_3WayValve(unsigned int ID) {
   this->ID = ID;
-  Module_3WayValve();
+  this->Module_3WayValve();
 }
 void Module_3WayValve::process() {
   if(debugMode==4){
@@ -322,7 +325,7 @@ Module_2Point::Module_2Point() {
 }
 Module_2Point::Module_2Point(unsigned int ID) {
   this->ID = ID;
-  Module_2Point();
+  this->Module_2Point();
 }
 void Module_2Point::process() {
   if(debugMode==4){
@@ -352,7 +355,7 @@ Module_Inverter::Module_Inverter() {
 }
 Module_Inverter::Module_Inverter(unsigned int ID) {
   this->ID = ID;
-  Module_Inverter();
+  this->Module_Inverter();
 }
 void Module_Inverter::process() {
   if(debugMode==4){
