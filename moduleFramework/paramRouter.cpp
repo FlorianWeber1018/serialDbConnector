@@ -92,7 +92,7 @@ unsigned int ParamRouter::getNextAvID() {
   }
   return nextAvID;
 }
-void ParamRouter::createParam(mySqlParam key, unsigned int defaultParam) {
+void ParamRouter::createParam(mySqlParam key, int defaultParam) {
   std::string sqlQuery = "INSERT INTO ModuleConfig (ModuleID, ParamKey, Param)";
   sqlQuery.append(" VALUES (");
   sqlQuery.append(std::to_string(key.ID));
@@ -108,7 +108,7 @@ void ParamRouter::createParam(mySqlParam key, unsigned int defaultParam) {
 
   }
 }
-void ParamRouter::createParamIfNotExist(mySqlParam key, unsigned int defaultParam) {
+void ParamRouter::createParamIfNotExist(mySqlParam key, int defaultParam) {
   if(!paramExist(key)){
     createParam(key, defaultParam);
   }

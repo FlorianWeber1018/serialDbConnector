@@ -13,8 +13,8 @@ public:
   bool paramExist(mySqlParam key);
   bool IDExist(unsigned int ID);
   unsigned int getNextAvID();
-  void createParam(mySqlParam key, unsigned int defaultParam);
-  void createParamIfNotExist(mySqlParam key, unsigned int defaultParam);
+  void createParam(mySqlParam key, int defaultParam);
+  void createParamIfNotExist(mySqlParam key, int defaultParam);
 
 protected:
   mysqlcon *mySqlConnection = nullptr;
