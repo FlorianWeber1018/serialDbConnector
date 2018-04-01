@@ -109,7 +109,6 @@ class ClockDistributer{
 class Module_constant: public Module
 {
 public:
-  Module_constant();
   Module_constant(unsigned int ID);
   ~Module_constant();
 

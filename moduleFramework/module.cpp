@@ -176,21 +176,10 @@ void ClockDistributer::rmDestination(Module *destModule) {
     }
   }
 }
-// ____mySqlSignal______________________________________________________________
 
-/*bool mySqlSignalCompare::operator() (
-  const mySqlSignal& lhs, const mySqlSignal& rhs) const
-{
-  return(
-    ( lhs.DeviceID <  rhs.DeviceID )  ||
-    ( lhs.DeviceID == rhs.DeviceID && lhs.PortType <  rhs.PortType ) ||
-    ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType && lhs.Port <
-rhs.Port ) || ( lhs.DeviceID == rhs.DeviceID && lhs.PortType == rhs.PortType &&
-lhs.Port == rhs.Port && lhs.Pin <  rhs.Pin )
-  );
-}*/
 // ____Module_constant__________________________________________________________
-Module_constant::Module_constant() {
+Module_constant::Module_constant(unsigned int ID){
+  this->ID = ID;
   globalClock.addDestination(this);
   createSignal("constSig");
 
@@ -201,10 +190,6 @@ Module_constant::Module_constant() {
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
   globalParams->createParamIfNotExist(tempParamKey, 0); // Create Line on Server
-}
-Module_constant::Module_constant(unsigned int ID){
-  this->ID = ID;
-  Module_constant();
 }
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
