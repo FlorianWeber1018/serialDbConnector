@@ -100,6 +100,7 @@ void ParamRouter::createParam(mySqlParam key, int defaultParam) {
   sqlQuery.append(key.paramKey);
   sqlQuery.append("', ");
   sqlQuery.append(std::to_string(defaultParam));
+  std::cout <<  std::to_string(defaultParam) << std::endl << std::endl;
   sqlQuery.append(");");
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
   if (result != nullptr) {
