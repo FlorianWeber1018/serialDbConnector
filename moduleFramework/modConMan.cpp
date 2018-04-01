@@ -240,7 +240,7 @@ void ModConMan::makeConnection(
       std::cout << "search for receiver at ID: " << _signalSlotKey.ID << std::endl;
     }
     receiver  = m_modulesMap.at(_signalSlotKey.ID);
-    //slot      = receiver->getSlot(_signalSlotKey.Name);
+    slot      = receiver->getSlot(_signalSlotKey.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
@@ -271,9 +271,9 @@ void ModConMan::makeConnection(
       std::cout << "and for receiver at ID: " << _signalSlotKeyReceiver.ID << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKeySender.ID);
-    //signal    = sender->getSignal(_signalSlotKeySender.Name);
+    signal    = sender->getSignal(_signalSlotKeySender.Name);
     receiver  = m_modulesMap.at(_signalSlotKeyReceiver.ID);
-    //slot      = receiver->getSlot(_signalSlotKeyReceiver.Name);
+    slot      = receiver->getSlot(_signalSlotKeyReceiver.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
