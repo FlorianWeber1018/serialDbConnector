@@ -240,7 +240,7 @@ void ModConMan::makeConnection(
       std::cout << "search for receiver at ID: " << _signalSlotKey.ID << std::endl;
     }
     receiver  = m_modulesMap.at(_signalSlotKey.ID);
-    slot      = receiver->getSlot(_signalSlotKey.Name);
+    //slot      = receiver->getSlot(_signalSlotKey.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
@@ -249,7 +249,7 @@ void ModConMan::makeConnection(
     return;
   }
   if( (slot != nullptr) && (receiver != nullptr) ){
-    //connect(modRouterIn, _mySqlSignal, receiver, slot);
+    connect(modRouterIn, _mySqlSignal, receiver, slot);
     if(debugMode==2){
       std::cout << "connect input to module" << std::endl;
     }
@@ -271,9 +271,9 @@ void ModConMan::makeConnection(
       std::cout << "and for receiver at ID: " << _signalSlotKeyReceiver.ID << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKeySender.ID);
-    signal    = sender->getSignal(_signalSlotKeySender.Name);
+    //signal    = sender->getSignal(_signalSlotKeySender.Name);
     receiver  = m_modulesMap.at(_signalSlotKeyReceiver.ID);
-    slot      = receiver->getSlot(_signalSlotKeyReceiver.Name);
+    //slot      = receiver->getSlot(_signalSlotKeyReceiver.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
@@ -283,7 +283,7 @@ void ModConMan::makeConnection(
   }
   if( (signal != nullptr) && (sender != nullptr) &&
       (slot != nullptr) && (receiver != nullptr) ){
-    //connect(sender, signal, receiver, slot);
+    connect(sender, signal, receiver, slot);
     if(debugMode==2){
       std::cout << "connect internal" << std::endl;
     }
@@ -303,7 +303,7 @@ void ModConMan::makeConnection(
       std::cout << "search for sender at ID: " << _signalSlotKey.ID << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKey.ID);
-    signal    = sender->getSignal(_signalSlotKey.Name);
+    //signal    = sender->getSignal(_signalSlotKey.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
@@ -312,7 +312,7 @@ void ModConMan::makeConnection(
     return;
   }
   if( (signal != nullptr) && (sender != nullptr) ){
-    //connect(sender, signal, modRouterOut, _mySqlSignal);
+    connect(sender, signal, modRouterOut, _mySqlSignal);
     if(debugMode==2){
       std::cout << "connect module to output" << std::endl;
     }
