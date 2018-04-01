@@ -132,33 +132,48 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
     switch(ID_Type.second){
       case 0:{
         if(debugMode==2){
-          std::cout << "new Module_2Point created with ID: " << ID_Type.first << std::endl;
+          std::cout << "new Module_2Point will be created with ID: " << ID_Type.first << std::endl;
         }
         m_modulesMap[ID_Type.first] = new Module_2Point(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_2Point was created with ID: " << ID_Type.first << std::endl;
+        }
       } break;
       case 1:{
         if(debugMode==2){
-          std::cout << "new Module_3WayValve created with ID: " << ID_Type.first << std::endl;
+          std::cout << "new Module_3WayValve will be created with ID: " << ID_Type.first << std::endl;
         }
         m_modulesMap[ID_Type.first] = new Module_3WayValve(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_3WayValve was created with ID: " << ID_Type.first << std::endl;
+        }
       } break;
       case 2:{
         if(debugMode==2){
-          std::cout << "new Module_constant created with ID: " << ID_Type.first << std::endl;
+          std::cout << "new Module_constant will be created with ID: " << ID_Type.first << std::endl;
         }
         m_modulesMap[ID_Type.first] = new Module_constant(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_constant was created with ID: " << ID_Type.first << std::endl;
+        }
       } break;
       case 3:{
         if(debugMode==2){
-          std::cout << "new Module_debug created with ID: " << ID_Type.first << std::endl;
+          std::cout << "new Module_debug will be created with ID: " << ID_Type.first << std::endl;
         }
         m_modulesMap[ID_Type.first] = new Module_debug(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_debug was created with ID: " << ID_Type.first << std::endl;
+        }
       } break;
       case 4:{
         if(debugMode==2){
-          std::cout << "new Module_Inverter created with ID: " << ID_Type.first << std::endl;
+          std::cout << "new Module_Inverter will be created with ID: " << ID_Type.first << std::endl;
         }
         m_modulesMap[ID_Type.first] = new Module_Inverter(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_Inverter was created with ID: " << ID_Type.first << std::endl;
+        }
       } break;
       default:{
         std::cout<< "ERROR ModuleType not in case" << std::endl;
