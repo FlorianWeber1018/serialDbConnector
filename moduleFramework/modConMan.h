@@ -23,7 +23,7 @@ struct signalSlotKey{
 };
 class ModConMan{
 public:
-  //void init();
+  ModConMan(std::string host, unsigned int port, std::string user, std::string pw, std::string db);
 protected:
   //void getDelta();
   void putConnectionDataToCache();
