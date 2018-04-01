@@ -28,6 +28,9 @@ ModConMan::ModConMan(std::string host, unsigned int port,
 }
 
 void ModConMan::putConnectionDataToCache(){
+  if(debugMode==2){
+    std::cout << "ModConMan::putConnectionDataToCache()" << std::endl;
+  }
   std::string sqlQuery =
     "SELECT srcDeviceID, srcPortType, srcPort, srcPin, destID, destSlotName";
     //            0           1           2       3       4         5
@@ -88,6 +91,9 @@ void ModConMan::putConnectionDataToCache(){
   }
 }
 void ModConMan::createAllModules(){
+  if(debugMode==2){
+    std::cout << "ModConMan::createAllModules()" << std::endl;
+  }
   std::map<unsigned int, unsigned int> constructionMap;
   std::string sqlQuery = "SELECT ID, Type from ModuleList;";
 
@@ -113,6 +119,9 @@ void ModConMan::createAllModules(){
 }
 void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constructionMap)
 {
+  if(debugMode==2){
+    std::cout << "ModConMan::createModules()" << std::endl;
+  }
   for(auto&& ID_Type : constructionMap){
     switch(ID_Type.second){
       case 0:{
@@ -137,6 +146,9 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
   }
 }
 void ModConMan::makeConnectionsFromCache(){
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnectionsFromCache()" << std::endl;
+  }
   for(auto&& mySqlSig_SignalSlotKey : m_routingInMap){
     makeConnection(mySqlSig_SignalSlotKey.first, mySqlSig_SignalSlotKey.second);
   }
@@ -150,7 +162,9 @@ void ModConMan::makeConnectionsFromCache(){
 void ModConMan::makeConnection(
   mySqlSignal _mySqlSignal, signalSlotKey _signalSlotKey)
 {
-
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
   Module* receiver = nullptr;
   Slot* slot = nullptr;
   try {
@@ -173,6 +187,9 @@ void ModConMan::makeConnection(
 void ModConMan::makeConnection(
   signalSlotKey _signalSlotKeySender, signalSlotKey _signalSlotKeyReceiver)
 {
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
   Module* sender = nullptr;
   Signal* signal = nullptr;
   Module* receiver = nullptr;
@@ -200,6 +217,9 @@ void ModConMan::makeConnection(
 void ModConMan::makeConnection(
   signalSlotKey _signalSlotKey, mySqlSignal _mySqlSignal )
 {
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
   Module* sender = nullptr;
   Signal* signal = nullptr;
 
