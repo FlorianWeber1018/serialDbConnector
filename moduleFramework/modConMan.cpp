@@ -249,6 +249,7 @@ void ModConMan::makeConnection(
   }
   catch (const std::exception &e) {
     if (debugMode) {
+      std::cout << receiver << " " << slot << std::endl;
       std::cout << "exception was cought : " << e.what() << std::endl;
     }
     return;
