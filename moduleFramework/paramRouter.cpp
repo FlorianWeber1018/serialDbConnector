@@ -33,6 +33,10 @@ void ParamRouter::process() {
   }
   if (debugMode)
     std::cout << "ParamRouter::process()" << std::endl;
+  for(auto&& paramKey_param : completeCnfMap){
+    std::cout << paramKey_param.first.ID << "-" << paramKey_param.first.paramKey;
+    std::cout << "=" << paramKey_param.second << std::endl;
+  }
 }
 bool ParamRouter::paramExist(mySqlParam key) {
   bool ret = false;
