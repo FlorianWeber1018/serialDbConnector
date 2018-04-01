@@ -209,6 +209,9 @@ Module_constant::Module_constant(unsigned int ID){
 Module_constant::~Module_constant() { globalClock.rmDestination(this); }
 
 void Module_constant::process() {
+  if(debugMode==4){
+    std:cout << "Module_constant::process()" << std::endl;
+  }
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "constSig";
@@ -230,6 +233,9 @@ Module_debug::Module_debug(unsigned int ID) {
   Module_debug();
 }
 void Module_debug::process() {
+  if(debugMode==4){
+    std:cout << "Module_debug::process()" << std::endl;
+  }
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "identifier";
@@ -290,6 +296,9 @@ Module_3WayValve::Module_3WayValve(unsigned int ID) {
   Module_3WayValve();
 }
 void Module_3WayValve::process() {
+  if(debugMode==4){
+    std:cout << "Module_3WayValve::process()" << std::endl;
+  }
   int DC_inc, DC_dec;
   if (getSignalValue("!EN")) {
     mySqlParam tempParamKey; // create Key to Config Param
@@ -331,6 +340,9 @@ Module_2Point::Module_2Point(unsigned int ID) {
   Module_2Point();
 }
 void Module_2Point::process() {
+  if(debugMode==4){
+    std:cout << "Module_2Point::process()" << std::endl;
+  }
   mySqlParam tempParamKey; // create Key to Config Param
   tempParamKey.ID = this->ID;
   tempParamKey.paramKey = "dT_on";
@@ -358,6 +370,9 @@ Module_Inverter::Module_Inverter(unsigned int ID) {
   Module_Inverter();
 }
 void Module_Inverter::process() {
+  if(debugMode==4){
+    std:cout << "Module_Inverter::process()" << std::endl;
+  }
   int value = getSignalValue("S");
   if (value <= 1 && value >= 0) {
     if (value == 1) {
