@@ -33,7 +33,7 @@ void ParamRouter::process() {
   }
   if (debugMode)
     std::cout << "ParamRouter::process()" << std::endl;
-  if (debugMode & 8)
+  if (debugMode & 8){
     for(auto&& paramKey_param : completeCnfMap){
       std::cout << paramKey_param.first.ID << "-" << paramKey_param.first.paramKey;
       std::cout << "=" << paramKey_param.second << std::endl;
