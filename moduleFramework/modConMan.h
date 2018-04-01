@@ -1,13 +1,7 @@
 #ifndef modConMan__h
 #define modConMan__h
 #include "module.h"
-enum ModuleType{
-  2Point = 0,
-  3WayValve = 1,
-  constant = 2,
-  debug = 3,
-  Inverter = 4
-};
+
 
 struct signalSlotKey{
   unsigned int ID = 0;
