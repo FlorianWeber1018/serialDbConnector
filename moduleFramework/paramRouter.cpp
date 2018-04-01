@@ -31,6 +31,8 @@ void ParamRouter::process() {
     }
     mysql_free_result(result);
   }
+  if (debugMode)
+    std::cout << "ParamRouter::process()" << std::endl;
 }
 bool ParamRouter::paramExist(mySqlParam key) {
   bool ret = false;
