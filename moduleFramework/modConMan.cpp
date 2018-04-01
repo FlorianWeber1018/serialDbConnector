@@ -233,11 +233,6 @@ void ModConMan::makeConnection(
   if(debugMode==2){
     std::cout << "ModConMan::makeConnection()" << std::endl;
   }
-  if(debugMode == 2){
-    for(auto&& ID_Module : m_modulesMap){
-      std::cout << "m_modulesMap.key:" << ID_Module.first << " m_modulesMap.value:" << ID_Module.second << std::endl;
-    }
-  }
   Module* receiver = nullptr;
   Slot* slot = nullptr;
   try {
@@ -249,13 +244,12 @@ void ModConMan::makeConnection(
   }
   catch (const std::exception &e) {
     if (debugMode) {
-      std::cout << receiver << " " << slot << std::endl;
       std::cout << "exception was cought : " << e.what() << std::endl;
     }
     return;
   }
   if( (slot != nullptr) && (receiver != nullptr) ){
-    connect(modRouterIn, _mySqlSignal, receiver, slot);
+    //connect(modRouterIn, _mySqlSignal, receiver, slot);
     if(debugMode==2){
       std::cout << "connect input to module" << std::endl;
     }
@@ -289,7 +283,7 @@ void ModConMan::makeConnection(
   }
   if( (signal != nullptr) && (sender != nullptr) &&
       (slot != nullptr) && (receiver != nullptr) ){
-    connect(sender, signal, receiver, slot);
+    //connect(sender, signal, receiver, slot);
     if(debugMode==2){
       std::cout << "connect internal" << std::endl;
     }
@@ -318,7 +312,7 @@ void ModConMan::makeConnection(
     return;
   }
   if( (signal != nullptr) && (sender != nullptr) ){
-    connect(sender, signal, modRouterOut, _mySqlSignal);
+    //connect(sender, signal, modRouterOut, _mySqlSignal);
     if(debugMode==2){
       std::cout << "connect module to output" << std::endl;
     }
