@@ -42,7 +42,7 @@ void ModConMan::putConnectionDataToCache(){
         src.Port     = row[2];
         src.Pin      = row[3];
       signalSlotKey dest;
-        dest.ID      = stoul(row[4]);
+        dest.ID      = std::stoul(row[4]);
         dest.Name    = row[5];
       m_routingInMap[src] = dest;
     }
@@ -57,10 +57,10 @@ void ModConMan::putConnectionDataToCache(){
   if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       signalSlotKey src;
-        src.ID  = stoul(row[0]);
+        src.ID  = std::stoul(row[0]);
         src.Name = row[1];
       signalSlotKey dest;
-        dest.ID = stoul(row[2]);
+        dest.ID = std::stoul(row[2]);
         dest.Name = row[3];
       m_routingInternalMap[src] = dest;
     }
