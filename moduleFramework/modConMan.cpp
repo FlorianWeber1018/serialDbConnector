@@ -183,7 +183,7 @@ void ModConMan::makeConnectionsFromCache(){
       std::cout << mySqlSig_SignalSlotKey.second.Name << " | CALL"<< std::endl;
     }
     makeConnection(mySqlSig_SignalSlotKey.first, mySqlSig_SignalSlotKey.second);
-    if(debugMode==2){
+    if(1){
       std::cout << "connect: " << mySqlSig_SignalSlotKey.first.DeviceID << ", ";
       std::cout << mySqlSig_SignalSlotKey.first.PortType << ", ";
       std::cout << mySqlSig_SignalSlotKey.first.Port << ", ";
@@ -200,7 +200,7 @@ void ModConMan::makeConnectionsFromCache(){
       std::cout << SignalSlotKey_SignalSlotKey.second.Name << " | CALL"<< std::endl;
     }
     makeConnection(SignalSlotKey_SignalSlotKey.first,  SignalSlotKey_SignalSlotKey.second);
-    if(debugMode==2){
+    if(1){
       std::cout << "connect: " << SignalSlotKey_SignalSlotKey.first.ID << ".";
       std::cout << SignalSlotKey_SignalSlotKey.first.Name << " -> ";
       std::cout << SignalSlotKey_SignalSlotKey.second.ID << ".";
@@ -217,7 +217,7 @@ void ModConMan::makeConnectionsFromCache(){
       std::cout << SignalSlotKey_mySqlSig.second.Pin << " | CALL"<< std::endl;
     }
     makeConnection(SignalSlotKey_mySqlSig.first, SignalSlotKey_mySqlSig.second);
-    if(debugMode==2){
+    if(1){
       std::cout << "connect: " << SignalSlotKey_mySqlSig.first.ID << ".";
       std::cout << SignalSlotKey_mySqlSig.first.Name << " -> ";
       std::cout << SignalSlotKey_mySqlSig.second.DeviceID << ", ";
