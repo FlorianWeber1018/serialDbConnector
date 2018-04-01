@@ -123,6 +123,9 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
     std::cout << "ModConMan::createModules()" << std::endl;
   }
   for(auto&& ID_Type : constructionMap){
+    if(debugMode==2){
+      std::cout << "ID:" << ID_Type.first << "Type:" << ID_Type.second << std::endl;
+    }
     switch(ID_Type.second){
       case 0:{
         m_modulesMap[ID_Type.first] = new Module_2Point(ID_Type.first);
