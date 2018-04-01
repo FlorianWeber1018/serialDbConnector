@@ -21,7 +21,7 @@ int main() {
   globalParams = new ParamRouter("localhost", 3306, "IoD", "637013", "heizung");
   modRouterIn = new SignalRouterIn("localhost", 3306, "IoD", "637013", "heizung");
   modRouterOut = new SignalRouterOut("localhost", 3306, "IoD", "637013", "heizung");
-  modConMan = new modConMan("localhost", 3306, "IoD", "637013", "heizung");
+  modConMan = new ModConMan("localhost", 3306, "IoD", "637013", "heizung");
 
 
   initGlobalClock();
