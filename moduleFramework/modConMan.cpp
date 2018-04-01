@@ -5,7 +5,7 @@
 extern SignalRouterIn* modRouterIn;
 extern SignalRouterOut* modRouterOut;
 
-map<std::string, unsigned int> mappingType_number;
+std::map<std::string, unsigned int> mappingType_number;
 mappingType_number["2Point"]      = 0;
 mappingType_number["3WayValve"]   = 1;
 mappingType_number["constant"]    = 2;
