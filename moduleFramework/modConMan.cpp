@@ -75,14 +75,14 @@ void ModConMan::putConnectionDataToCache(){
   if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       signalSlotKey src;
-        src.ID  = stoul(row[0]);
+        src.ID  = std::stoul(row[0]);
         src.Name = row[1];
       mySqlSignal dest;
         dest.DeviceID = row[2];
         dest.PortType = row[3];
         dest.Port     = row[4];
         dest.Pin      = row[5];
-      m_routingInternalMap[src] = dest;
+      m_routingOutMap[src] = dest;
     }
     mysql_free_result(result);
   }
