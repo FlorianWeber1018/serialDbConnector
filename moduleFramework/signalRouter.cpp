@@ -166,4 +166,6 @@ void SignalRouterOut::process() {
       mysql_free_result(result);
     }
   }
+  if (debugMode)
+    std::cout << "signalRouterOut::process()" << std::endl;
 }
