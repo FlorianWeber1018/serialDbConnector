@@ -110,7 +110,7 @@ void ModConMan::createAllModules(){
     mysql_free_result(result);
   }
 }
-void createModules(const std::map<unsigned int, unsigned int>& constructionMap)
+void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constructionMap)
 {
   for(auto&& ID_Type : constructionMap){
     switch(ID_Type.second){
@@ -146,8 +146,8 @@ void ModConMan::makeConnectionsFromCache(){
     makeConnection(SignalSlotKey_mySqlSig.first, SignalSlotKey_mySqlSig.second);
   }
 }
-void ModConMan::makeConnection
-  (mySqlSignal _mySqlSignal, signalSlotKey _signalSlotKey)
+void ModConMan::makeConnection(
+  mySqlSignal _mySqlSignal, signalSlotKey _signalSlotKey)
 {
   Module* receiver = nullptr;
   Slot* slot = nullptr;
@@ -165,8 +165,8 @@ void ModConMan::makeConnection
     connect(modRouterIn, _mySqlSignal, receiver, slot);
   }
 }
-void ModConMan::makeConnection
-  (signalSlotKey _signalSlotKeySender, signalSlotKey _signalSlotKeyReceiver)
+void ModConMan::makeConnection(
+  signalSlotKey _signalSlotKeySender, signalSlotKey _signalSlotKeyReceiver)
 {
   Module* sender = nullptr;
   Signal* signal = nullptr;
@@ -189,8 +189,8 @@ void ModConMan::makeConnection
     connect(sender, signal, receiver, slot);
   }
 }
-void ModConMan::makeConnection
-  (signalSlotKey _signalSlotKey, mySqlSignal _mySqlSignal )
+void ModConMan::makeConnection(
+  signalSlotKey _signalSlotKey, mySqlSignal _mySqlSignal )
 {
   Module* sender = nullptr;
   Signal* signal = nullptr;
