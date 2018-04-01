@@ -4,7 +4,7 @@
 #include "paramRouter.h"
 #include <iostream>
 #include <thread>
-#include "modConMan"
+#include "modConMan.h"
 
 ClockDistributer globalClock;
 ParamRouter* globalParams = nullptr;
