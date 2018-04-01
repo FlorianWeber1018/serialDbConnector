@@ -1,7 +1,7 @@
 #include "module.h"
 #include "util.h"
 #include <iostream>
-
+#include "modConMan.h"
 extern SignalRouterIn* modRouterIn;
 extern SignalRouterOut* modRouterOut;
 
