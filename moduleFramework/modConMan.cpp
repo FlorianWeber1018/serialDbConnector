@@ -25,6 +25,8 @@ ModConMan::ModConMan(std::string host, unsigned int port,
   createAllModules();
   putConnectionDataToCache();
   makeConnectionsFromCache();
+  if (debugMode)
+    std::cout << "ModConMan::ModConMan()" << std::endl;
 }
 
 void ModConMan::putConnectionDataToCache(){
