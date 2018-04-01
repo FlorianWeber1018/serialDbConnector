@@ -163,7 +163,7 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
     }
   }
   if(debugMode == 2){
-    for(auto&& ID_Module){
+    for(auto&& ID_Module : m_modulesMap){
       std::cout << "m_modulesMap.key:" << ID_Module.first << "m_modulesMap.value:" << ID_Module.second << std::endl;
     }
   }
