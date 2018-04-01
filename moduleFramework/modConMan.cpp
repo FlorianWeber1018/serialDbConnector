@@ -300,10 +300,11 @@ void ModConMan::makeConnection(
 
   try {
     if(debugMode==2){
-      std::cout << "search for sender at ID: " << _signalSlotKey.ID << std::endl;
+      std::cout << "search for sender at ID: " << _signalSlotKey.ID;
+      std::cout << " And get ID with Name: " << _signalSlotKey.Name << std::endl;
     }
     sender    = m_modulesMap.at(_signalSlotKey.ID);
-    //signal    = sender->getSignal(_signalSlotKey.Name);
+    signal    = sender->getSignal(_signalSlotKey.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
