@@ -175,7 +175,7 @@ bool serialCmdInterface::sendOne(string m_string)
 bool serialCmdInterface::sendOne(char m_char)
 {
 	if(connectionEstablished){
-//		cout << "char sended:" << m_char << endl;
+		cout << "char sended:" << m_char << endl;
 		serialPutchar(handle, m_char);
 		return false;
 	}else{
