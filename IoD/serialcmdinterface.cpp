@@ -149,7 +149,7 @@ void serialCmdInterface::Sending()
 			//if(rtr){
 				//rtr=false;
 			sendOne(temp);
-			//std::cout << temp << std::endl;
+			std::cout << temp << std::endl;
 			std::this_thread::sleep_for(std::chrono::milliseconds(15));
 			bufOut.pop_front();
 			//}
