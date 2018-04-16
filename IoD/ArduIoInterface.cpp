@@ -12,6 +12,9 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
 
   string::size_type i = 0;
   string::size_type j = cmd.find(' ');
+  if (j == string::npos){
+    return;
+  }
   std::cout << "ArduIoInterface::serialDispatcher: \' \' found at:" << j << std::endl;
   while (j != string::npos) {
       cmdVector.push_back(cmd.substr(i, j-i));
