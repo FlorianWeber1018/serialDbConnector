@@ -6,7 +6,7 @@
 #include <mysql/mysql.h>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
-  //std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
+  std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
   std::string sqlQuery="UPDATE ";
   std::vector<string> cmdVector;
 
