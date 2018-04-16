@@ -17,7 +17,7 @@ ModConMan::ModConMan(std::string host, unsigned int port,
   mappingType_number["3WayValve"]   = 1;
   mappingType_number["constant"]    = 2;
   mappingType_number["debug"]       = 3;
-  mappingType_number["Inverter"]    = 4;
+  mappingType_number["inverter"]    = 4;
   mySqlConnection = new mysqlcon(host, port, user, pw, db);
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
@@ -120,8 +120,7 @@ void ModConMan::createAllModules(){
     mysql_free_result(result);
   }
 }
-void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constructionMap)
-{
+void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constructionMap){
   if(debugMode==2){
     std::cout << "ModConMan::createModules()" << std::endl;
   }
