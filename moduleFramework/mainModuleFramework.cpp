@@ -37,7 +37,7 @@ void triggerGlobalClock() {
   }
 }
 void initGlobalClock() {
-  Clock clock(std::chrono::milliseconds(200), triggerGlobalClock);
+  Clock clock(std::chrono::milliseconds(20), triggerGlobalClock);
   if (debugMode)
     std::cout << "Now starting mainloop" << std::endl;
   clock.run();
