@@ -80,6 +80,7 @@ public:
   void addPostModule(Module* postModule);
   void trigger();
   ~Module();
+  Module();
   unsigned int ID = 0;
 private:
 

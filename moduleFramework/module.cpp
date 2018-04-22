@@ -159,6 +159,9 @@ Module::~Module() {
     }
   }
 }
+Module::Module() {
+  std::cout << "NEW Module" << std::endl; 
+}
 // ____ClockDistributer_________________________________________________________
 void ClockDistributer::trigger() {
   for (auto &&destModule : m_destModules) {
