@@ -187,3 +187,130 @@ char serialCmdInterface::pollOne()
 {
 	return (char)serialGetchar(handle);
 }
+
+
+std::string serialCmdInterface::to_flushString(short number)
+{
+	std::string result = {1,1,1,1,1,0};  //nullterminated
+	if (number < 0){
+		result[0] = minus;
+		number *= -1;
+	}else{
+		result[0]= plus;
+	}
+	for (char i = 4; i >= 1; i--){
+			switch(i){
+				case 1:{
+					result[i] = number + number0;
+				}break;
+				case 2:{
+					result[i] = ( number >> 4 ) + number0;;
+					number -= ( result[i] - number0 ) << 4;
+				}break;
+				case 3:{
+					result[i] = ( number >> 8 ) + number0;;
+					number -= ( result[i] - number0 ) << 8;
+				}break;
+				case 4:{
+					result[i] = ( number >> 12 ) + number0;
+					number -= ( result[i] - number0 ) << 12;
+				}break;
+			}
+		}
+	for(char i = 4; i >= 0; i--){
+		if(result[i] != 1){
+			result = result.substr(0, i+1);
+		}
+	}
+}
+std::string serialCmdInterface::to_flushString(unsigned char number)
+{
+	std::string result = {1,1,0};  //nullterminated
+	for (char i = 1; i >= 0; i--){
+		switch(i){
+			case 0:{
+				result[i] = number + number0;
+			}break;
+			case 1:{
+				result[i] = (number >> 4) + number0;
+				number -= ( result[i] - number0 ) << 4 ;
+			}break;
+		}
+	}
+	for(char i = 1; i >= 0; i--){
+		if(result[i] != number0){
+			result = result.substr(0, i+1);
+		}
+	}
+}
+unsigned char serialCmdInterface::to_uchar(const& std::string flushString)
+{
+	unsigned char i = 0;
+	unsigned char result = 0;
+	unsigned char partitialResult = flushString[i];
+	while(partitialResult != 0){
+		switch(i){
+			case 0:{
+				result += partitialResult - number0;
+			}break;
+			case 1:{
+				result += ( partitialResult - number0 ) << 4;
+			}break;
+			default:{
+				return 0;
+			}
+		}
+		partitialResult = flushString[++i];
+	}
+	return result;
+}
+short serialCmdInterface::to_short(const& std::string flushString)
+{
+	bool negFlag=false;
+	if(flushString[0] == plus){
+		negFlag = false;
+	}else{
+		if(flushString[0] == minus){
+			negFlag = true;
+		}else{
+			return 0;
+		}
+	}
+
+	short result = 0;
+	unsigned char i = 1;
+	short partitialResult = flushString[i];
+	while(partitialResult != 0){
+		switch(i){
+			case 1:{
+				result += partitialResult - number0;
+			}break;
+			case 2:{
+				result += ( partitialResult - number0 ) << 4;
+			}break;
+			case 3:{
+				result += ( partitialResult - number0 ) << 8;
+			}break;
+			case 4:{
+				result += ( partitialResult - number0 ) << 12;
+			}break;
+			default:{
+				return 0;
+			}
+		}
+		partitialResult = flushString[++i];
+	}
+
+	if(negflag){
+		return 0 - result;
+	}else{
+		return result;
+	}
+}
+void plotFlushStringToConsole(const& std::string flushString)
+{
+	for (string::size_type i = 0; i < s.length(); ++i){
+		  std::cout << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int)flushString[i] - 1;
+	}
+    std::cout << std::endl;
+}

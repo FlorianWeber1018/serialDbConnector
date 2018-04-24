@@ -96,15 +96,28 @@ void ArduIoInterface::sendConfig(bool sendAll)
   //std::cout << colCnt <<std::endl;
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
-    std::string flushStr = "S C ";
-    flushStr.append(row[0]);
-    flushStr.append(" ");
-    flushStr.append(row[1]);
-    flushStr.append(row[2]);
-    flushStr.append(" ");
-    flushStr.append(row[3]);
+    std::string flushStr;
+    unsigned char pin = stol(row[2]) + (stol(row[1]) * 8);
+    unsigned char config = stol(row[3]);
+    if(row[0] == "A"){
+      if(pin < 16){
+        flushStr.append(static_cast<char>(setCA0 + pin));
+        flushStr.append(to_flushString(config));
+      }else{
+        //ERROR
+      }
+    }else{
+      if(row[0] == "I"){
+        if(pin < 40){
+          flushStr.append(static_cast<char>(setCI0 + pin));
+          flushStr.append(to_flushString(config));
+        }
+      }else{
+        //ERROR
+      }
+    }
     serialFlush(flushStr);
-//    std::cout<<flushStr<<std::endl;
+    plotFlushStringToConsole(flushStr);
   }
   mysql_free_result(result);
 }

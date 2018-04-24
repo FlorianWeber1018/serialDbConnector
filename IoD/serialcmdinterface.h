@@ -44,7 +44,12 @@ class serialCmdInterface
 		list<string> bufOut;
 		list<string> bufIn;
 		volatile bool rtr;
-
+		//convert Funktions especialy for the Protocol
+		std::string to_flushString(short number);
+		std::string to_flushString(unsigned char number);
+		unsigned char to_uchar(const& std::string flushString);
+		short to_short(const& std::string flushString);
+		void plotFlushStringToConsole(const& std::string flushString);
 };
 
 

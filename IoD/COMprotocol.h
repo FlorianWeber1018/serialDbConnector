@@ -8,10 +8,42 @@
 
 #ifndef PROTKOLDEF_H_
 #define PROTKOLDEF_H_
-	#define eot 13			//End of Transmission
-	#define ack 10			//wenn befehl komplett geparst wurde		(antwort arduino->pi)
-	#define nack 21			//wenn befehl nicht komplett geparst wurde
-	#define _space 32		//leerzeichen
+	#define number0 	= 1	// internaly offset of +1
+												// (to provide using nullterminated strings)
+															
+	#define number15 	= (number0+15)
+	#define plus (number15+1)
+	#define minus (plus+1)
+	#define eot (minus+1)			//End of Transmission
+
+	#define setVA0  (eot+1)
+	#define setVA15 (setVA0+15)
+
+	#define getVA0  (setVA15+1)
+	#define getVA15 (getVA0+15)
+
+	#define setCA0  (getVA15+1)
+	#define setCA15 (setCA0+15)
+
+	#define getCA0	(setCA15+1)
+	#define getCA15	(getCA0+15)
+
+	#define setVI0  (getCA15+1)
+	#define setVI39 (setVI0+39)
+
+	#define getVI0  (setVI39+1)
+	#define getVI39 (getVI0+39)
+
+	#define setCI0  (getVI39+1)
+	#define setCI39	(setCI0+39)
+
+	#define getCI0	(setCI39+1)
+	#define getCI39	(getCI0+39)
+
+	#define cmdfreeRam (getCI39+1)
+
+
+
 	#define SizeBufOutMax 120
 	#define SizeBufInMax 400
 #endif /* PROTKOLDEF_H_ */
