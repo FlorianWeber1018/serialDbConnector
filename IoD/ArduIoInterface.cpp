@@ -21,7 +21,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
       i = ++j;
       j = cmd.find(' ', j);
       //std::cout << "ArduIoInterface::serialDispatcher(innerloop): \' \' found at:" << j << std::endl;
-      if (j == string::npos){
+      if (j == std::string::npos){
         cmdVector.push_back(cmd.substr(i, cmd.length()));
       }
   }
@@ -40,9 +40,9 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append("\' AND PortType = \'");
   sqlQuery.append( cmdVector[1] );
   sqlQuery.append("\' AND Port = \'");
-  sqlQuery.append( to_string(stoi(cmdVector[2])/10) );
+  sqlQuery.append( std::to_string(std::stoi(cmdVector[2])/10) );
   sqlQuery.append("\' AND Pin = \'");
-  sqlQuery.append( to_string(stoi(cmdVector[2])%10) );
+  sqlQuery.append( std::to_string(std::stoi(cmdVector[2])%10) );
   sqlQuery.append("\';");
   //std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
