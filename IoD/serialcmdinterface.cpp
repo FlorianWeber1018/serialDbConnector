@@ -222,6 +222,7 @@ std::string serialCmdInterface::to_flushString(short number)
 			result = result.substr(0, i+1);
 		}
 	}
+	return result;
 }
 std::string serialCmdInterface::to_flushString(unsigned char number)
 {
@@ -242,6 +243,7 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 			result = result.substr(0, i+1);
 		}
 	}
+	return result;
 }
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
 {
@@ -309,7 +311,7 @@ short serialCmdInterface::to_short(const std::string& flushString)
 }
 void serialCmdInterface::plotFlushStringToConsole(const std::string& flushString)
 {
-	std::cout << "length is:" << flushString.length() << std::endl;
+	std::cout << "length is:" << flushString.length() << sstd::endl;
 	for (std::string::size_type i = 0; i < flushString.length(); ++i){
 		  std::cout << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int)flushString[i] - 1;
 	}
