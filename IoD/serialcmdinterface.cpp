@@ -2,9 +2,9 @@
 #include "serialcmdinterface.h"
 #include <thread>
 #include <iostream>
-using namespace std;
 
-serialCmdInterface::serialCmdInterface(string device, int baudrate)
+
+serialCmdInterface::serialCmdInterface(std::string device, int baudrate)
 {
 	this->device=device;
 	this->baudrate=baudrate;
@@ -26,7 +26,7 @@ void serialCmdInterface::run()
 		startListening();
 		startSending();
 	}else{
-		cout<<"run::noConnection!"<<endl;
+		std::cout<<"run::noConnection!"<<std::endl;
 	}
 }
 void serialCmdInterface::stop()
@@ -40,7 +40,7 @@ bool serialCmdInterface::getConnectionState()
 	return connectionEstablished;
 }
 
-bool serialCmdInterface::serialFlush(string cmdstr)
+bool serialCmdInterface::serialFlush(std::string cmdstr)
 {
 	if (connectionEstablished)
 	{
@@ -54,7 +54,7 @@ bool serialCmdInterface::serialFlush(string cmdstr)
 	}
 	else
 	{
-		cout<<"serialFlush::noConnection"<<endl;
+		std::cout<<"serialFlush::noConnection"<<std::endl;
 		return true;
 	}
 	return true;
@@ -85,10 +85,10 @@ void serialCmdInterface::disconnect()
 	}
 }
 
-void serialCmdInterface::serialDispatcher(string cmd)
+void serialCmdInterface::serialDispatcher(std::string cmd)
 {
 
-	cout<<"serialDispatcherBaseClass:"<<cmd<<endl;
+	std::cout<<"serialDispatcherBaseClass:"<<cmd<<std::endl;
 
 }
 
@@ -117,7 +117,7 @@ void serialCmdInterface::Listening()
 {
 	//cout << "listen thread!" << endl;
 	listenEnable=true;
-	string tempIn;
+	std::string tempIn;
 	while (listenEnable) {
 
 		char m_char = serialCmdInterface::pollOne();
@@ -145,7 +145,7 @@ void serialCmdInterface::Sending()
 	while (sendEnable) {
 
 		if(!bufOut.empty()){
-			string temp = bufOut.front();
+			std::string temp = bufOut.front();
 			//if(rtr){
 				//rtr=false;
 			sendOne(temp);
@@ -159,7 +159,7 @@ void serialCmdInterface::Sending()
 	}
 }
 
-bool serialCmdInterface::sendOne(string m_string)
+bool serialCmdInterface::sendOne(std::string m_string)
 {
 	int i=0;
 	while(m_string[i]!=0){
