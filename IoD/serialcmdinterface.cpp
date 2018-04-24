@@ -103,14 +103,14 @@ void serialCmdInterface::stopSending()
 void serialCmdInterface::startSending()
 {
 //	cout << "here should sending thread start" << endl;
-	thread m_thread(&serialCmdInterface::Sending, this);
+	std::thread m_thread(&serialCmdInterface::Sending, this);
 	m_thread.detach();
 
 }
 void serialCmdInterface::startListening()
 {
 //	cout << "here should listening thread start" << endl;
-	thread m_thread(&serialCmdInterface::Listening, this);
+	std::thread m_thread(&serialCmdInterface::Listening, this);
 	m_thread.detach();
 }
 void serialCmdInterface::Listening()
