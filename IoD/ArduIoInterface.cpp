@@ -107,6 +107,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
       if(pin < 16){
         flushStr="0";
         flushStr[0] = static_cast<char>(setCA0 + pin);
+        std::cout << "before to_flushString" << std::endl;
         flushStr.append(to_flushString(config));
         std::cout << "flushStr.length()" << flushStr.length() << std::endl;
       }else{
