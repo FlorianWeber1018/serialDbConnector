@@ -103,13 +103,10 @@ void ArduIoInterface::sendConfig(bool sendAll)
     std::string portType = "";
     portType.append(row[0]);
     if(portType == "A"){
-      std::cout << "A!" << '\n';
       if(pin < 16){
         flushStr="0";
         flushStr[0] = static_cast<char>(setCA0 + pin);
-        std::cout << "before to_flushString" << std::endl;
         flushStr.append(to_flushString(config));
-        std::cout << "flushStr.length()" << flushStr.length() << std::endl;
       }else{
         //ERROR
       }
@@ -119,6 +116,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
         if(pin < 40){
           flushStr="0";
           flushStr[0] = static_cast<char>(setCI0 + pin);
+          std::cout << "pin:" << pin <<"Base_SETCI0:" << setCI0 << std::endl;
           flushStr.append(to_flushString(config));
         }
       }else{
