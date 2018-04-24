@@ -100,6 +100,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
     std::string flushStr;
     unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
     unsigned char config = std::stol(row[3]);
+    std::cout << "pin:" << pin <<" PortType:"<<row[0]<<std::endl; 
     if(row[0] == "A"){
       if(pin < 16){
         flushStr="0";
