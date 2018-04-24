@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include <mysql/mysql.h>
+#include <iomanip>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
