@@ -8,15 +8,15 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:" << cmd << std::endl;
   std::string sqlQuery="UPDATE ";
-  std::vector<string> cmdVector;
+  std::vector<std::string> cmdVector;
 
-  string::size_type i = 0;
-  string::size_type j = cmd.find(' ');
-  if (j == string::npos){
+  std::string::size_type i = 0;
+  std::string::size_type j = cmd.find(' ');
+  if (j == std::string::npos){
     return;
   }
   //std::cout << "ArduIoInterface::serialDispatcher: \' \' found at:" << j << std::endl;
-  while (j != string::npos) {
+  while (j != std::string::npos) {
       cmdVector.push_back(cmd.substr(i, j-i));
       i = ++j;
       j = cmd.find(' ', j);
@@ -48,7 +48,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
   if(result != NULL){
     mysql_free_result(result);
-    cout<<"freed result!";
+    std::cout<<"freed result!";
   }
 
 }
