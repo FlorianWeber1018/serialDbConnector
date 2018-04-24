@@ -102,7 +102,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
     if(row[0] == "A"){
       if(pin < 16){
         flushStr="0";
-        flushStr[0] = (static_cast<char>(setCA0 + pin);
+        flushStr[0] = static_cast<char>(setCA0 + pin);
         flushStr.append(to_flushString(config));
       }else{
         //ERROR
