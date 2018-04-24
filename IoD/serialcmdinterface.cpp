@@ -198,7 +198,7 @@ std::string serialCmdInterface::to_flushString(short number)
 	}else{
 		result[0]= plus;
 	}
-	for (char i = 4; i >= 1; i--){
+	for (int i = 4; i >= 1; i--){
 			switch(i){
 				case 1:{
 					result[i] = number + number0;
@@ -217,7 +217,7 @@ std::string serialCmdInterface::to_flushString(short number)
 				}break;
 			}
 		}
-	for(char i = 4; i >= 0; i--){
+	for(int i = 4; i >= 0; i--){
 		if(result[i] != 1){
 			result = result.substr(0, i+1);
 		}
@@ -227,7 +227,7 @@ std::string serialCmdInterface::to_flushString(short number)
 std::string serialCmdInterface::to_flushString(unsigned char number)
 {
 	std::string result = {1,1,0};  //nullterminated
-	for (char i = 1; i >= 0; i--){
+	for (int i = 1; i >= 0; i--){
 		switch(i){
 			case 0:{
 				result[i] = number + number0;
@@ -238,7 +238,7 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 			}break;
 		}
 	}
-	for(char i = 1; i >= 0; i--){
+	for(int i = 1; i >= 0; i--){
 		if(result[i] != number0){
 			result = result.substr(0, i+1);
 		}
@@ -247,7 +247,7 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 }
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
 {
-	unsigned char i = 0;
+	int i = 0;
 	unsigned char result = 0;
 	unsigned char partitialResult = flushString[i];
 	while(partitialResult != 0){
@@ -280,7 +280,7 @@ short serialCmdInterface::to_short(const std::string& flushString)
 	}
 
 	short result = 0;
-	unsigned char i = 1;
+	int i = 1;
 	short partitialResult = flushString[i];
 	while(partitialResult != 0){
 		switch(i){
