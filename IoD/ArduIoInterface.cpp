@@ -101,7 +101,8 @@ void ArduIoInterface::sendConfig(bool sendAll)
     unsigned char config = stol(row[3]);
     if(row[0] == "A"){
       if(pin < 16){
-        flushStr.append(static_cast<char>(setCA0 + pin));
+        flushStr="0";
+        flushStr[0] = (static_cast<char>(setCA0 + pin);
         flushStr.append(to_flushString(config));
       }else{
         //ERROR
@@ -109,7 +110,8 @@ void ArduIoInterface::sendConfig(bool sendAll)
     }else{
       if(row[0] == "I"){
         if(pin < 40){
-          flushStr.append(static_cast<char>(setCI0 + pin));
+          flushStr="0";
+          flushStr[0] = static_cast<char>(setCI0 + pin);
           flushStr.append(to_flushString(config));
         }
       }else{
