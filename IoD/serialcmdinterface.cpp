@@ -2,7 +2,7 @@
 #include "serialcmdinterface.h"
 #include <thread>
 #include <iostream>
-
+#include <iomanip>
 
 serialCmdInterface::serialCmdInterface(std::string device, int baudrate)
 {
