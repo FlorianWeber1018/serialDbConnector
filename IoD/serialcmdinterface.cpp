@@ -243,7 +243,7 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 		}
 	}
 }
-unsigned char serialCmdInterface::to_uchar(const& std::string flushString)
+unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
 {
 	unsigned char i = 0;
 	unsigned char result = 0;
@@ -264,7 +264,7 @@ unsigned char serialCmdInterface::to_uchar(const& std::string flushString)
 	}
 	return result;
 }
-short serialCmdInterface::to_short(const& std::string flushString)
+short serialCmdInterface::to_short(const std::string& flushString)
 {
 	bool negFlag=false;
 	if(flushString[0] == plus){
@@ -307,7 +307,7 @@ short serialCmdInterface::to_short(const& std::string flushString)
 		return result;
 	}
 }
-void serialCmdInterface::plotFlushStringToConsole(const& std::string flushString)
+void serialCmdInterface::plotFlushStringToConsole(const std::string& flushString)
 {
 	for (string::size_type i = 0; i < s.length(); ++i){
 		  std::cout << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int)flushString[i] - 1;
