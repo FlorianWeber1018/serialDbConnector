@@ -98,10 +98,11 @@ void ArduIoInterface::sendConfig(bool sendAll)
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
     std::string flushStr;
-    unsigned int pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
+    unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
     unsigned char config = std::stol(row[3]);
-    std::cout << "pin:" << pin <<" PortType:"<<row[0]<<std::endl;
-    if(row[0] == "A"){
+    std::string portType = "";
+    portType.append(row[0]);
+    if(portType == "A"){
       std::cout << "A!" << '\n';
       if(pin < 16){
         flushStr="0";
@@ -113,7 +114,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
       }
     }else{
       std::cout << "not A :(" << '\n';
-      if(row[0] == "I"){
+      if(portType == "I"){
         if(pin < 40){
           flushStr="0";
           flushStr[0] = static_cast<char>(setCI0 + pin);
