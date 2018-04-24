@@ -183,5 +183,6 @@ void ArduIoInterface::test(){
   while(!mysqlcon::connect()){
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
   }
+  std::cout << "now sending config once!" << std::endl;
   sendConfig(true);
 }
