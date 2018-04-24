@@ -102,7 +102,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
     unsigned char config = std::stol(row[3]);
     std::cout << "pin:" << pin <<" PortType:"<<row[0]<<std::endl;
     if(row[0] == "A"){
-      std::std::cout << "A!" << '\n';
+      std::cout << "A!" << '\n';
       if(pin < 16){
         flushStr="0";
         flushStr[0] = static_cast<char>(setCA0 + pin);
@@ -112,6 +112,7 @@ void ArduIoInterface::sendConfig(bool sendAll)
         //ERROR
       }
     }else{
+      std::cout << "not A :(" << '\n';
       if(row[0] == "I"){
         if(pin < 40){
           flushStr="0";
