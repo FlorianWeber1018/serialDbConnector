@@ -8,10 +8,10 @@
 
 #ifndef PROTKOLDEF_H_
 #define PROTKOLDEF_H_
-	#define number0 	= 1	// internaly offset of +1
+	#define number0 1	// internaly offset of +1
 												// (to provide using nullterminated strings)
-															
-	#define number15 	= (number0+15)
+
+	#define number15 (number0+15)
 	#define plus (number15+1)
 	#define minus (plus+1)
 	#define eot (minus+1)			//End of Transmission
