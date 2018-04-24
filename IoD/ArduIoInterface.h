@@ -16,6 +16,7 @@ class ArduIoInterface : public serialCmdInterface, public mysqlcon
     ArduIoInterface(std::string device, int baudrate, std::string host, unsigned int port, std::string user, std::string pw, std::string db);
     bool connect();
     void mainloop();
+    void test();
   protected:
     void serialDispatcher(std::string cmd);
     void sendConfig(bool sendAll);

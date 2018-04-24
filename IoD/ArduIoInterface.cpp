@@ -176,3 +176,9 @@ void ArduIoInterface::getInput()
   }
 
 }
+void test(){
+  while(!mysqlcon::connect()){
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+  }
+  sendConfig(true);
+}
