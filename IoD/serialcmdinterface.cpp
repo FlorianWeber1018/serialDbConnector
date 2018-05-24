@@ -130,10 +130,7 @@ void serialCmdInterface::Listening()
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			tempIn = "";
 		}else{
-//			cout << "char received: " << m_char << endl;
-			if( isalpha(m_char) || isdigit(m_char) || m_char==' ' ){
-				tempIn += m_char;
-			}
+			tempIn += m_char;
 		}
 	}
 }
@@ -176,7 +173,7 @@ bool serialCmdInterface::sendOne(char m_char)
 {
 	if(connectionEstablished){
 		//cout << "char sended:" << m_char << endl;
-		serialPutchar(handle, m_char);
+		serialPutchar(handle, m_char-number0);
 		return false;
 	}else{
 		return true;
@@ -185,7 +182,7 @@ bool serialCmdInterface::sendOne(char m_char)
 
 char serialCmdInterface::pollOne()
 {
-	return (char)serialGetchar(handle);
+	return (char)serialGetchar(handle) + number0;// + protocoll offset
 }
 
 

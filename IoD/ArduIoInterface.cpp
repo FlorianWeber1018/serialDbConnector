@@ -146,13 +146,16 @@ void ArduIoInterface::sendOutput(bool sendAll)
 
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
-    std::string flushStr = "S V I ";
-    flushStr.append(row[0]);
-    flushStr.append(row[1]);
-    flushStr.append(" ");
-    flushStr.append(row[2]);
-    serialFlush(flushStr);
-//    std::cout<<flushStr<<std::endl;
+    std::string flushStr;
+    unsigned char pin = std::stol(row[0]) + (std::stol(row[1]) * 8);
+    unsigned char value = std::stol(row[2]);
+    if(pin < 40){
+        flushStr="0";
+        flushStr[0] = static_cast<char>(setVI0 + pin);
+        flushStr.append(to_flushString(value));
+        serialFlush(flushStr);
+        plotFlushStringToConsole(flushStr);
+    }
   }
   mysql_free_result(result);
 }
@@ -166,21 +169,27 @@ void ArduIoInterface::getInput()
 //  std::cout<<sqlQuery<<std::endl;
 
   MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
-  if(result!=NULL){
-    int colCnt = mysql_num_fields(result);
-    MYSQL_ROW row;
-    while(row = mysql_fetch_row(result)){
-      std::string flushStr = "G V ";
-      flushStr.append(row[0]);
-      flushStr.append(" ");
-      flushStr.append(row[1]);
-      flushStr.append(row[2]);
-      serialFlush(flushStr);
-//      std::cout<<flushStr<<std::endl;
+  MYSQL_ROW row;
+  while(row = mysql_fetch_row(result)){
+    std::string portType = "";
+    portType.append(row[0]);
+    unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
+    std::string flushStr = "";
+    if(portType == "A"){
+      flushStr[0] = getVA0 + pin;
+      if(pin > 15){
+        break;
+      }
     }
-    mysql_free_result(result);
+    if(portType == "I"){
+      flushStr[0] = getVI0 + pin;
+      if(pin > 39){
+        break;
+      }
+    }
+    serialFlush(flushStr);
   }
-
+  mysql_free_result(result);
 }
 void ArduIoInterface::test(){
   while(!mysqlcon::connect()){
