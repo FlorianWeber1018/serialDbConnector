@@ -88,12 +88,13 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 void ArduIoInterface::mainloop()
 {
 
-  //sendConfig(true);
-  //sendOutput(true);
+  sendConfig(true);
+  sendOutput(true);
 
+  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   while(1){
-    //sendConfig(false);
-    //sendOutput(false);
+    sendConfig(false);
+    sendOutput(false);
     getInput();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -197,7 +198,7 @@ void ArduIoInterface::getInput()
     std::string portType = "";
     portType.append(row[0]);
     unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
-    std::string flushStr = "Z";
+    std::string flushStr = "0";
     if(portType == "A"){
       flushStr[0] = getVA0 + pin;
       if(pin > 15){
