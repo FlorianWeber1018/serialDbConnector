@@ -176,7 +176,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
   while(row = mysql_fetch_row(result)){
     //std::cout << "test" << std::endl;
     std::string flushStr;
-    unsigned char pin = std::stol(row[0]) + (std::stol(row[1]) * 8);
+    unsigned char pin = std::stol(row[1]) + (std::stol(row[0]) * 8);
     unsigned char value = std::stol(row[2]);
     if(pin < 40){
         flushStr="0";
