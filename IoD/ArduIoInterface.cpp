@@ -7,10 +7,12 @@
 #include <iomanip>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
+  if(debuglevel|1){
+    std::cout << "ArduIoInterface::SerialDispatcher:";
+    plotFlushStringToConsole(cmd);
+    std::cout << std::endl;
+  }
 
-  std::cout << "ArduIoInterface::SerialDispatcher:";
-  plotFlushStringToConsole(cmd);
-  std::cout << std::endl;
 
   unsigned char cmdByte = cmd[0];
   if(cmd.size() < 1){
@@ -63,13 +65,15 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append("\' AND Pin = \'");
   sqlQuery.append( pin );
   sqlQuery.append("\';");
-
-  //std::cout << "ArduIoInterface::serialDispatcher::sqlQuery=" << sqlQuery << std::endl;
-
+  if(debuglevel|2){
+    std::cout << "ArduIoInterface::serialDispatcher::sqlQuery=" << sqlQuery << std::endl;
+  }
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
   if(result != NULL){
     mysql_free_result(result);
-    std::cout<<"freed result!";
+    if(debuglevel|2){
+      std::cout<<"freed result!"<<std::endl;
+    }
   }
 
 }
@@ -142,10 +146,12 @@ void ArduIoInterface::sendConfig(bool sendAll)
         //ERROR
       }
     }
-    std::cout << "now flushing:";
-    plotFlushStringToConsole(flushStr);
-    std::cout << std::endl;
 
+    if(debuglevel|1){
+      std::cout << "now flushing:";
+      plotFlushStringToConsole(flushStr);
+      std::cout << std::endl;
+    }
     serialFlush(flushStr);
   }
   mysql_free_result(result);
@@ -177,10 +183,11 @@ void ArduIoInterface::sendOutput(bool sendAll)
         flushStr[0] = static_cast<char>(setVI0 + pin);
         flushStr.append(to_flushString(value));
 
-        std::cout << "now flushing:";
-        plotFlushStringToConsole(flushStr);
-        std::cout << std::endl;
-
+        if(debuglevel|1){
+          std::cout << "now flushing:";
+          plotFlushStringToConsole(flushStr);
+          std::cout << std::endl;
+        }
         serialFlush(flushStr);
     }
   }
@@ -214,9 +221,11 @@ void ArduIoInterface::getInput()
         break;
       }
     }
-    std::cout << "now flushing:";
-    plotFlushStringToConsole(flushStr);
-    std::cout << std::endl;
+    if(debuglevel|1){
+      std::cout << "now flushing:";
+      plotFlushStringToConsole(flushStr);
+      std::cout << std::endl;
+    }
 
     serialFlush(flushStr);
   }

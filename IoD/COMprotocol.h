@@ -8,6 +8,10 @@
 
 #ifndef PROTKOLDEF_H_
 #define PROTKOLDEF_H_
+
+	#define debuglevel 0
+
+
 	#define number0 1	// internaly offset of +1
 												// (to provide using nullterminated strings)
 
