@@ -95,14 +95,14 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 void ArduIoInterface::mainloop()
 {
 
-//  sendConfig(true);
-//  sendOutput(true);
+  sendConfig(true);
+  sendOutput(true);
 
   std::this_thread::sleep_for(std::chrono::milliseconds(2000));
   while(1){
-//    sendConfig(false);
+    sendConfig(false);
     sendOutput(false);
-  //  getInput();
+    getInput();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
   }
