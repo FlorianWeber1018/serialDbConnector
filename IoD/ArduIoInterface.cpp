@@ -8,7 +8,9 @@
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
   std::cout << "ArduIoInterface::SerialDispatcher:";
-  plotFlush
+  plotFlushStringToConsole(cmd);
+  std::cout << std::endl;
+  /*
   std::string sqlQuery="UPDATE ";
   std::vector<std::string> cmdVector;
 
@@ -52,7 +54,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
     mysql_free_result(result);
     std::cout<<"freed result!";
   }
-
+  */
 }
 bool ArduIoInterface::connect()
 {
@@ -123,8 +125,11 @@ void ArduIoInterface::sendConfig(bool sendAll)
         //ERROR
       }
     }
-    serialFlush(flushStr);
+    std::cout << "now flushing:";
     plotFlushStringToConsole(flushStr);
+    std::cout << std::endl;
+
+    serialFlush(flushStr);
   }
   mysql_free_result(result);
 }
@@ -154,8 +159,12 @@ void ArduIoInterface::sendOutput(bool sendAll)
         flushStr="0";
         flushStr[0] = static_cast<char>(setVI0 + pin);
         flushStr.append(to_flushString(value));
-        serialFlush(flushStr);
+
+        std::cout << "now flushing:";
         plotFlushStringToConsole(flushStr);
+        std::cout << std::endl;
+
+        serialFlush(flushStr);
     }
   }
   mysql_free_result(result);
@@ -188,6 +197,10 @@ void ArduIoInterface::getInput()
         break;
       }
     }
+    std::cout << "now flushing:";
+    plotFlushStringToConsole(flushStr);
+    std::cout << std::endl;
+
     serialFlush(flushStr);
   }
   mysql_free_result(result);

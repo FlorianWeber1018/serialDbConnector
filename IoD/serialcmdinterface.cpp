@@ -308,9 +308,7 @@ short serialCmdInterface::to_short(const std::string& flushString)
 }
 void serialCmdInterface::plotFlushStringToConsole(const std::string& flushString)
 {
-	std::cout << "length is:" << flushString.length() << std::endl;
 	for (std::string::size_type i = 0; i < flushString.length(); ++i){
-		  std::cout << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int)flushString[i] - 1;
+		  std::cout << " " << std::hex << std::setfill('0') << std::setw(2) << std::nouppercase << (int)flushString[i] - 1;
 	}
-    std::cout << std::endl;
 }
