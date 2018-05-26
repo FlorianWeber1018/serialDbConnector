@@ -88,8 +88,8 @@ ArduIoInterface::ArduIoInterface(std::string device, int baudrate, std::string h
 void ArduIoInterface::mainloop()
 {
 
-  sendConfig(true);
-  sendOutput(true);
+  //sendConfig(true);
+  //sendOutput(true);
 
   while(1){
     //sendConfig(false);
