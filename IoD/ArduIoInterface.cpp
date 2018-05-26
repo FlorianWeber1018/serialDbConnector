@@ -13,6 +13,9 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   std::cout << std::endl;
 
   unsigned char cmdByte = cmd[0];
+  if(cmd.size() < 1){
+    return;
+  }
   std::string numberStr = cmd.substr(1);
 
   std::string sqlQuery="UPDATE ";
