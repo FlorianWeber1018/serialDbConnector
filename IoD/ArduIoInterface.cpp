@@ -151,8 +151,8 @@ void ArduIoInterface::sendConfig(bool sendAll)
       std::cout << "now flushing:";
       plotFlushStringToConsole(flushStr);
       std::cout << std::endl;
-    }
-    //serialFlush(flushStr);
+    //}
+    serialFlush(flushStr);
   }
   mysql_free_result(result);
 }
