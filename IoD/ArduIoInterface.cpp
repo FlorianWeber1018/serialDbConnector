@@ -197,7 +197,7 @@ void ArduIoInterface::getInput()
     std::string portType = "";
     portType.append(row[0]);
     unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
-    std::string flushStr = "";
+    std::string flushStr = "Z";
     if(portType == "A"){
       flushStr[0] = getVA0 + pin;
       if(pin > 15){
