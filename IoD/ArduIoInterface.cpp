@@ -7,7 +7,7 @@
 #include <iomanip>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
-  if(debuglevel|1){
+  if(debuglevel&1){
     std::cout << "ArduIoInterface::SerialDispatcher:";
     plotFlushStringToConsole(cmd);
     std::cout << std::endl;
@@ -65,7 +65,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append("\' AND Pin = \'");
   sqlQuery.append( pin );
   sqlQuery.append("\';");
-  if(debuglevel|2){
+  if(debuglevel&2){
     std::cout << "ArduIoInterface::serialDispatcher::sqlQuery=" << sqlQuery << std::endl;
   }
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
@@ -183,7 +183,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
         flushStr[0] = static_cast<char>(setVI0 + pin);
         flushStr.append(to_flushString(value));
 
-        if(debuglevel|1){
+        if(debuglevel&1){
           std::cout << "now flushing:";
           plotFlushStringToConsole(flushStr);
           std::cout << std::endl;
@@ -221,7 +221,7 @@ void ArduIoInterface::getInput()
         break;
       }
     }
-    if(debuglevel|1){
+    if(debuglevel&1){
       std::cout << "now flushing:";
       plotFlushStringToConsole(flushStr);
       std::cout << std::endl;
