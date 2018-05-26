@@ -7,9 +7,11 @@
 #include <iomanip>
 void ArduIoInterface::serialDispatcher(std::string cmd)
 {
+
   std::cout << "ArduIoInterface::SerialDispatcher:";
   plotFlushStringToConsole(cmd);
   std::cout << std::endl;
+
   unsigned char cmdByte = cmd[0];
   std::string numberStr = cmd.substr(1);
 
@@ -59,7 +61,7 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   sqlQuery.append( pin );
   sqlQuery.append("\';");
 
-  std::cout << "ArduIoInterface::serialDispatcher::sqlQuery=" << sqlQuery << std::endl;
+  //std::cout << "ArduIoInterface::serialDispatcher::sqlQuery=" << sqlQuery << std::endl;
 
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
   if(result != NULL){
