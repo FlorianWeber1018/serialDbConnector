@@ -205,14 +205,14 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
 {
 	unsigned char result = 0;
-	result |= ( flushString[0] & 0x0F ) - number0);
+	result |= ( flushString[0] & 0x0F ) - number0;
 	result |= ( ( flushString[1] & 0x0F ) - number0) << 4;
 	return result;
 }
 short serialCmdInterface::to_short(const std::string& flushString)
 {
 	short result = 0;
-	result |= ( flushString[0] & 0x0F ) - number0);
+	result |= ( flushString[0] & 0x0F ) - number0;
 	result |= ( ( flushString[1] & 0x0F ) - number0) << 4;
 	result |= ( ( flushString[2] & 0x0F ) - number0) << 8;
 	result |= ( ( flushString[3] & 0x0F ) - number0) << 12;
