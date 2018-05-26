@@ -204,67 +204,19 @@ std::string serialCmdInterface::to_flushString(unsigned char number)
 }
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
 {
-	int i = 0;
 	unsigned char result = 0;
-	unsigned char partitialResult = flushString[i];
-	while(partitialResult != 0){
-		switch(i){
-			case 0:{
-				result += partitialResult - number0;
-			}break;
-			case 1:{
-				result += ( partitialResult - number0 ) << 4;
-			}break;
-			default:{
-				return 0;
-			}
-		}
-		partitialResult = flushString[++i];
-	}
+	result |= ( flushString[0] & 0x0F ) - number0);
+	result |= ( ( flushString[1] & 0x0F ) - number0) << 4;
 	return result;
 }
 short serialCmdInterface::to_short(const std::string& flushString)
 {
-	bool negFlag=false;
-	if(flushString[0] == plus){
-		negFlag = false;
-	}else{
-		if(flushString[0] == minus){
-			negFlag = true;
-		}else{
-			return 0;
-		}
-	}
-
 	short result = 0;
-	int i = 1;
-	short partitialResult = flushString[i];
-	while(partitialResult != 0){
-		switch(i){
-			case 1:{
-				result += partitialResult - number0;
-			}break;
-			case 2:{
-				result += ( partitialResult - number0 ) << 4;
-			}break;
-			case 3:{
-				result += ( partitialResult - number0 ) << 8;
-			}break;
-			case 4:{
-				result += ( partitialResult - number0 ) << 12;
-			}break;
-			default:{
-				return 0;
-			}
-		}
-		partitialResult = flushString[++i];
-	}
-
-	if(negFlag){
-		return 0 - result;
-	}else{
-		return result;
-	}
+	result |= ( flushString[0] & 0x0F ) - number0);
+	result |= ( ( flushString[1] & 0x0F ) - number0) << 4;
+	result |= ( ( flushString[2] & 0x0F ) - number0) << 8;
+	result |= ( ( flushString[3] & 0x0F ) - number0) << 12;
+	return result;
 }
 void serialCmdInterface::plotFlushStringToConsole(const std::string& flushString)
 {

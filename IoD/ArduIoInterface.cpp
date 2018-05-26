@@ -10,45 +10,57 @@ void ArduIoInterface::serialDispatcher(std::string cmd)
   std::cout << "ArduIoInterface::SerialDispatcher:";
   plotFlushStringToConsole(cmd);
   std::cout << std::endl;
-  /*
-  std::string sqlQuery="UPDATE ";
-  std::vector<std::string> cmdVector;
+  unsigned char cmdByte = cmd[0];
+  std::string numberStr = cmd.substr(1);
 
-  std::string::size_type i = 0;
-  std::string::size_type j = cmd.find(' ');
-  if (j == std::string::npos){
-    return;
-  }
-  //std::cout << "ArduIoInterface::serialDispatcher: \' \' found at:" << j << std::endl;
-  while (j != std::string::npos) {
-      cmdVector.push_back(cmd.substr(i, j-i));
-      i = ++j;
-      j = cmd.find(' ', j);
-      //std::cout << "ArduIoInterface::serialDispatcher(innerloop): \' \' found at:" << j << std::endl;
-      if (j == std::string::npos){
-        cmdVector.push_back(cmd.substr(i, cmd.length()));
-      }
-  }
-//  for(string element : cmdVector){
-//    std::cout << element << std::endl;
-//  }
-  if(cmdVector[0]=="V"){
+  std::string sqlQuery="UPDATE ";
+  std::string port;
+  std::string pin;
+  std::string portType;
+
+  if(cmdByte >= setVA0 && cmdByte <= setVA15){
     sqlQuery.append("IoValue SET actualState = ");
-    sqlQuery.append(cmdVector[3]);
-  }else if(cmdVector[0]=="C"){
-    sqlQuery.append("IoConfigValue SET actualConfig = ");
-    sqlQuery.append(cmdVector[3]);
+    sqlQuery.append(std::to_string(to_short(numberStr)));
+    port =  std::to_string((cmdByte-setVA0)/8);
+    pin = std::to_string((cmdByte-setVA0)%8);
+    portType = "A";
+  }else{
+    if(cmdByte >= setCA0 && cmdByte <= setCA15){
+      sqlQuery.append("IoConfigValue SET actualConfig = ");
+      sqlQuery.append(std::to_string(to_uchar(numberStr)));
+      port =  std::to_string((cmdByte-setCA0)/8);
+      pin = std::to_string((cmdByte-setCA0)%8);
+      portType = "A";
+    }else{
+      if(cmdByte >= setVI0 && cmdByte <= setVI39){
+        sqlQuery.append("IoValue SET actualState = ");
+        sqlQuery.append(std::to_string(to_uchar(numberStr)));
+        port =  std::to_string((cmdByte-setVI0)/8);
+        pin = std::to_string((cmdByte-setVI0)%8);
+        portType = "I";
+      }else{
+        if(cmdByte >= setCI0 && cmdByte <= setCI39){
+          sqlQuery.append("IoConfigValue SET actualConfig = ");
+          sqlQuery.append(std::to_string(to_uchar(numberStr)));
+          port =  std::to_string((cmdByte-setCI0)/8);
+          pin = std::to_string((cmdByte-setCI0)%8);
+          portType = "I";
+        }
+      }
+    }
   }
   sqlQuery.append(" WHERE DeviceID = \'");
   sqlQuery.append(device);
   sqlQuery.append("\' AND PortType = \'");
-  sqlQuery.append( cmdVector[1] );
+  sqlQuery.append( PortType );
   sqlQuery.append("\' AND Port = \'");
-  sqlQuery.append( std::to_string(std::stoi(cmdVector[2])/10) );
+  sqlQuery.append( Port );
   sqlQuery.append("\' AND Pin = \'");
-  sqlQuery.append( std::to_string(std::stoi(cmdVector[2])%10) );
+  sqlQuery.append( Pin );
   sqlQuery.append("\';");
-  //std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
+
+  std::cout << "ArduIoInterface::sqlQuery=" << sqlQuery << std::endl;
+/*
   MYSQL_RES* result = sendCommand_dispatcherThread(sqlQuery);
   if(result != NULL){
     mysql_free_result(result);
