@@ -9,7 +9,7 @@
 #ifndef PROTKOLDEF_H_
 #define PROTKOLDEF_H_
 
-	#define debuglevel 0
+	#define debuglevel 1
 
 
 	#define number0 1	// internaly offset of +1
