@@ -188,58 +188,18 @@ char serialCmdInterface::pollOne()
 
 std::string serialCmdInterface::to_flushString(short number)
 {
-	std::string result = {1,1,1,1,1,0};  //nullterminated
-	if (number < 0){
-		result[0] = minus;
-		number *= -1;
-	}else{
-		result[0]= plus;
-	}
-	for (int i = 4; i >= 1; i--){
-			switch(i){
-				case 1:{
-					result[i] = number + number0;
-				}break;
-				case 2:{
-					result[i] = ( number >> 4 ) + number0;;
-					number -= ( result[i] - number0 ) << 4;
-				}break;
-				case 3:{
-					result[i] = ( number >> 8 ) + number0;;
-					number -= ( result[i] - number0 ) << 8;
-				}break;
-				case 4:{
-					result[i] = ( number >> 12 ) + number0;
-					number -= ( result[i] - number0 ) << 12;
-				}break;
-			}
-		}
-	for(int i = 4; i >= 0; i--){
-		if(result[i] != 1){
-			result = result.substr(0, i+1);
-		}
-	}
+	std::string result = {1,1,1,1,0};  //nullterminated
+	result[3] = ( number & 0x000F );
+	result[2] = ( number >> 4 ) & 0x000F;
+	result[1] = ( number >> 8 ) & 0x000F;
+	result[0] = ( number >> 12 ) & 0x000F;
 	return result;
 }
 std::string serialCmdInterface::to_flushString(unsigned char number)
 {
 	std::string result = {1,1,0};  //nullterminated
-	for (int i = 1; i >= 0; i--){
-		switch(i){
-			case 0:{
-				result[i] = number + number0;
-			}break;
-			case 1:{
-				result[i] = (number >> 4) + number0;
-				number -= ( result[i] - number0 ) << 4 ;
-			}break;
-		}
-	}
-	for(int i = 1; i >= 0; i--){
-		if(result[i] != number0){
-			result = result.substr(0, i+1);
-		}
-	}
+	result[0] = ( number & 0x0F );
+	result[1] = ( number >> 4 ) & 0x0F;
 	return result;
 }
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
