@@ -167,7 +167,7 @@ void ArduIoInterface::sendOutput(bool sendAll)
   }else{
     sqlQuery.append("\' AND NOT IoValue.targetState = IoValue.actualState;");
   }
-  //std::cout << sqlQuery << std::endl << std::endl;
+  std::cout << sqlQuery << std::endl << std::endl;
 
   MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
 
