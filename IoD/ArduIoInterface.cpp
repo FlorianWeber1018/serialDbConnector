@@ -114,7 +114,6 @@ void ArduIoInterface::sendConfig(bool sendAll)
         //ERROR
       }
     }else{
-      std::cout << "not A :(" << '\n';
       if(portType == "I"){
         if(pin < 40){
           flushStr="0";
