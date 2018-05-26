@@ -89,12 +89,12 @@ void ArduIoInterface::mainloop()
 {
 
   sendConfig(true);
-  //sendOutput(true);
+  sendOutput(true);
 
   while(1){
     sendConfig(false);
-    //sendOutput(false);
-    //getInput();
+    sendOutput(false);
+    getInput();
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
   }
