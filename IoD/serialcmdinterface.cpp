@@ -189,17 +189,17 @@ char serialCmdInterface::pollOne()
 std::string serialCmdInterface::to_flushString(short number)
 {
 	std::string result = {1,1,1,1,0};  //nullterminated
-	result[0] = (unsigned char)(   number & 0x000F );
-	result[1] = (unsigned char)( ( number >> 4 ) & 0x000F);
-	result[2] = (unsigned char)( ( number >> 8 ) & 0x000F);
-	result[3] = (unsigned char)( ( number >> 12 ) & 0x000F);
+	result[0] = (unsigned char)(   number & 0x000F ) + number0;
+	result[1] = (unsigned char)( ( number >> 4 ) & 0x000F) + number0;
+	result[2] = (unsigned char)( ( number >> 8 ) & 0x000F) + number0;
+	result[3] = (unsigned char)( ( number >> 12 ) & 0x000F) + number0;
 	return result;
 }
 std::string serialCmdInterface::to_flushString(unsigned char number)
 {
-	std::string result = {1,1,0};  //nullterminated
-	result[0] = ( number & 0x0F );
-	result[1] = ( number >> 4 ) & 0x0F;
+	std::string result = "00";  //nullterminated
+	result[0] = ( number & 0x0F ) + number0;
+	result[1] = (( number >> 4 ) & 0x0F) + number0;
 	return result;
 }
 unsigned char serialCmdInterface::to_uchar(const std::string& flushString)
