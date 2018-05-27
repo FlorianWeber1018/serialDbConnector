@@ -13,11 +13,12 @@ ModConMan::ModConMan(std::string host, unsigned int port,
                                std::string user, std::string pw,
                                std::string db)
 {
-  mappingType_number["2Point"]      = 0;
-  mappingType_number["3WayValve"]   = 1;
-  mappingType_number["constant"]    = 2;
-  mappingType_number["debug"]       = 3;
-  mappingType_number["inverter"]    = 4;
+  mappingType_number["2Point"]          = 0;
+  mappingType_number["3WayValve"]       = 1;
+  mappingType_number["constant"]        = 2;
+  mappingType_number["debug"]           = 3;
+  mappingType_number["inverter"]        = 4;
+  mappingType_number["medianFilter"]    = 5;
   mySqlConnection = new mysqlcon(host, port, user, pw, db);
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
@@ -172,6 +173,15 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
         m_modulesMap[ID_Type.first] = new Module_Inverter(ID_Type.first);
         if(debugMode==2){
           std::cout << "new Module_Inverter was created with ID: " << ID_Type.first << std::endl;
+        }
+      } break;
+      case 5:{
+        if(debugMode==2){
+          std::cout << "new Module_MedianFilter will be created with ID: " << ID_Type.first << std::endl;
+        }
+        m_modulesMap[ID_Type.first] = new Module_MedianFilter(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_MedianFilter was created with ID: " << ID_Type.first << std::endl;
         }
       } break;
       default:{
