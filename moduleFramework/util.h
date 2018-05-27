@@ -2,7 +2,8 @@
 #define util__h
 
 #include "signalRouter.h"
-
+#include <algorithm>
+#include <vector>
 struct Time
 {
   int year;
@@ -44,6 +45,16 @@ void moveToBorders(
     value = min_value;
   }else if(value > max){
     value = max_value;
+  }
+};
+template <typename T>
+int findMedian(std::vector<T> in){
+  int size = in.size();
+  std::sort (in.begin(), in.end());
+  if(size % 2){   //odd
+    return in[ ( size - 1 ) / 2 ];
+  }else{          //even
+    return ( in[ size / 2 ] + in[ ( size / 2 ) - 1 ] ) / 2;
   }
 };
 

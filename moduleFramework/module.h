@@ -181,6 +181,19 @@ protected:
 private:
 };
 //______________________________________________________________________________
+//____Module which implements an Median filter__________________________________
+//    IN:  S (1/0)
+//    OUT: S (0/1)
+class Module_MedianFilter : public Module
+{
+public:
+  Module_MedianFilter(unsigned int ID);
+protected:
+  std::vector<int> m_values;
+  void process() override;
+private:
+};
+//______________________________________________________________________________
 //____Module which controlls an wood fired oven_________________________________
 //    IN:  S, VL_Wood, RL_Wood
 //    OUT: Fan (0/1)

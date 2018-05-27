@@ -160,7 +160,7 @@ Module::~Module() {
   }
 }
 Module::Module() {
-  std::cout << "NEW Module" << std::endl; 
+  std::cout << "NEW Module" << std::endl;
 }
 // ____ClockDistributer_________________________________________________________
 void ClockDistributer::trigger() {
@@ -359,6 +359,40 @@ void Module_Inverter::process() {
       value = 1;
     }
   }
+  emitSignal("S", value);
+}
+// ____MODULE_Median____________________________________________________________
+Module_MedianFilter::Module_MedianFilter(unsigned int ID) {
+  this->ID = ID;
+  createSlot("S");
+  createSignal("S");
+
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this->ID = globalParams->getNextAvID();
+  }
+  tempParamKey.ID = this->ID;
+
+  tempParamKey.paramKey = "size";
+  globalParams->createParamIfNotExist(tempParamKey, 3);
+}
+void Module_MedianFilter::process() {
+  if(debugMode==4){
+    std::cout << "Module_MedianFilter::process()" << std::endl;
+  }
+  mySqlParam tempParamKey; // create Key to Config Param
+  tempParamKey.ID = this->ID;
+  tempParamKey.paramKey = "size";
+  int NewSize = globalParams->getParam(tempParamKey);
+  int NewValue = getSignalValue("S");
+
+  m_values.push_back(NewValue);
+
+  while(m_values.size() > NewSize){   //remove elements till the buffer hats the correct size from the config
+    m_values.erase(m_values.begin());
+  }
+  int value = findMedian(m_values);
+  
   emitSignal("S", value);
 }
 // _____________________________________________________________________________
