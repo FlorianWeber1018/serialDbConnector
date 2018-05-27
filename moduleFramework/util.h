@@ -47,8 +47,9 @@ void moveToBorders(
     value = max_value;
   }
 };
+
 template <typename T>
-int findMedian(std::vector<T> in){
+int findMedian(T in){         //ONLY FOR VECTORS
   int size = in.size();
   std::sort (in.begin(), in.end());
   if(size % 2){   //odd
