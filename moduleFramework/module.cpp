@@ -392,7 +392,104 @@ void Module_MedianFilter::process() {
     m_values.erase(m_values.begin());
   }
   int value = findMedian(m_values);
-  
+
   emitSignal("S", value);
+}
+// ____MODULE_Woodstove_________________________________________________________
+Module_Woodstove::Module_Woodstove(unsigned int ID) {
+  this->ID = ID;
+  createSlot("T_boiler");
+  createSlot("T_storage");
+  createSlot("startButton");
+  createSlot("stopButton");
+
+  createSignal("loadPump");
+  createSignal("fan");
+  createSignal("count");
+
+  mySqlParam tempParamKey; // create Key to Config Param
+  if (this->ID == 0) {
+    this->ID = globalParams->getNextAvID();
+  }
+  tempParamKey.ID = this->ID;
+
+  tempParamKey.paramKey = "dT_on";
+  globalParams->createParamIfNotExist(tempParamKey, 8);
+  tempParamKey.paramKey = "dT_off";
+  globalParams->createParamIfNotExist(tempParamKey, 4);
+  tempParamKey.paramKey = "T_boilerMin";
+  globalParams->createParamIfNotExist(tempParamKey, 55);
+  tempParamKey.paramKey = "T_boilerMinHyst";
+  globalParams->createParamIfNotExist(tempParamKey, 4);
+  tempParamKey.paramKey = "initCnt";
+  globalParams->createParamIfNotExist(tempParamKey, 3600);
+
+}
+void Module_Woodstove::process() {
+  if(debugMode==4){
+    std::cout << "Module_Woodstove::process()" << std::endl;
+  }
+  mySqlParam tempParamKey; // create Key to Config Param
+  tempParamKey.ID = this->ID;
+
+//________2point loadPump___
+  tempParamKey.paramKey = "dT_on";
+  int dT_on = globalParams->getParam(tempParamKey);
+  tempParamKey.paramKey = "dT_off";
+  int dT_off = globalParams->getParam(tempParamKey);
+  tempParamKey.paramKey = "T_boilerMin";
+  int T_boilerMin = globalParams->getParam(tempParamKey);
+  tempParamKey.paramKey = "T_boilerMinHyst";
+  int T_boilerMinHyst = globalParams->getParam(tempParamKey);
+
+  int T_boiler = getSignalValue("T_boiler");
+
+  int diff = T_boiler - getSignalValue("T_storage");
+
+  if (diff >= dT_on) {
+    diffPumpState = 1;
+  } else if (diff <= dT_off) {
+    diffPumpState = 0;
+  }
+  if ( T_boiler >= ( T_boilerMin + T_boilerMinHyst ) ) {
+    minPumpState = 1;
+  } else if (diff <= T_boilerMin) {
+    minPumpState = 0;
+  }
+  if( ( diffPumpState & minPumpState ) == 1 ){
+    pumpState = 1;
+  }else{
+    pumpState = 0;
+  }
+  emitSignal("loadPump", pumpState);
+//___________________________
+//________counter fan
+  tempParamKey.paramKey = "initCnt";
+  int initCnt = globalParams->getParam(tempParamKey);
+
+  int startButton = getSignalValue("startButton");
+  int stopButton = getSignalValue("stopButton");
+
+  if(startButton == 1){
+    cnt=initCnt;
+  }
+  if(stopButton == 1){
+    cnt=0;
+  }
+  if(cnt > 0){//counter is running
+    if(pumpState == 1){
+      cnt=initCnt;
+    }else{
+      cnt--;
+    }
+  }
+  if(cnt > 0){
+    emitSignal("fan", 1);
+  }else{
+    emitSignal("fan", 0);
+  }
+  emitSignal("cnt", cnt);
+
+
 }
 // _____________________________________________________________________________

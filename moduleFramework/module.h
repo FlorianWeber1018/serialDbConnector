@@ -205,12 +205,20 @@ private:
 };
 //______________________________________________________________________________
 //____Module which controlls an wood fired oven_________________________________
-//    IN:  S, VL_Wood, RL_Wood
-//    OUT: Fan (0/1)
+//    IN:  S, , RL_Wood
+//    OUT: Fan (0/1), Pump (0/1)
 
-class Module_woodstove : public Module
+class Module_Woodstove : public Module
 {
-
+public:
+  Module_Woodstove(unsigned int ID);
+protected:
+  int diffPumpState = 0;
+  int minPumpState = 0;
+  int pumpState = 0;
+  int cnt = 0;
+  void process() override;
+private:
 };
 //______________________________________________________________________________
 #endif
