@@ -48,8 +48,8 @@ void moveToBorders(
   }
 };
 
-template <class T>
-auto findMedian(T in){
+//template <class T>
+int findMedian(std::vector<int> in){
   int size = in.size();
   std::sort (in.begin(), in.end());
   if(size % 2){   //odd
