@@ -4,7 +4,7 @@
 
 #define debugMode 0
 
-
+#include <algorithm>
 #include <climits>
 #include <vector>
 #include <string>
@@ -12,6 +12,16 @@
 #include <set>
 
 #include "control.h"
+template <class T>
+auto findMedian(T in){
+  int size = in.size();
+  std::sort (in.begin(), in.end());
+  if(size % 2){   //odd
+    return in[ ( size - 1 ) / 2 ];
+  }else{          //even
+    return ( in[ size / 2 ] + in[ ( size / 2 ) - 1 ] ) / 2;
+  }
+};
 
 
 struct mySqlSignal{
