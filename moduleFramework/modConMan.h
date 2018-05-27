@@ -34,9 +34,9 @@ protected:
   void makeConnection(signalSlotKey, signalSlotKey);
   void makeConnection(signalSlotKey, mySqlSignal);
   std::map<unsigned int, Module*> m_modulesMap;
-  std::map<mySqlSignal, signalSlotKey> m_routingInMap;
+  std::map<signalSlotKey, mySqlSignal> m_routingInMap;
   std::map<signalSlotKey, signalSlotKey> m_routingInternalMap;
-  std::map<signalSlotKey, mySqlSignal> m_routingOutMap;
+  std::map<mySqlSignal, signalSlotKey> m_routingOutMap;
   mysqlcon* mySqlConnection = nullptr;
 
 };
