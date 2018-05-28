@@ -11,6 +11,11 @@ void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal, Module
   connect( signalRouter, signalRouter->createSignalIfNotexist(_extSignal) , receiver, _Slot );
 }
 
+void connectToSoftwareButton(SignalRouterIn* signalRouter, unsigned int key, Module* receiver, Slot* _Slot)
+{
+    connect( signalRouter, signalRouter->createSignalIfNotexist(key) , receiver, _Slot );
+}
+
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
 {
   _Slot->value = &(_Signal->value);

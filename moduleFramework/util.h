@@ -18,6 +18,11 @@ void connectToTime(SignalRouterIn* signalRouter, const std::string& key,
   Module* receiver, Slot* _Slot
 );
 
+
+void connectToSoftwareButton(SignalRouterIn* signalRouter, unsigned int key,
+  Module* receiver, Slot* _Slot
+);
+
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
   Module* receiver, Slot* _Slot
 );

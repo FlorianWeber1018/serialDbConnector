@@ -19,6 +19,7 @@ ModConMan::ModConMan(std::string host, unsigned int port,
   mappingType_number["debug"]           = 3;
   mappingType_number["inverter"]        = 4;
   mappingType_number["medianFilter"]    = 5;
+  mappingType_number["woodstove"]       = 6;
   mySqlConnection = new mysqlcon(host, port, user, pw, db);
   while (!mySqlConnection->connect()) {
     std::cout << "ERROR: mysqlcon::connect() failed" << std::endl;
@@ -92,6 +93,23 @@ void ModConMan::putConnectionDataToCache(){
     }
     mysql_free_result(result);
   }
+
+  sqlQuery =
+    "SELECT buttonID, destID, destSlotName";
+    //        0          1           2          3
+  sqlQuery.append(" from SoftwareButtonRouting;");
+  result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr) {
+    while (row = mysql_fetch_row(result)) {
+      signalSlotKey dest;
+        dest.ID = std::stoul(row[1]);
+        dest.Name = row[2];
+      m_routingSoftwareButtonsMap[dest] = std::stoul(row[0]);
+    }
+    mysql_free_result(result);
+  }
+
+
 }
 void ModConMan::createAllModules(){
   if(debugMode==2){
@@ -184,6 +202,15 @@ void ModConMan::createModules(const std::map<unsigned int, unsigned int>& constr
           std::cout << "new Module_MedianFilter was created with ID: " << ID_Type.first << std::endl;
         }
       } break;
+      case 6:{
+        if(debugMode==2){
+          std::cout << "new Module_Module_Woodstove will be created with ID: " << ID_Type.first << std::endl;
+        }
+        m_modulesMap[ID_Type.first] = new Module_Woodstove(ID_Type.first);
+        if(debugMode==2){
+          std::cout << "new Module_Woodstove was created with ID: " << ID_Type.first << std::endl;
+        }
+      } break;
       default:{
         std::cout<< "ERROR ModuleType not in case" << std::endl;
       }
@@ -224,8 +251,8 @@ void ModConMan::makeConnectionsFromCache(){
     if(debugMode==2){
       std::cout << "connect: " << SignalSlotKey_SignalSlotKey.second.ID << ".";
       std::cout << SignalSlotKey_SignalSlotKey.second.Name << " -> ";
-      std::cout << SignalSlotKey_SignalSlotKey.second.ID << ".";
-      std::cout << SignalSlotKey_SignalSlotKey.second.Name << " | CALL"<< std::endl;
+      std::cout << SignalSlotKey_SignalSlotKey.first.ID << ".";
+      std::cout << SignalSlotKey_SignalSlotKey.first.Name << " | CALL"<< std::endl;
     }
     makeConnection(SignalSlotKey_SignalSlotKey.second,  SignalSlotKey_SignalSlotKey.first);
     if(1){
@@ -252,6 +279,22 @@ void ModConMan::makeConnectionsFromCache(){
       std::cout << SignalSlotKey_mySqlSig.first.PortType << ", ";
       std::cout << SignalSlotKey_mySqlSig.first.Port << ", ";
       std::cout << SignalSlotKey_mySqlSig.first.Pin << " | DONE"<< std::endl;
+    }
+  }
+
+  for(auto&& SignalSlotKey_buttonID : m_routingSoftwareButtonsMap){
+    if(debugMode==2){
+      std::cout << "connect: " << "SoftwareButton" << ".";
+      std::cout << SignalSlotKey_buttonID.second << " -> ";
+      std::cout << SignalSlotKey_buttonID.first.ID << ".";
+      std::cout << SignalSlotKey_buttonID.first.Name << " | CALL"<< std::endl;
+    }
+    makeConnection(SignalSlotKey_buttonID.second, SignalSlotKey_buttonID.first);
+    if(1){
+      std::cout << "connect: " << "SoftwareButton" << ".";
+      std::cout << SignalSlotKey_buttonID.second << " -> ";
+      std::cout << SignalSlotKey_buttonID.first.ID << ".";
+      std::cout << SignalSlotKey_buttonID.first.Name << " | DONE"<< std::endl;
     }
   }
 }
@@ -344,6 +387,36 @@ void ModConMan::makeConnection(
     connect(sender, signal, modRouterOut, _mySqlSignal);
     if(debugMode==2){
       std::cout << "connect module to output" << std::endl;
+    }
+  }
+}
+void ModConMan::makeConnection(
+  unsigned int buttonID, signalSlotKey _signalSlotKeyReceiver)
+{
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
+
+  Module* receiver = nullptr;
+  Slot* slot = nullptr;
+  try {
+    if(debugMode==2){;
+      std::cout << "search for receiver at ID: " << _signalSlotKeyReceiver.ID << std::endl;
+    }
+
+    receiver  = m_modulesMap.at(_signalSlotKeyReceiver.ID);
+    slot      = receiver->getSlot(_signalSlotKeyReceiver.Name);
+  }
+  catch (const std::exception &e) {
+    if (debugMode) {
+      std::cout << "exception was cought : " << e.what() << std::endl;
+    }
+    return;
+  }
+  if( (slot != nullptr) && (receiver != nullptr) ){
+    connectToSoftwareButton( modRouterIn, buttonID, receiver, slot);
+    if(debugMode==2){
+      std::cout << "connect to SoftwareButton" << std::endl;
     }
   }
 }

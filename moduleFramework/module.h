@@ -205,8 +205,8 @@ private:
 };
 //______________________________________________________________________________
 //____Module which controlls an wood fired oven_________________________________
-//    IN:  S, , RL_Wood
-//    OUT: Fan (0/1), Pump (0/1)
+//    INPUT={T_boiler ,T_storage , startButton , stopButton}
+//    OUTPUT= {loadPump , fan , count}
 
 class Module_Woodstove : public Module
 {

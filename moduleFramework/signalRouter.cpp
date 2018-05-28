@@ -35,8 +35,21 @@ Signal *SignalRouterIn::createSignalIfNotexist(const mySqlSignal &key) {
   return signal;
 }
 
+Signal *SignalRouterIn::createSignalIfNotexist(unsigned int key) {
+  Signal *signal = nullptr;
+  try {
+    signal = m_signals.at(key);
+  } catch (const std::out_of_range &oor) {
+    signal = new Signal();
+    m_buttonSignals[key] = signal;
+  }
+  return signal;
+}
+
+
 void SignalRouterIn::process() {
   getTime();
+  getSoftwareButtons();
   std::string sqlQuery =
       "SELECT IoValue.DeviceID, IoValue.PortType, IoValue.Port, IoValue.Pin, "
       "IoValue.actualState From IoValue;";
@@ -68,6 +81,7 @@ void SignalRouterIn::process() {
       }
     }
     mysql_free_result(result);
+
   }
   if (debugMode)
     std::cout << "signalRouterIn::process()" << std::endl;
@@ -82,6 +96,39 @@ Signal *SignalRouterIn::getTimeSignal(const std::string &key) {
   }
   return signal;
 }
+
+void SignalRouterIn::getSoftwareButtons() {
+  std::string sqlQuery = "SELECT ID, state from SoftwareButtons;";
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  MYSQL_ROW row;
+
+  if (result != nullptr) {
+    while (row = mysql_fetch_row(result)) {
+      Signal *signal = nullptr;
+      try {
+        signal = m_buttonSignals.at(std::stol(row[0]));
+      } catch (const std::out_of_range &oor) {
+        continue;
+      }
+      if (signal != nullptr) {
+        signal->value = std::stoi(row[1]);
+
+        for (auto &&slot : signal->slots) {
+          slot->synced = true;
+        }
+      }
+    }
+    mysql_free_result(result);
+  } else {
+    return;
+  }
+  sqlQuery = "UPDATE SoftwareButtons Set state = FALSE";
+  result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr) {
+    mysql_free_result(result);
+  }
+}
+
 void SignalRouterIn::getTime() {
   std::string sqlQuery = "SELECT NOW();";
   MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
