@@ -38,7 +38,7 @@ Signal *SignalRouterIn::createSignalIfNotexist(const mySqlSignal &key) {
 Signal *SignalRouterIn::createSignalIfNotexist(unsigned int key) {
   Signal *signal = nullptr;
   try {
-    signal = m_signals.at(key);
+    signal = m_buttonSignals.at(key);
   } catch (const std::out_of_range &oor) {
     signal = new Signal();
     m_buttonSignals[key] = signal;
