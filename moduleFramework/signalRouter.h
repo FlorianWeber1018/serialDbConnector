@@ -23,7 +23,7 @@ protected:
   void getSoftwareButtons();
 //  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
   std::map<mySqlSignal, Signal*> m_signals;
-  std::map<unsigned int ID, Signal*> m_buttonSignals
+  std::map<unsigned int ID, Signal*> m_buttonSignals;
   std::map<std::string, Signal*> m_timeSignals;
 
 
