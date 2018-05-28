@@ -488,7 +488,7 @@ void Module_Woodstove::process() {
   }else{
     emitSignal("fan", 0);
   }
-  emitSignal("cnt", cnt);
+  emitSignal("count", cnt);
 
 
 }
