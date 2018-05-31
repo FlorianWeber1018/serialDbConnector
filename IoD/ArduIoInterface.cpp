@@ -96,9 +96,15 @@ void ArduIoInterface::mainloop()
 {
 
   sendConfig(true);
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   sendOutput(true);
-
-  std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  getConfig();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  getInput();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+  getOutput();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
   while(1){
     sendConfig(false);
     sendOutput(false);
@@ -231,10 +237,71 @@ void ArduIoInterface::getInput()
   }
   mysql_free_result(result);
 }
-void ArduIoInterface::test(){
-  while(!mysqlcon::connect()){
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+void ArduIoInterface::getOutput()
+{
+  std::string sqlQuery="Select IoValue.PortType, IoValue.Port, IoValue.Pin from IoValue ";
+  sqlQuery.append(" left join IoConfigValue ON IoConfigValue.DeviceID = IoValue.DeviceID AND IoConfigValue.PortType = IoValue.PortType AND IoConfigValue.Port = IoValue.Port AND IoConfigValue.Pin = IoValue.Pin");
+  sqlQuery.append(" WHERE NOT ( ( ( (actualConfig = 0 OR actualConfig = 1) AND IoValue.PortType = 'I') Or IoValue.PortType = 'A' ) AND IoValue.DeviceID = \'");
+  sqlQuery.append(device);
+  sqlQuery.append("\' );");
+//  std::cout<<sqlQuery<<std::endl;
+
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
+  MYSQL_ROW row;
+  while(row = mysql_fetch_row(result)){
+    std::string portType = "";
+    portType.append(row[0]);
+    unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
+    std::string flushStr = "0";
+    if(portType == "I"){
+      flushStr[0] = getVI0 + pin;
+      if(pin > 39){
+        break;
+      }
+    }
+    if(debuglevel&1){
+      std::cout << "now flushing:";
+      plotFlushStringToConsole(flushStr);
+      std::cout << std::endl;
+    }
+    serialFlush(flushStr);
   }
-  std::cout << "now sending config once!" << std::endl;
-  sendConfig(true);
+  mysql_free_result(result);
+}
+void ArduIoInterface::getConfig()
+{
+  std::string sqlQuery="Select PortType, Port, Pin from heizung.IoConfigValue Where DeviceID = \'";
+  sqlQuery.append(device);
+  sqlQuery.append("\' ;");
+
+  MYSQL_RES* result = sendCommand_senderThread(sqlQuery);
+  MYSQL_ROW row;
+  //std::cout << colCnt <<std::endl;
+  while(row = mysql_fetch_row(result)){
+    //std::cout << "test" << std::endl;
+    std::string flushStr;
+    unsigned char pin = std::stol(row[2]) + (std::stol(row[1]) * 8);
+    std::string portType = "";
+    portType.append(row[0]);
+    if(portType == "A"){
+      if(pin < 16){
+        flushStr="0";
+        flushStr[0] = static_cast<char>(getCA0 + pin);
+      }
+    }else{
+      if(portType == "I"){
+        if(pin < 40){
+          flushStr="0";
+          flushStr[0] = static_cast<char>(getCI0 + pin);
+        }
+    }
+
+    if(debuglevel&1){
+      std::cout << "now flushing:";
+      plotFlushStringToConsole(flushStr);
+      std::cout << std::endl;
+    }
+    serialFlush(flushStr);
+  }
+  mysql_free_result(result);
 }

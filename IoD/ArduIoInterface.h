@@ -22,6 +22,8 @@ class ArduIoInterface : public serialCmdInterface, public mysqlcon
     void sendConfig(bool sendAll);
     void sendOutput(bool sendAll);
     void getInput();
+    void getOutput();
+    void getConfig();
 };
 
 #endif
