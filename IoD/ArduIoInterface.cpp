@@ -294,6 +294,7 @@ void ArduIoInterface::getConfig()
           flushStr="0";
           flushStr[0] = static_cast<char>(getCI0 + pin);
         }
+      }
     }
 
     if(debuglevel&1){
