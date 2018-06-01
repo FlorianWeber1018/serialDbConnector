@@ -421,8 +421,8 @@ Module_Woodstove::Module_Woodstove(unsigned int ID) {
   globalParams->createParamIfNotExist(tempParamKey, 55);
   tempParamKey.paramKey = "T_boilerMinHyst";
   globalParams->createParamIfNotExist(tempParamKey, 4);
-  tempParamKey.paramKey = "initCnt";
-  globalParams->createParamIfNotExist(tempParamKey, 3600);
+  //tempParamKey.paramKey = "initCnt";
+  //globalParams->createParamIfNotExist(tempParamKey, 3600);
 
 }
 void Module_Woodstove::process() {
@@ -488,7 +488,7 @@ void Module_Woodstove::process() {
   }else{
     emitSignal("fan", 0);
   }
-  emitSignal("count", cnt);
+  //emitSignal("count", cnt);
 
 
 }
