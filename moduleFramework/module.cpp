@@ -471,25 +471,20 @@ void Module_Woodstove::process() {
   int stopButton = getSignalValue("stopButton");
 
   if(startButton == 1){
-    cnt=initCnt;
+    m_timer.reload(initCnt);
   }
   if(stopButton == 1){
-    cnt=0;
+    m_timer.reload(0);
   }
-  if(cnt > 0){//counter is running
-    if(pumpState == 1){
-      cnt=initCnt;
-    }else{
-      cnt--;
-    }
-  }
-  if(cnt > 0){
+  if(!m_timer.getAlarmState()){//counter is running
     emitSignal("fan", 1);
+    if(pumpState == 1){
+      m_timer.reload(initCnt);
+    }
+    emitSignal("cnt", m_timer.getSecondsToAlarm());
   }else{
     emitSignal("fan", 0);
+    emitSignal("cnt", 0);
   }
-  //emitSignal("count", cnt);
-
-
 }
 // _____________________________________________________________________________

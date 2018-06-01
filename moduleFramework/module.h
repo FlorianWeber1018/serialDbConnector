@@ -216,7 +216,7 @@ protected:
   int diffPumpState = 0;
   int minPumpState = 0;
   int pumpState = 0;
-  Timer = Timer();
+  Timer m_timer;
   void process() override;
 private:
 };
