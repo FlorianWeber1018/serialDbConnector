@@ -38,11 +38,12 @@ public:
      std::string db
   );
   Slot* createSlotIfNotexist(const mySqlSignal& key);
+  Slot* createSlotIfNotexist(unsigned int key); //for SoftwareMonitor
 
 protected:
   mysqlcon* mySqlConnection = nullptr;
   void process() override;
-//  std::map<mySqlSignal, Signal*, mySqlSignalCompare> m_signals;
+  std::map<unsigned int, Slot*> m_montiorSlots;
   std::map<mySqlSignal, Slot*> m_slots;
 private:
 };

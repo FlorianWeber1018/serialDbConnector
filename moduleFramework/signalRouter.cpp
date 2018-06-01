@@ -191,6 +191,17 @@ Slot *SignalRouterOut::createSlotIfNotexist(const mySqlSignal &key) {
   return slot;
 }
 
+Slot *SignalRouterOut::createSlotIfNotexist(unsigned int key) {
+  Slot *slot = nullptr;
+  try {
+    slot = m_montiorSlots.at(key);
+  } catch (const std::out_of_range &oor) {
+    slot = new Slot();
+    m_montiorSlots[key] = slot;
+  }
+  return slot;
+}
+
 void SignalRouterOut::process() {
   for (auto &&key_val : m_slots) {
     std::string sqlQuery = "UPDATE IoValue SET targetState = ";
@@ -213,6 +224,7 @@ void SignalRouterOut::process() {
       mysql_free_result(result);
     }
   }
+
   if (debugMode)
     std::cout << "signalRouterOut::process()" << std::endl;
 }
