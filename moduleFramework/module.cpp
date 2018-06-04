@@ -1,6 +1,7 @@
 #include "module.h"
 #include <iostream>
 #include "paramRouter.h"
+#include "timer.h"
 extern ClockDistributer globalClock;
 extern ParamRouter* globalParams;
 
