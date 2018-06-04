@@ -11,6 +11,7 @@
 #include <map>
 #include <set>
 
+#include "timer.h"
 #include "control.h"
 template <class T>
 auto findMedian(T in){
