@@ -1,4 +1,5 @@
 #include <chrono>
+#include "timer.h"
 Timer::Timer()
 {
 	AlarmTime = std::chrono::system_clock::now();
