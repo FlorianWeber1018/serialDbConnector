@@ -23,6 +23,11 @@ void connectToSoftwareButton(SignalRouterIn* signalRouter, unsigned int key,
   Module* receiver, Slot* _Slot
 );
 
+void connectToSoftwareMonitor(Module* sender, Signal* _Signal,
+  SignalRouterOut* signalRouter, unsigned int key);
+void connectToSoftwareMonitor(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
+  SignalRouterOut* signalRouterOut, unsigned int key);
+
 void connect(SignalRouterIn* signalRouter, mySqlSignal const& _extSignal,
   Module* receiver, Slot* _Slot
 );

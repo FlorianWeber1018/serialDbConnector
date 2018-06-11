@@ -16,6 +16,22 @@ void connectToSoftwareButton(SignalRouterIn* signalRouter, unsigned int key, Mod
     connect( signalRouter, signalRouter->createSignalIfNotexist(key) , receiver, _Slot );
 }
 
+void connectToSoftwareMonitor(
+  Module* sender, Signal* _Signal,
+  SignalRouterOut* signalRouter, unsigned int key)
+{
+  connect( sender, _Signal ,
+    signalRouterOut, signalRouterOut->createSlotIfNotexist(key));
+}
+void connectToSoftwareMonitor(
+  SignalRouterIn* signalRouterIn, mySqlSignal const& _extSignal,
+  SignalRouterOut* signalRouterOut, unsigned int key)
+{
+  connect( signalRouterIn, signalRouterIn->createSignalIfNotexist(_extSignal) ,
+    signalRouterOut, signalRouterOut->createSlotIfNotexist(key));
+
+}
+
 void connect(Module* sender, Signal* _Signal, Module* receiver, Slot* _Slot)
 {
   _Slot->value = &(_Signal->value);

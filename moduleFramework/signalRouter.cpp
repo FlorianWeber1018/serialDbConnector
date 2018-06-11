@@ -194,15 +194,16 @@ Slot *SignalRouterOut::createSlotIfNotexist(const mySqlSignal &key) {
 Slot *SignalRouterOut::createSlotIfNotexist(unsigned int key) {
   Slot *slot = nullptr;
   try {
-    slot = m_montiorSlots.at(key);
+    slot = m_monitorSlots.at(key);
   } catch (const std::out_of_range &oor) {
     slot = new Slot();
-    m_montiorSlots[key] = slot;
+    m_monitorSlots[key] = slot;
   }
   return slot;
 }
 
 void SignalRouterOut::process() {
+  updateSoftwareMonitors();
   for (auto &&key_val : m_slots) {
     std::string sqlQuery = "UPDATE IoValue SET targetState = ";
     int preVal = *(key_val.second->value);
@@ -224,7 +225,23 @@ void SignalRouterOut::process() {
       mysql_free_result(result);
     }
   }
-
   if (debugMode)
     std::cout << "signalRouterOut::process()" << std::endl;
+}
+void SignalRouterOut::updateSoftwareMonitors(){
+  for (auto &&key_val : m_montiorSlots) {
+    std::string sqlQuery = "UPDATE SoftwareMonitors SET actualState = ";
+    int preVal = *(key_val.second->value);
+    moveToBorders(preVal, key_val.second->min, key_val.second->max);
+    sqlQuery.append(std::to_string(preVal));
+    sqlQuery.append(" WHERE ID = '");
+    sqlQuery.append(key_val.first);
+    sqlQuery.append("' ;");
+    MYSQL_RES *result = nullptr;
+    // std::cout << sqlQuery << std::endl;
+    result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+    if (result != nullptr) {
+      mysql_free_result(result);
+    }
+  }
 }

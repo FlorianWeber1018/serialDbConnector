@@ -108,7 +108,38 @@ void ModConMan::putConnectionDataToCache(){
     }
     mysql_free_result(result);
   }
+  sqlQuery =
+    "SELECT srcModuleID, srcSignalName, destMonitorID";
+      //        0                1           2
+  sqlQuery.append(" from SoftwareMonitorInternal;");
+  result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  if (result != nullptr) {
+    while (row = mysql_fetch_row(result)) {
+      signalSlotKey src;
+        dest.ID = std::stoul(row[0]);
+        dest.Name = row[1];
+      m_routingSoftwareMonitorsInternalMap[std::stoul(row[2])] = src;
+    }
+    mysql_free_result(result);
+  }
+  std::string sqlQuery =
+    "SELECT srcDeviceID, srcPortType, srcPort, srcPin, destMonitorID";
+    //            0           1           2       3          4
+  sqlQuery.append(" from ModuleRoutingIn;");
+  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
+  MYSQL_ROW row;
+  if (result != nullptr) {
+    while (row = mysql_fetch_row(result)) {
+      mySqlSignal src;
+        src.DeviceID = row[0];
+        src.PortType = row[1];
+        src.Port     = row[2];
+        src.Pin      = row[3];
 
+      m_routingInMap[std::stoul(row[4])] = src;
+    }
+    mysql_free_result(result);
+  }
 
 }
 void ModConMan::createAllModules(){
@@ -297,6 +328,12 @@ void ModConMan::makeConnectionsFromCache(){
       std::cout << SignalSlotKey_buttonID.first.Name << " | DONE"<< std::endl;
     }
   }
+  for(auto&& monitorID_signalSlotKey : m_routingSoftwareMonitorsInternalMap){
+    makeConnection(monitorID_signalSlotKey.second, monitorID_signalSlotKey.first);
+  }
+  for(auto&& monitorID_mySqlSignal : m_routingSoftwareMonitorsIoMap){
+    makeConnection(monitorID_mySqlSignal.second, monitorID_mySqlSignal.first);
+  }
 }
 void ModConMan::makeConnection(
   mySqlSignal _mySqlSignal, signalSlotKey _signalSlotKey)
@@ -419,4 +456,38 @@ void ModConMan::makeConnection(
       std::cout << "connect to SoftwareButton" << std::endl;
     }
   }
+}
+void ModConMan::makeConnection(signalSlotKey src, unsigned int monitorID){
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
+  Module* sender = nullptr;
+  Signal* signal = nullptr;
+
+  try {
+    if(debugMode==2){
+      std::cout << "search for sender at ID: " << src.ID;
+      std::cout << " And get ID with Name: " << src.Name << std::endl;
+    }
+    sender    = m_modulesMap.at(_signalSlotKey.ID);
+    signal    = sender->getSignal(_signalSlotKey.Name);
+  }
+  catch (const std::exception &e) {
+    if (debugMode) {
+      std::cout << "exception was cought : " << e.what() << std::endl;
+    }
+    return;
+  }
+  if( (signal != nullptr) && (sender != nullptr) ){
+    connectToSoftwareMonitor(sender, signal, modRouterOut, monitorID);
+    if(debugMode==2){
+      std::cout << "connect module to monitor" << std::endl;
+    }
+  }
+}
+void ModConMan::makeConnection(mySqlSignal src, unsigned int monitorID){
+  if(debugMode==2){
+    std::cout << "ModConMan::makeConnection()" << std::endl;
+  }
+  connectToSoftwareMonitor(modRouterIn, src, modRouterOut, monitorID);
 }

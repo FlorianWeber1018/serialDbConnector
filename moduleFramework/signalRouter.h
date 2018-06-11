@@ -42,8 +42,9 @@ public:
 
 protected:
   mysqlcon* mySqlConnection = nullptr;
+  void updateSoftwareMonitors();
   void process() override;
-  std::map<unsigned int, Slot*> m_montiorSlots;
+  std::map<unsigned int, Slot*> m_monitorSlots;
   std::map<mySqlSignal, Slot*> m_slots;
 private:
 };
