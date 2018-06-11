@@ -229,7 +229,7 @@ void SignalRouterOut::process() {
     std::cout << "signalRouterOut::process()" << std::endl;
 }
 void SignalRouterOut::updateSoftwareMonitors(){
-  for (auto &&key_val : m_montiorSlots) {
+  for (auto &&key_val : m_monitorSlots) {
     std::string sqlQuery = "UPDATE SoftwareMonitors SET actualState = ";
     int preVal = *(key_val.second->value);
     moveToBorders(preVal, key_val.second->min, key_val.second->max);
