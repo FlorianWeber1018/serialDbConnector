@@ -111,23 +111,22 @@ void ModConMan::putConnectionDataToCache(){
   sqlQuery =
     "SELECT srcModuleID, srcSignalName, destMonitorID";
       //        0                1           2
-  sqlQuery.append(" from SoftwareMonitorInternal;");
+  sqlQuery.append(" from SoftwareMonitorRoutingInternal;");
   result = mySqlConnection->sendCommand_senderThread(sqlQuery);
   if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       signalSlotKey src;
-        dest.ID = std::stoul(row[0]);
-        dest.Name = row[1];
+        src.ID = std::stoul(row[0]);
+        src.Name = row[1];
       m_routingSoftwareMonitorsInternalMap[std::stoul(row[2])] = src;
     }
     mysql_free_result(result);
   }
-  std::string sqlQuery =
+  sqlQuery =
     "SELECT srcDeviceID, srcPortType, srcPort, srcPin, destMonitorID";
     //            0           1           2       3          4
-  sqlQuery.append(" from ModuleRoutingIn;");
-  MYSQL_RES *result = mySqlConnection->sendCommand_senderThread(sqlQuery);
-  MYSQL_ROW row;
+  sqlQuery.append(" from SoftwareMonitorRoutingIo;");
+  result = mySqlConnection->sendCommand_senderThread(sqlQuery);
   if (result != nullptr) {
     while (row = mysql_fetch_row(result)) {
       mySqlSignal src;
@@ -136,7 +135,7 @@ void ModConMan::putConnectionDataToCache(){
         src.Port     = row[2];
         src.Pin      = row[3];
 
-      m_routingInMap[std::stoul(row[4])] = src;
+      m_routingSoftwareMonitorsIoMap[std::stoul(row[4])] = src;
     }
     mysql_free_result(result);
   }
@@ -469,8 +468,8 @@ void ModConMan::makeConnection(signalSlotKey src, unsigned int monitorID){
       std::cout << "search for sender at ID: " << src.ID;
       std::cout << " And get ID with Name: " << src.Name << std::endl;
     }
-    sender    = m_modulesMap.at(_signalSlotKey.ID);
-    signal    = sender->getSignal(_signalSlotKey.Name);
+    sender    = m_modulesMap.at(src.ID);
+    signal    = sender->getSignal(src.Name);
   }
   catch (const std::exception &e) {
     if (debugMode) {
