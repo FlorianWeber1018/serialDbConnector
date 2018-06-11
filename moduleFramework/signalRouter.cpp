@@ -234,9 +234,9 @@ void SignalRouterOut::updateSoftwareMonitors(){
     int preVal = *(key_val.second->value);
     moveToBorders(preVal, key_val.second->min, key_val.second->max);
     sqlQuery.append(std::to_string(preVal));
-    sqlQuery.append(" WHERE ID = '");
-    sqlQuery.append(key_val.first);
-    sqlQuery.append("' ;");
+    sqlQuery.append(" WHERE ID = ");
+    sqlQuery.append(std::to_string(key_val.first));
+    sqlQuery.append(" ;");
     MYSQL_RES *result = nullptr;
     // std::cout << sqlQuery << std::endl;
     result = mySqlConnection->sendCommand_senderThread(sqlQuery);

@@ -18,7 +18,7 @@ void connectToSoftwareButton(SignalRouterIn* signalRouter, unsigned int key, Mod
 
 void connectToSoftwareMonitor(
   Module* sender, Signal* _Signal,
-  SignalRouterOut* signalRouter, unsigned int key)
+  SignalRouterOut* signalRouterOut, unsigned int key)
 {
   connect( sender, _Signal ,
     signalRouterOut, signalRouterOut->createSlotIfNotexist(key));
