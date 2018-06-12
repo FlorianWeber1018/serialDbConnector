@@ -406,7 +406,7 @@ Module_Woodstove::Module_Woodstove(unsigned int ID) {
 
   createSignal("loadPump");
   createSignal("fan");
-  createSignal("count");
+  createSignal("cnt");
 
   mySqlParam tempParamKey; // create Key to Config Param
   if (this->ID == 0) {
